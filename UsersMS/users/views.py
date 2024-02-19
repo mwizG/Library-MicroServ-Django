@@ -12,7 +12,7 @@ from rest_framework import serializers
 import logging
 
 logger = logging.getLogger(__name__)
-
+'''
 # Serializer for the CustomUser model # git test
 class CustomUserSerializer(serializers.ModelSerializer):
     # Define the fields and settings for the serializer
@@ -48,6 +48,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         # Save the updated user instance
         instance.save()
         return instance
+'''
 
 # Custom authentication token view to generate tokens automatically upon user login.
 class CustomAuthToken(ObtainAuthToken):
