@@ -13,7 +13,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Serializer for the CustomUser model
+# Serializer for the CustomUser model # git test
 class CustomUserSerializer(serializers.ModelSerializer):
     # Define the fields and settings for the serializer
     class Meta:
