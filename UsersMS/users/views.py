@@ -85,7 +85,7 @@ class UserSignUp(APIView):
 # Endpoint for user login.
 class UserLogin(ObtainAuthToken):
     """
-    Endpoint for user login.
+    Endpoint for user login.6666
     """
     # POST request for user login
     def post(self, request, *args, **kwargs):
