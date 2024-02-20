@@ -26,8 +26,9 @@ class CustomAuthToken(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         # Retrieve the authenticated user
         user = serializer.validated_data['user']
+        #hash the password before comparing
         password= make_password(serializer.validated_data['password'])
-        if user.check_password(password):
+        if user.check_password(password):#check hashed password
             # Generate or retrieve authentication token for the user
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key})
