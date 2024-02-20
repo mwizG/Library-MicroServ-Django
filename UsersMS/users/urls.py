@@ -15,7 +15,11 @@ User Sign Up:
 Endpoint: POST /users/signup/
 Parameters: email, password, username
 Headers: None
-Body (JSON): { "email": "example@example.com", "password": "your_password", "username": "your_username" }
+Body (JSON): { 
+    "email": "example@example.com", 
+    "password": "your_password", 
+    "username": "your_username" 
+    }
 
 
 #####
@@ -23,7 +27,11 @@ User Login:
 Endpoint: POST /users/login/
 Parameters: email, password
 Headers: Auth
-Body (JSON): { "email": "example@example.com", "password": "your_password","username":"yourusername"}
+Body (JSON): { 
+    "email": "example@example.com", 
+    "password": "your_password",
+    "username":"yourusername"
+    }
 
 #####
 View Users (Admin-Only):
@@ -44,7 +52,11 @@ Update User:
 Endpoint: PUT /users/users/<id>/
 Parameters: id
 Headers: Authorization: Token your_token_here
-Body (JSON): { "email": "new_email@example.com", "password": "new_password", "username": "new_username" }
+Body (JSON): { 
+    "email": "new_email@example.com", 
+    "password": "new_password", 
+    "username": "new_username" 
+    }
 
 ######
 Delete User:

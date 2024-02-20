@@ -12,43 +12,7 @@ from rest_framework import serializers
 import logging
 
 logger = logging.getLogger(__name__)
-'''
-# Serializer for the CustomUser model # git test
-class CustomUserSerializer(serializers.ModelSerializer):
-    # Define the fields and settings for the serializer
-    class Meta:
-        model = CustomUser
-        fields = ['id', 'username', 'email', 'is_active', 'is_admin', 'password']
-        # Specify additional settings for the serializer
-        extra_kwargs = {
-            'password': {'write_only': True},  # Password field should not be included in responses
-            'is_active': {'read_only': True},  # is_active field should be read-only
-            'is_admin': {'read_only': True},   # is_admin field should be read-only
-        }
 
-    # Method to create a new user instance with the validated data
-    def create(self, validated_data):
-        # Hash the password before creating the user
-        validated_data['password'] = make_password(validated_data.get('password'))
-        # Create a new user instance
-        user = CustomUser.objects.create(**validated_data)
-        return user
-
-    # Method to update an existing user instance with the validated data
-    def update(self, instance, validated_data):
-        # Update email if provided, otherwise keep the existing email
-        instance.email = validated_data.get('email', instance.email)
-        # Update username if provided, otherwise keep the existing username
-        instance.username = validated_data.get('username', instance.username)
-        # Update password if provided, otherwise keep the existing password
-        password = validated_data.get('password')
-        if password:
-            # Hash the new password if provided
-            instance.password = make_password(password)
-        # Save the updated user instance
-        instance.save()
-        return instance
-'''
 
 # Custom authentication token view to generate tokens automatically upon user login.
 class CustomAuthToken(ObtainAuthToken):
@@ -58,13 +22,18 @@ class CustomAuthToken(ObtainAuthToken):
     # POST request for token generation
     def post(self, request, *args, **kwargs):
         # Deserialize request data using authentication token serializer
-        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         # Retrieve the authenticated user
         user = serializer.validated_data['user']
-        # Generate or retrieve authentication token for the user
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key})
+        password= make_password(serializer.validated_data['password'])
+        if user.check_password(password):
+            # Generate or retrieve authentication token for the user
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key})
+        else:
+            return Response({'error': 'Unable to log in with provided creden.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 # Endpoint for user signup.
 class UserSignUp(APIView):
@@ -90,17 +59,18 @@ class UserLogin(ObtainAuthToken):
     """
     # POST request for user login
     def post(self, request, *args, **kwargs):
-        logger.debug('User login request received')
+        #logger.debug('User login request received')
         # Deserialize request data using authentication token serializer
         serializer = self.serializer_class(data=request.data, context={'request': request})
+        
         try:
-           serializer.is_valid(raise_exception=True)
+            serializer.is_valid(raise_exception=True)
         # Retrieve the authenticated user
-           user = serializer.validated_data['user']
+            user = serializer.validated_data['user']
         # Generate or retrieve authentication token for the user
-           token, created = Token.objects.get_or_create(user=user)
-           logger.info('User authenticated successfully')
-           return Response({'token': token.key})
+            token, created = Token.objects.get_or_create(user=user)
+            logger.info('User authenticated successfully')
+            return Response({'token': token.key})
         except Exception as e:
             logger.error(f'Error during user login: {e}')
             return Response({'error': 'Unable to log in with provided credentials.'}, status=status.HTTP_400_BAD_REQUEST)

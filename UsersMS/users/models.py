@@ -48,7 +48,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     
     # Username field (optional, can be left blank)
-    username = models.CharField(max_length=150, blank=True)
+    username = models.CharField(max_length=150, blank=True,unique=True)
     
     # Membership status field with choices
     membership_status = models.CharField(max_length=10, choices=MEMBERSHIP_STATUS_CHOICES, default='active')
@@ -66,13 +66,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     # Field used for authentication (email)
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     
     # Additional fields required in createsuperuser command
-    REQUIRED_FIELDS = ['username']  # Email is required for createsuperuser command
+    REQUIRED_FIELDS = ['email']  # Email is required for createsuperuser command
+
+    def get_email(self):
+        return self.email
 
     def __str__(self):
         """
         String representation of the user object (email).
         """
-        return self.email
+        return 'email: ' + self.email + '\n username: ' + self.username + '\n password:'+ self.password
