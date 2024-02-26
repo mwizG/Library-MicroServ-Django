@@ -17,8 +17,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     # Method to create a new user instance with the validated data
     def create(self, validated_data):
-        # Hash the password before creating the user
-        validated_data['password'] = make_password(validated_data.get('password'))
         # Create a new user instance
         user = CustomUser.objects.create(**validated_data)
         return user
@@ -33,7 +31,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         password = validated_data.get('password')
         if password:
             # Hash the new password if provided
-            instance.password = make_password(password)
+            instance.password = password
         # Save the updated user instance
         instance.save()
         return instance
