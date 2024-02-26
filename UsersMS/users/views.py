@@ -11,30 +11,25 @@ from .serializers import CustomUserSerializer  # Import CustomUserSerializer
 from rest_framework import serializers
 import logging
 
+from rest_framework_jwt.settings import api_settings
+from rest_framework_jwt.views import ObtainJSONWebToken
+from rest_framework.permissions import AllowAny
+
+# Import JWT payload and encode handlers
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
 logger = logging.getLogger(__name__)
 
 
 # Custom authentication token view to generate tokens automatically upon user login.
-class CustomAuthToken(ObtainAuthToken):
-    """
-    Custom authentication token view to generate tokens automatically upon user login.
-    """
-    # POST request for token generation
-    def post(self, request, *args, **kwargs):
-        # Deserialize request data using authentication token serializer
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        # Retrieve the authenticated user
-        user = serializer.validated_data['user']
-        #hash the password before comparing
-        password= make_password(serializer.validated_data['password'])
-        if user.check_password(password):#check hashed password
-            # Generate or retrieve authentication token for the user
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
-        else:
-            return Response({'error': 'Unable to log in with provided creden.'}, status=status.HTTP_400_BAD_REQUEST)
-
+class CustomAuthToken(ObtainJSONWebToken):
+    permission_classes =[]
+    def post(self,request, *args, **kwargs):
+         # Call the parent class method to generate the token
+        response = super(CustomAuthToken, self).post(request, *args, **kwargs)
+        return response        
+        
 
 # Endpoint for user signup.
 class UserSignUp(APIView):
@@ -54,9 +49,9 @@ class UserSignUp(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Endpoint for user login.
-class UserLogin(ObtainAuthToken):
+class UserLogin(ObtainJSONWebToken):
     """
-    Endpoint for user login.6666
+    Endpoint for user login
     """
     # POST request for user login
     def post(self, request, *args, **kwargs):
