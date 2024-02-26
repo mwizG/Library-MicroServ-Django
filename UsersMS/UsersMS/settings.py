@@ -54,9 +54,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-       'rest_framework.authentication.TokenAuthentication',  # Optional: Use token authentication
+       'rest_framework.authentication.JSONWebTokenAuthentication',  # Optional: Use JWT authentication
     ],
 
+}
+#JWT settings
+JWT_AUTH = {
+    'JWT_SECRET_KEY':'your_secret_key_here',
+    'JWT_ALGORITHM':'HS256', #HMAC SHA-256 hashing algorithm
+    'JWT_EXPIRATION_DELTA':timedelta(days=1), #set date to 1
 }
 # Specify the custom user model
 AUTH_USER_MODEL = 'users.CustomUser'
