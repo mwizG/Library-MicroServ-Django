@@ -12,6 +12,6 @@
 /store
 /todolist
 view.json
-users/__pycache__/
-UsersMS/__pycache__/
-users/migrations/__pycache__/
+UsersMS/users/__pycache__/
+UsersMS/UsersMS/__pycache__/
+UsersMS/users/migrations/__pycache__/
