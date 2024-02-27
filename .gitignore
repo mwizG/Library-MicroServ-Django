@@ -11,3 +11,7 @@
 /skyco
 /store
 /todolist
+view.json
+users/__pycache__/
+UsersMS/__pycache__/
+users/migrations/__pycache__/

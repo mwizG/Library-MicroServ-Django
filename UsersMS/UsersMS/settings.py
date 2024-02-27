@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,14 +55,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-       'rest_framework.authentication.JSONWebTokenAuthentication',  # Optional: Use JWT authentication
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
 
 }
 #JWT settings
 JWT_AUTH = {
-    'JWT_SECRET_KEY':'your_secret_key_here',
+    'JWT_SECRET_KEY':'My_Secret113',
     'JWT_ALGORITHM':'HS256', #HMAC SHA-256 hashing algorithm
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=28),
     'JWT_EXPIRATION_DELTA':timedelta(days=1), #set date to 1
 }
 # Specify the custom user model
