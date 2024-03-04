@@ -45,7 +45,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
     is_admin = models.BooleanField(default=False)
     # Email field for the user (unique)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     
     # Username field (optional, can be left blank)
     username = models.CharField(max_length=150, blank=True,unique=True)

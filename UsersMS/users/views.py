@@ -43,23 +43,30 @@ class UserSignUp(TokenObtainPairView):
 
     # POST request for user signup
     def post(self, request):
+        # Extract username and password from the request data
         username = request.data.get('username')
         password = request.data.get('password')
+        # Check if the user already exists
         exists = CustomUser.objects.filter(username=username).exists()
         if(exists):
+            # Return an error response if the user already exists
             return Response({'error': 'User already exists'}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            user = CustomUser.objects.create(username=username, password=password)
+            # Hash the password
+            hashed_password = make_password(password)
+            # Create a new user with the hashed password
+            user = CustomUser.objects.create(username=username, password=hashed_password)
             try:
+                # Generate tokens for the new user
                 refresh = RefreshToken.for_user(user)
+                # Return the tokens in the response
                 return Response({
                     'refresh_token': str(refresh),
                     'access_token': str(refresh.access_token),
                 })
             except Exception as e:
+                # Return an error response if token generation fails
                 return Response({'error': e})
-        
-      
 
 # Endpoint for user login.
 class UserLogin(TokenObtainPairView):
@@ -104,7 +111,7 @@ class UserList(APIView):
     """
     Endpoint for listing users (admin-only).
     """
-    permission_classes = []
+    permission_classes = [IsAdminUser]
 
     # GET request for listing users
     def get(self, request):
