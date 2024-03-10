@@ -1,4 +1,5 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+import requests
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -90,13 +91,17 @@ class UserLogin(TokenObtainPairView):
         user = authenticate(username=username, password=password)
         if user:
             refresh = RefreshToken.for_user(user)
-            return Response({
+            response = requests.post('http://127.0.0.1:8000/gateway/books/', data={
                 'refresh_token': str(refresh),
                 'access_token': str(refresh.access_token),
             })
+            if response.status_code == 200:
+                # Redirect to the Books Microservice
+                return HttpResponseRedirect('http://books-ms-url/books/')
+            else:
+                return Response({'error': 'Failed to authenticate with API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
 #work in progress
 class UserLogout(TokenBlacklistView):
     """
@@ -111,8 +116,9 @@ class UserList(APIView):
     """
     Endpoint for listing users (admin-only).
     """
+    
     permission_classes = [IsAdminUser]
-
+    
     # GET request for listing users
     def get(self, request):
         # Retrieve all user objects from the database
