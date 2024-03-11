@@ -15,3 +15,11 @@ view.json
 UsersMS/users/__pycache__/
 UsersMS/UsersMS/__pycache__/
 UsersMS/users/migrations/__pycache__/
+BooksMS/booksMS/__pycache__/
+BooksMS/booksMS/migrations/__pycache__/
+BooksMS/LibraryProject/__pycache__/
+BooksMS/view.json
+BooksMS/view2.json
+BooksMS/view3.json
+BooksMS/view4.json
+UsersMS/__pycache__/
