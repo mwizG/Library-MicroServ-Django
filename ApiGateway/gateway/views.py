@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-import requests
+#import requests
 
 # URL of the Users Microservice
 USERS_MS_URL = 'http://127.0.0.1:8001/users/login/'
