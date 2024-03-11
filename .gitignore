@@ -18,8 +18,8 @@ UsersMS/users/migrations/__pycache__/
 BooksMS/booksMS/__pycache__/
 BooksMS/booksMS/migrations/__pycache__/
 BooksMS/LibraryProject/__pycache__/
-BooksMS/view.json
-BooksMS/view2.json
-BooksMS/view3.json
-BooksMS/view4.json
+BooksMS/__pycache__/
 UsersMS/__pycache__/
+ApiGateway/ApiGateway/__pycache__/
+ApiGateway/gateway/__pycache__/
+ApiGateway/gateway/migrations/__pycache__/
