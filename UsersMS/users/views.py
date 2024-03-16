@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponseRedirect
-#import requests
+import requests
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -91,7 +91,7 @@ class UserLogin(TokenObtainPairView):
         user = authenticate(username=username, password=password)
         if user:
             refresh = RefreshToken.for_user(user)
-            response = requests.post('http://127.0.0.1:8000/gateway/books/', data={
+            response = requests.post('http://127.0.0.1:8001/gateway/books/', data={
                 'refresh_token': str(refresh),
                 'access_token': str(refresh.access_token),
             })

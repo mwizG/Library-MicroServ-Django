@@ -8,10 +8,10 @@ from rest_framework.response import Response
 import requests
 
 # URL of the Users Microservice
-USERS_MS_URL = 'http://127.0.0.1:8001/users/login/'
+USERS_MS_URL = 'http://127.0.0.1:8002/users/login/'
 
 # URL of the Books Microservice
-BOOKS_MS_URL = 'http://127.0.0.1:8002/books/'
+BOOKS_MS_URL = 'http://127.0.0.1:8001/books/'
 # API Gateway view for user authentication
 
 class AuthView(APIView):
