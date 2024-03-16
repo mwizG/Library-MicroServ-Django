@@ -82,25 +82,36 @@ class UserLogin(TokenObtainPairView):
         return render(request, 'login.html', {'form': form})
 
     # POST request for user login
+    
     def post(self, request):
         """
-        Handle login in request
+        Handle login request
         """
+        # Get the username and password from the request data
         username = request.data.get('username')
         password = request.data.get('password')
+        
+        # Authenticate the user using the provided username and password
         user = authenticate(username=username, password=password)
+        
+        # If authentication is successful, generate a new refresh token for the user
         if user:
             refresh = RefreshToken.for_user(user)
+            
+            # Send a POST request to the API Gateway with the refresh token and access token
             response = requests.post('http://127.0.0.1:8001/gateway/books/', data={
                 'refresh_token': str(refresh),
                 'access_token': str(refresh.access_token),
             })
+            
+            # If the request to the API Gateway is successful, redirect the user to the Books Microservice
             if response.status_code == 200:
-                # Redirect to the Books Microservice
                 return HttpResponseRedirect('http://books-ms-url/books/')
             else:
+                # If the request to the API Gateway fails, return an error response
                 return Response({'error': 'Failed to authenticate with API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
+            # If authentication fails, return an error response
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 #work in progress
 class UserLogout(TokenBlacklistView):
