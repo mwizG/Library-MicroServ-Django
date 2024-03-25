@@ -6,12 +6,15 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
+import logging
+
+logger = logging.getLogger(__name__)
 
 # URL of the Users Microservice
 USERS_MS_URL = 'http://127.0.0.1:8002/users/login/'
 
 # URL of the Books Microservice
-BOOKS_MS_URL = 'http://127.0.0.1:8001/books/'
+BOOKS_MS_URL = 'http://127.0.0.1:8000/books/'
 # API Gateway view for user authentication
 
 class AuthView(APIView):
@@ -21,6 +24,10 @@ class AuthView(APIView):
 
     def get(self, request):
         # Redirect the user to the Users Microservice login page
+        return redirect(USERS_MS_URL)
+
+    def post(self, request):
+
         return redirect(USERS_MS_URL)
 
     def post(self, request):
@@ -37,6 +44,8 @@ class AuthView(APIView):
 
 class BooksView(APIView):
     def get(self, request):
+        print("herereeee")
+        print(request)
         # Forward the request to the Books Microservice to retrieve all books
         response = requests.get(f'{BOOKS_MS_URL}/books')
 
@@ -49,10 +58,13 @@ class BooksView(APIView):
             return JsonResponse({'error': 'Failed to retrieve books'}, status=response.status_code)
 
     def post(self, request):
+        print("herereeee")
+        print(request)
         # Forward the request to the Books Microservice to search for books
-        search_term = request.data.get("query")
-        response = requests.post(f'{BOOKS_MS_URL}/books/query', data={'query': search_term})
-
+        #search_term = request.data.get("query")
+        response = requests.get(f'{BOOKS_MS_URL}')
+        logger.debug(response)
+        print(response)
         # Check if the request was successful
         if response.status_code == 200:
             # Return the list of searched books to the client

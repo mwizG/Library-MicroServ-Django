@@ -8,6 +8,7 @@ from django.contrib.auth.hashers import make_password  # Import make_password to
 from .models import CustomUser  # Import CustomUser model
 from .serializers import CustomUserSerializer  # Import CustomUserSerializer
 import logging
+import json
 
 from django.shortcuts import render
 from django.contrib.auth import authenticate
@@ -93,20 +94,24 @@ class UserLogin(TokenObtainPairView):
         
         # Authenticate the user using the provided username and password
         user = authenticate(username=username, password=password)
-        
+        print("here")
+        print(user)
         # If authentication is successful, generate a new refresh token for the user
         if user:
+            print("here1")
             refresh = RefreshToken.for_user(user)
-            
+            print("refresh:")
+            print(refresh, "\n")
             # Send a POST request to the API Gateway with the refresh token and access token
-            response = requests.post('http://127.0.0.1:8001/gateway/books/', data={
+            response = requests.post('http://127.0.0.1:8000/books/', data={
                 'refresh_token': str(refresh),
                 'access_token': str(refresh.access_token),
             })
+            #need to do something else with the request above
             
             # If the request to the API Gateway is successful, redirect the user to the Books Microservice
             if response.status_code == 200:
-                return HttpResponseRedirect('http://books-ms-url/books/')
+                return HttpResponseRedirect('http://127.0.0.1:8000/books/')
             else:
                 # If the request to the API Gateway fails, return an error response
                 return Response({'error': 'Failed to authenticate with API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
