@@ -7,13 +7,14 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.hashers import make_password  # Import make_password to hash passwords
 from .models import CustomUser  # Import CustomUser model
 from .serializers import CustomUserSerializer  # Import CustomUserSerializer
-import logging
+
 
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView, TokenBlacklistView
+import logging
 
 
 logger = logging.getLogger(__name__)
@@ -74,14 +75,17 @@ class UserLogin(TokenObtainPairView):
     """
     Endpoint for user login
     """
+    
+class UserLogin(TokenObtainPairView):
+    """
+    Endpoint for user login
+    """
     def get(self, request):
         """
         Render the login form.
         """
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
-
-    # POST request for user login
     
     def post(self, request):
         """
@@ -99,14 +103,15 @@ class UserLogin(TokenObtainPairView):
             refresh = RefreshToken.for_user(user)
             
             # Send a POST request to the API Gateway with the refresh token and access token
-            response = requests.post('http://127.0.0.1:8001/gateway/books/', data={
+            response = requests.post('http://127.0.0.1:8000/gateway/', data={
                 'refresh_token': str(refresh),
                 'access_token': str(refresh.access_token),
             })
+            print(response,"here")
             
             # If the request to the API Gateway is successful, redirect the user to the Books Microservice
             if response.status_code == 200:
-                return HttpResponseRedirect('http://books-ms-url/books/')
+                return HttpResponseRedirect('http://127.0.0.1:8002/books/')
             else:
                 # If the request to the API Gateway fails, return an error response
                 return Response({'error': 'Failed to authenticate with API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
