@@ -1,0 +1,606 @@
+{
+  "RequestPayload": {
+    "commonInformation": {
+      "transactionId": "9978",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "status": "captured",
+      "interactionItem": [
+        {
+          "item": {
+            "orderItem": [
+              {
+                "product": {
+                  "productRelationship": null,
+                  "publicIdentifier": "761197205"
+                }
+              }
+            ],
+            "@type": "ProductOrder"
+          }
+        }
+      ],
+      "channel": [
+        {
+          "name": "ussd",
+          "role": "interaction creation",
+          "id": "ussd",
+          "@referredType": "Channel"
+        }
+      ],
+      "reason": "Scamming Message(MoMo Fraud)",
+      "description": "fraud"
+    }
+  },
+  "ResponseObject": {
+    "commonInformation": {
+      "responseCode": "0",
+      "responseMessage": "Operation successful",
+      "creationDateTime": "2024-03-14T08:52:15.929-04:00",
+      "transactionId": "9978",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "retryable": false,
+      "reason": "Scamming Message(MoMo Fraud)",
+      "productId": ["PR49732"],
+      "customFields": {},
+      "@type": "SuspendProductRequest",
+      "channel": [
+        {
+          "@referredType": "Channel",
+          "role": "interaction creation",
+          "name": "ussd",
+          "id": "ussd"
+        }
+      ],
+      "description": "fraud",
+      "productOrderId": ["PO80569"],
+      "relatedParty": [
+        {
+          "@referredType": "SSOUser",
+          "contactMedium": [
+            {
+              "medium": {
+                "number": "87654345",
+                "verified": false,
+                "type": "Mobile"
+              },
+              "type": "Phone",
+              "preferred": false
+            },
+            {
+              "medium": {
+                "emailAddress": "Zicta707@gmail.com",
+                "verified": false,
+                "type": "EmailAddress"
+              },
+              "type": "EmailAddress",
+              "preferred": false
+            }
+          ],
+          "role": "ussd",
+          "validFor": [
+            {
+              "startDateTime": "2024-03-14T12:52:11.059Z",
+              "endDateTime": "2024-03-14T12:52:11.059Z"
+            }
+          ],
+          "name": "Zicta707",
+          "id": "Zicta707"
+        }
+      ],
+      "retryableCount": 0,
+      "interactionDate": {
+        "startDateTime": "2024-03-14T12:52:11.024Z",
+        "endDateTime": "2024-03-14T12:52:16.132Z"
+      },
+      "interactionItem": [
+        {
+          "item": {
+            "request": {
+              "@referredType": "SuspendProductRequest",
+              "@baseType": "PartyInteraction",
+              "id": "PI133825"
+            },
+            "orderItem": [
+              {
+                "product": {
+                  "productSpecification": {
+                    "@referredType": "ProductSpecification",
+                    "@baseType": "ProductSpecification",
+                    "@type": "CompositeProductSpecification",
+                    "name": "MTNZ-GSM-CORPORATE-POSTPAID-WITHPARAMETERS - product specification",
+                    "id": "646ca1cc930ce15a76c3ce23",
+                    "technology": ["GSM"],
+                    "version": "51",
+                    "LoB": "Mobile"
+                  },
+                  "xDir": "1",
+                  "customFields": {
+                    "registrationType": "White SIM",
+                    "moMoFlag": false,
+                    "assignType": "Manual",
+                    "vip": false
+                  },
+                  "@type": "Product",
+                  "channel": [
+                    {
+                      "@referredType": "Channel",
+                      "role": "created",
+                      "name": "DCLM",
+                      "id": "dclm"
+                    }
+                  ],
+                  "productOrder": [
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemId": "IIsp17",
+                      "id": "PO80005",
+                      "orderItemAction": "add"
+                    },
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemActionSubType": "changeSIM",
+                      "orderItemId": "OI1",
+                      "id": "PO80162",
+                      "orderItemAction": "modify"
+                    },
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemActionSubType": "changeSIM",
+                      "orderItemId": "OI1",
+                      "id": "PO80285",
+                      "orderItemAction": "modify"
+                    },
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemActionSubType": "suspension",
+                      "orderItemId": "OI1",
+                      "id": "PO80351",
+                      "orderItemAction": "modify"
+                    },
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemActionSubType": "revokeSuspension",
+                      "orderItemId": "OI1",
+                      "id": "PO80356",
+                      "orderItemAction": "modify"
+                    },
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemActionSubType": "suspension",
+                      "orderItemId": "OI1",
+                      "id": "PO80357",
+                      "orderItemAction": "modify"
+                    }
+                  ],
+                  "billingAccount": {
+                    "@referredType": "BillingAccount",
+                    "@baseType": "Account",
+                    "@type": "BillingAccount",
+                    "customFields": {
+                      "vatNumber": "6783454352534"
+                    },
+                    "name": "tt testings",
+                    "id": "10468"
+                  },
+                  "isPrimaryMSISDN": true,
+                  "@baseType": "Product",
+                  "creditLimit": [
+                    {
+                      "product": {
+                        "@referredType": "Product"
+                      },
+                      "minCreditLimit": {
+                        "unit": "ZMW",
+                        "value": "10"
+                      },
+                      "creditLimitId": "CL1",
+                      "creditLimitType": "permanent",
+                      "allottedCreditLimit": {
+                        "unit": "ZMW",
+                        "value": "250"
+                      }
+                    }
+                  ],
+                  "id": "PR49732",
+                  "publicIdentifier": "761197205",
+                  "simNumber": "8964502000275158907",
+                  "productOffering": {
+                    "@type": "SimpleProductOffering",
+                    "name": "MTNZ-GSM-CORPORATE-POSTPAID-WITHPARAMETERS",
+                    "id": "646ca1d6930ce15a76c3cf1e",
+                    "category": [
+                      {
+                        "@referredType": "Category",
+                        "name": "Plan",
+                        "id": "5ce67563a9060a9e0944ad57",
+                        "version": "0"
+                      }
+                    ],
+                    "externalSystem": [
+                      {
+                        "system": "EricssonCharging",
+                        "@baseType": "Offering",
+                        "@type": "SDP",
+                        "autoRenew": "Yes",
+                        "id": "SDP06"
+                      },
+                      {
+                        "system": "EricssonCharging",
+                        "@baseType": "Offering",
+                        "@type": "BPLAN",
+                        "autoRenew": "Yes",
+                        "id": "200"
+                      },
+                      {
+                        "system": "NGB",
+                        "@baseType": "Offering",
+                        "@type": "MandatoryOffering",
+                        "id": "e907fff2-be7e-49c0-9552-761951c78a12"
+                      }
+                    ]
+                  },
+                  "suspensions": [
+                    {
+                      "reason": "Scamming Message(MoMo Fraud)",
+                      "interactionDate": {
+                        "startDateTime": "2024-03-05T08:14:10.080Z",
+                        "endDateTime": "2024-03-05T08:14:16.122Z"
+                      },
+                      "suspensionType": "SuspendProductRequest",
+                      "validFor": {
+                        "startDateTime": "2024-03-05T08:14:10.080Z",
+                        "endDateTime": "2024-03-05T08:14:16.122Z"
+                      },
+                      "id": "PI133364"
+                    },
+                    {
+                      "reason": "Scamming Message(MoMo Fraud)",
+                      "suspensionType": "SuspendProductRequest",
+                      "validFor": {
+                        "startDateTime": "2024-03-05T09:47:52.677Z"
+                      },
+                      "id": "PI133382"
+                    },
+                    {
+                      "reason": "Scamming Message(MoMo Fraud)",
+                      "suspensionType": "SuspendProductRequest",
+                      "validFor": {
+                        "startDateTime": "2024-03-05T11:05:52.601Z"
+                      },
+                      "id": "PI133391"
+                    },
+                    {
+                      "reason": "15",
+                      "suspensionType": "SuspendProductRequest",
+                      "validFor": {
+                        "startDateTime": "2024-03-06T15:48:52.522Z"
+                      },
+                      "id": "PI133508"
+                    },
+                    {
+                      "reason": "Scamming Message(MoMo Fraud)",
+                      "suspensionType": "SuspendProductRequest",
+                      "validFor": {
+                        "startDateTime": "2024-03-14T12:28:41.281Z"
+                      },
+                      "id": "PI133817"
+                    },
+                    {
+                      "reason": "Scamming Message(MoMo Fraud)",
+                      "suspensionType": "SuspendProductRequest",
+                      "validFor": {
+                        "startDateTime": "2024-03-14T12:52:11.024Z"
+                      },
+                      "id": "PI133825"
+                    }
+                  ],
+                  "technology": "GSM",
+                  "relatedParty": [
+                    {
+                      "@referredType": "SSOUser",
+                      "contactMedium": [
+                        {
+                          "medium": {
+                            "number": "8765434333",
+                            "verified": false,
+                            "type": "Mobile"
+                          },
+                          "type": "Phone",
+                          "preferred": false
+                        }
+                      ],
+                      "role": "CSRAgent",
+                      "validFor": [
+                        {
+                          "startDateTime": "2024-02-07T14:16:06.469Z",
+                          "endDateTime": "2024-02-07T14:16:06.469Z"
+                        }
+                      ],
+                      "name": "Syed",
+                      "id": "Syed"
+                    },
+                    {
+                      "@referredType": "Customer",
+                      "role": "Customer",
+                      "name": "tt testings",
+                      "id": "C11864",
+                      "engagedParty": {
+                        "@referredType": "Organization",
+                        "name": "tt testings",
+                        "id": "O6166"
+                      }
+                    },
+                    {
+                      "@referredType": "SSOUser",
+                      "role": "CSRAgent",
+                      "validFor": [
+                        {
+                          "request": {
+                            "@referredType": "SuspendProductRequest",
+                            "@baseType": "PartyInteraction",
+                            "id": "PI133355"
+                          },
+                          "startDateTime": "2024-03-05T07:48:00.853Z",
+                          "endDateTime": "2024-03-05T07:48:00.853Z"
+                        }
+                      ],
+                      "id": "Leela"
+                    }
+                  ],
+                  "productTerm": [
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "inactive"
+                    },
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "inactive"
+                    },
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "inactive"
+                    },
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "inactive"
+                    },
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "inactive"
+                    },
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "inactive"
+                    },
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "inactive"
+                    },
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-07T14:19:32.961Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "active"
+                    }
+                  ],
+                  "externalSystem": [
+                    {
+                      "system": "NGB",
+                      "@baseType": "OfferingInstance",
+                      "@type": "OfferingInstance",
+                      "id": "b0ee0c99-8f19-4f76-bb09-6d1dc09ec1bd"
+                    },
+                    {
+                      "system": "NGB",
+                      "@baseType": "ServiceAccount",
+                      "@type": "ServiceAccount",
+                      "id": "6a8e1cdd-33c6-4c22-a25e-fddbadfe6e0c"
+                    },
+                    {
+                      "system": "DAAS",
+                      "@baseType": "DAAS",
+                      "@type": "DAAS",
+                      "id": "11299"
+                    },
+                    {
+                      "system": "DCBS",
+                      "@baseType": "ServiceAccount",
+                      "@type": "ServiceAccount",
+                      "id": "PR49732"
+                    }
+                  ],
+                  "createdDate": "2024-02-07T14:19:32.974Z",
+                  "privateIdentifier": "PR49732",
+                  "imsiNumber": "645020065159990",
+                  "name": "MTNZ-GSM-CORPORATE-POSTPAID-WITHPARAMETERS",
+                  "modifiedDate": "2024-03-14T12:52:15.348Z",
+                  "_internal": {
+                    "commitmentType": "ProductTerm",
+                    "commitmentEndDate": "2099-12-31T23:59:59.999Z"
+                  },
+                  "productRelationship": [
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "id": "PR49733"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    },
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "id": "PR49734"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    },
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "id": "PR50095"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    }
+                  ],
+                  "businessType": "Postpaid",
+                  "activationDate": "2024-02-08T07:49:45.256Z",
+                  "isCustomerVisible": true,
+                  "startDate": "2024-02-07T14:19:32.972Z",
+                  "productPrice": [
+                    {
+                      "price": {
+                        "taxRate": 0,
+                        "taxIncludedAmount": {
+                          "unit": "ZMW",
+                          "value": "500"
+                        },
+                        "dutyFreeAmount": {
+                          "unit": "ZMW",
+                          "value": "500"
+                        }
+                      },
+                      "name": "MTNZ-GSM-CORPORATE-POSTPAID-WITHPARAMETERS - Rentals",
+                      "priceType": "Recurring",
+                      "description": "MTNZ-GSM-CORPORATE-POSTPAID-WITHPARAMETERS - MTNZ-GSM-POSTPAID-WITHPARAMETERS - MTNZ-UCC-HPBX-STANDARD - MTNZ -HPBX-Standard UCC - Rentals",
+                      "productOfferingPrice": [
+                        {
+                          "name": "MTNZ-GSM-CORPORATE-POSTPAID-WITHPARAMETERS - Rentals",
+                          "id": "646ca1cd930ce15a76c3ce3c"
+                        }
+                      ],
+                      "recurringChargePeriod": "Monthly"
+                    }
+                  ],
+                  "LoB": "Mobile",
+                  "status": "suspended"
+                },
+                "productOffering": {
+                  "@type": "SimpleProductOffering",
+                  "name": "MTNZ-GSM-CORPORATE-POSTPAID-WITHPARAMETERS",
+                  "id": "646ca1d6930ce15a76c3cf1e"
+                },
+                "action": "modify",
+                "id": "OI1",
+                "actionSubType": "suspension",
+                "modifiable": true
+              }
+            ],
+            "customFields": {
+              "productOrderGroup": ["PO80569"]
+            },
+            "@type": "ProductOrder",
+            "channel": [
+              {
+                "@referredType": "Channel",
+                "role": "interaction creation",
+                "name": "ussd",
+                "id": "ussd"
+              }
+            ],
+            "relatedParty": [
+              {
+                "@referredType": "SSOUser",
+                "contactMedium": [
+                  {
+                    "medium": {
+                      "number": "87654345",
+                      "verified": false,
+                      "type": "Mobile"
+                    },
+                    "type": "Phone",
+                    "preferred": false
+                  },
+                  {
+                    "medium": {
+                      "emailAddress": "Zicta707@gmail.com",
+                      "verified": false,
+                      "type": "EmailAddress"
+                    },
+                    "type": "EmailAddress",
+                    "preferred": false
+                  }
+                ],
+                "role": "ussd",
+                "validFor": [
+                  {
+                    "startDateTime": "2024-03-14T12:52:11.059Z",
+                    "endDateTime": "2024-03-14T12:52:11.059Z"
+                  }
+                ],
+                "name": "Zicta707",
+                "id": "Zicta707"
+              }
+            ],
+            "cancellable": false,
+            "requestedStartDate": "2024-03-14T12:52:14.275Z",
+            "createdDate": "2024-03-14T12:52:14.279Z",
+            "@baseType": "ProductOrder",
+            "id": "PO80569",
+            "state": "completed",
+            "modifiable": false,
+            "orderDate": "2024-03-14T12:52:14.275Z"
+          },
+          "id": "II1"
+        }
+      ],
+      "accountId": ["10468"],
+      "createdDate": "2024-03-14T12:52:11.028Z",
+      "privateIdentifier": ["PR49732"],
+      "@baseType": "PartyInteraction",
+      "modifiedDate": "2024-03-14T12:52:16.132Z",
+      "_internal": {},
+      "id": "PI133825",
+      "href": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/PI133825",
+      "@schemaLocation": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/schema",
+      "publicIdentifier": ["761197205"],
+      "status": "completed",
+      "direction": "inbound"
+    }
+  }
+}

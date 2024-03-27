@@ -1,0 +1,50 @@
+{
+  "RequestPayload": {
+    "commonInformation": {
+      "transactionId": "9977",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "status": "captured",
+      "interactionItem": [
+        {
+          "item": {
+            "orderItem": [
+              {
+                "product": {
+                  "productRelationship": null,
+                  "publicIdentifier": "761197165"
+                }
+              }
+            ],
+            "@type": "ProductOrder"
+          }
+        }
+      ],
+      "channel": [
+        {
+          "name": "ussd",
+          "role": "interaction creation",
+          "id": "ussd",
+          "@referredType": "Channel"
+        }
+      ],
+      "reason": "Scamming Message(MoMo Fraud)",
+      "description": "fraud"
+    }
+  },
+  "ResponseObject": {
+    "commonInformation": {
+      "responseCode": "1",
+      "responseMessage": "Operation unsuccessful",
+      "creationDateTime": "2024-03-14T08:54:15.503-04:00",
+      "transactionId": "9977",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "reason": "Internal Error"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+    "commonInformation": {
+      "transactionId": "156676",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "status": "captured",
+      "interactionItem": [
+          {
+              "item": {
+                  "orderItem": [
+                      {
+                          "product": {
+                              "productRelationship": null,
+                              "publicIdentifier": "964199890"
+                          }
+                      }
+                  ],
+                  "@type": "ProductOrder"
+              }
+          }
+      ],
+      "channel": [
+          {
+              "name": "ussd",
+              "role": "interaction creation",
+              "id": "ussd",
+              "@referredType": "Channel"
+          }
+      ],
+      "reason": "Scamming Message(MoMo Fraud)",
+      "description": "fraud"
+      }
+  }

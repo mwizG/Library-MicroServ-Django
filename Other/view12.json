@@ -1,0 +1,1477 @@
+[
+    {
+        "id": "PI124720",
+        "href": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/PI124720",
+        "customFields": {
+            "mode": "store"
+        },
+        "interactionDate": {
+            "startDateTime": "2023-09-16T11:22:29.693Z",
+            "endDateTime": "2023-09-16T11:46:06.274Z"
+        },
+        "description": "",
+        "reason": "01",
+        "status": "completed",
+        "subStatus": "",
+        "statusChangeDate": "2023-09-16T11:30:08.233Z",
+        "direction": "inbound",
+        "relatedParty": [
+            {
+                "role": "CSRAgent",
+                "validFor": [
+                    {
+                        "startDateTime": "2023-09-16T11:22:29.322Z",
+                        "endDateTime": "2023-09-16T11:22:29.322Z"
+                    }
+                ],
+                "id": "Syed",
+                "@referredType": "SSOUser",
+                "name": "Syed",
+                "contactMedium": [
+                    {
+                        "medium": {
+                            "type": "Mobile",
+                            "verified": false,
+                            "number": "8765434333"
+                        },
+                        "type": "Phone",
+                        "preferred": false
+                    },
+                    {
+                        "medium": {
+                            "type": "EmailAddress",
+                            "verified": false,
+                            "emailAddress": "Syed@gmail.com"
+                        },
+                        "type": "EmailAddress",
+                        "preferred": false
+                    }
+                ]
+            },
+            {
+                "role": "Customer",
+                "id": "C11252",
+                "@referredType": "Customer",
+                "name": "syed farman",
+                "engagedParty": {
+                    "id": "I26128",
+                    "@referredType": "Individual",
+                    "name": "syed farman"
+                }
+            }
+        ],
+        "interactionItem": [
+            {
+                "id": "IIcq26",
+                "item": {
+                    "id": "PO77928",
+                    "customFields": {
+                        "productOrderGroup": [
+                            "PO77928"
+                        ]
+                    },
+                    "externalSystem": [
+                        {
+                            "id": "33776997205489712",
+                            "system": "workflow"
+                        },
+                        {
+                            "id": "ce7b1f86-79d0-448d-b454-8c133bd99446",
+                            "system": "DOM"
+                        }
+                    ],
+                    "@baseType": "ProductOrder",
+                    "@type": "ProductOrder",
+                    "relatedParty": [
+                        {
+                            "role": "CSRAgent",
+                            "validFor": [
+                                {
+                                    "startDateTime": "2023-09-16T11:22:29.322Z",
+                                    "endDateTime": "2023-09-16T11:22:29.322Z"
+                                }
+                            ],
+                            "id": "Syed",
+                            "@referredType": "SSOUser",
+                            "name": "Syed",
+                            "contactMedium": [
+                                {
+                                    "medium": {
+                                        "type": "Mobile",
+                                        "verified": false,
+                                        "number": "8765434333"
+                                    },
+                                    "type": "Phone",
+                                    "preferred": false
+                                },
+                                {
+                                    "medium": {
+                                        "type": "EmailAddress",
+                                        "verified": false,
+                                        "emailAddress": "Syed@gmail.com"
+                                    },
+                                    "type": "EmailAddress",
+                                    "preferred": false
+                                }
+                            ]
+                        },
+                        {
+                            "role": "Customer",
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        }
+                    ],
+                    "orderItem": [
+                        {
+                            "id": "IIcq31",
+                            "action": "add",
+                            "productOffering": {
+                                "id": "648bf27b4a03a3a9b079c0a8",
+                                "externalSystem": [
+                                    {
+                                        "id": "100",
+                                        "system": "EricssonCharging",
+                                        "autoRenew": "Yes",
+                                        "@type": "BPLAN",
+                                        "@baseType": "Offering",
+                                        "prodSpecCharValueUse": [
+                                            {
+                                                "name": "Product Details",
+                                                "valueType": "string",
+                                                "productSpecification": "648bf2794a03a3a9b079c047",
+                                                "@type": "Characteristic",
+                                                "productSpecCharacteristicValue": [
+                                                    {
+                                                        "valueType": "string",
+                                                        "@type": "CharacteristicValue",
+                                                        "value": "CLASS 8 - CLASS8",
+                                                        "isDefault": true
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "1",
+                                        "system": "EricssonCharging",
+                                        "autoRenew": "No",
+                                        "@type": "ServiceActivationCSOFRID",
+                                        "@baseType": "Offering"
+                                    },
+                                    {
+                                        "id": "100",
+                                        "system": "EricssonCharging",
+                                        "autoRenew": "No",
+                                        "@type": "MigrationOFRID",
+                                        "@baseType": "Offering"
+                                    },
+                                    {
+                                        "id": "NACT_ZM_Others_4819",
+                                        "system": "EricssonCharging",
+                                        "autoRenew": "No",
+                                        "@type": "ImmediatePackageChangeCISOFRID",
+                                        "@baseType": "Offering"
+                                    },
+                                    {
+                                        "id": "60eb1e2a-df4e-45d1-983a-1a0cb81403c2",
+                                        "system": "NGB",
+                                        "@type": "MandatoryOffering",
+                                        "@baseType": "Offering"
+                                    }
+                                ],
+                                "name": "CLASS 8 - CLASS8",
+                                "category": [
+                                    {
+                                        "name": "Plan",
+                                        "version": "0",
+                                        "id": "5ce67563a9060a9e0944ad57",
+                                        "@referredType": "Category"
+                                    }
+                                ],
+                                "code": "PO1677BBN",
+                                "@type": "SimpleProductOffering"
+                            },
+                            "product": {
+                                "id": "PR45526",
+                                "customFields": {
+                                    "registrationType": "Starter Pack",
+                                    "moMoFlag": true,
+                                    "assignType": "Manual"
+                                },
+                                "externalSystem": [
+                                    {
+                                        "id": "10344",
+                                        "system": "DAAS",
+                                        "@type": "DAAS",
+                                        "@baseType": "DAAS"
+                                    }
+                                ],
+                                "name": "CLASS 8 - CLASS8",
+                                "startDate": "2023-09-16T11:30:10.987Z",
+                                "status": "active",
+                                "createdDate": "2023-09-16T11:30:10.988Z",
+                                "modifiedDate": "2023-09-16T11:35:31.663Z",
+                                "businessType": "Prepaid",
+                                "technology": "GSM",
+                                "publicIdentifier": "967741988",
+                                "privateIdentifier": "PR45526",
+                                "productSpecification": {
+                                    "id": "648bf2794a03a3a9b079c049",
+                                    "name": "CLASS 8 - CLASS8-PS",
+                                    "version": "43",
+                                    "technology": [
+                                        "GSM"
+                                    ],
+                                    "@baseType": "ProductSpecification",
+                                    "@type": "CompositeProductSpecification",
+                                    "LoB": "Mobile"
+                                },
+                                "productOffering": {
+                                    "id": "648bf27b4a03a3a9b079c0a8",
+                                    "externalSystem": [
+                                        {
+                                            "id": "100",
+                                            "system": "EricssonCharging",
+                                            "autoRenew": "Yes",
+                                            "@type": "BPLAN",
+                                            "@baseType": "Offering",
+                                            "prodSpecCharValueUse": [
+                                                {
+                                                    "name": "Product Details",
+                                                    "valueType": "string",
+                                                    "productSpecification": "648bf2794a03a3a9b079c047",
+                                                    "@type": "Characteristic",
+                                                    "productSpecCharacteristicValue": [
+                                                        {
+                                                            "valueType": "string",
+                                                            "@type": "CharacteristicValue",
+                                                            "value": "CLASS 8 - CLASS8",
+                                                            "isDefault": true
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "1",
+                                            "system": "EricssonCharging",
+                                            "autoRenew": "No",
+                                            "@type": "ServiceActivationCSOFRID",
+                                            "@baseType": "Offering"
+                                        },
+                                        {
+                                            "id": "100",
+                                            "system": "EricssonCharging",
+                                            "autoRenew": "No",
+                                            "@type": "MigrationOFRID",
+                                            "@baseType": "Offering"
+                                        },
+                                        {
+                                            "id": "NACT_ZM_Others_4819",
+                                            "system": "EricssonCharging",
+                                            "autoRenew": "No",
+                                            "@type": "ImmediatePackageChangeCISOFRID",
+                                            "@baseType": "Offering"
+                                        },
+                                        {
+                                            "id": "60eb1e2a-df4e-45d1-983a-1a0cb81403c2",
+                                            "system": "NGB",
+                                            "@type": "MandatoryOffering",
+                                            "@baseType": "Offering"
+                                        }
+                                    ],
+                                    "name": "CLASS 8 - CLASS8",
+                                    "category": [
+                                        {
+                                            "name": "Plan",
+                                            "version": "0",
+                                            "id": "5ce67563a9060a9e0944ad57",
+                                            "@referredType": "Category"
+                                        }
+                                    ],
+                                    "code": "PO1677BBN",
+                                    "@type": "SimpleProductOffering"
+                                },
+                                "productOrder": [
+                                    {
+                                        "orderItemId": "IIcq31",
+                                        "orderItemAction": "add",
+                                        "id": "PO77928",
+                                        "@referredType": "ProductOrder"
+                                    }
+                                ],
+                                "channel": [
+                                    {
+                                        "name": "DCLM",
+                                        "role": "created",
+                                        "id": "dclm",
+                                        "@referredType": "Channel"
+                                    }
+                                ],
+                                "relatedParty": [
+                                    {
+                                        "role": "CSRAgent",
+                                        "validFor": [
+                                            {
+                                                "startDateTime": "2023-09-16T11:22:29.322Z",
+                                                "endDateTime": "2023-09-16T11:22:29.322Z"
+                                            }
+                                        ],
+                                        "id": "Syed",
+                                        "@referredType": "SSOUser",
+                                        "name": "Syed",
+                                        "contactMedium": [
+                                            {
+                                                "medium": {
+                                                    "type": "Mobile",
+                                                    "verified": false,
+                                                    "number": "8765434333"
+                                                },
+                                                "type": "Phone",
+                                                "preferred": false
+                                            },
+                                            {
+                                                "medium": {
+                                                    "type": "EmailAddress",
+                                                    "verified": false,
+                                                    "emailAddress": "Syed@gmail.com"
+                                                },
+                                                "type": "EmailAddress",
+                                                "preferred": false
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "role": "Customer",
+                                        "id": "C11252",
+                                        "@referredType": "Customer",
+                                        "name": "syed farman",
+                                        "engagedParty": {
+                                            "id": "I26128",
+                                            "@referredType": "Individual",
+                                            "name": "syed farman"
+                                        }
+                                    }
+                                ],
+                                "productRelationship": [
+                                    {
+                                        "product": {
+                                            "id": "PR45527",
+                                            "@referredType": "Product"
+                                        },
+                                        "type": "bundled",
+                                        "relationshipType": "bundled"
+                                    },
+                                    {
+                                        "product": {
+                                            "id": "PR45528",
+                                            "@referredType": "Product"
+                                        },
+                                        "type": "bundled",
+                                        "relationshipType": "bundled"
+                                    },
+                                    {
+                                        "product": {
+                                            "id": "PR45529",
+                                            "@referredType": "Product"
+                                        },
+                                        "type": "bundled",
+                                        "relationshipType": "bundled"
+                                    }
+                                ],
+                                "productTerm": [
+                                    {
+                                        "description": "default term",
+                                        "status": "active",
+                                        "validFor": {
+                                            "startDateTime": "2023-09-16T11:30:10.973Z",
+                                            "endDateTime": "2099-12-31T23:59:59.999Z"
+                                        },
+                                        "@type": "ProductTerm"
+                                    }
+                                ],
+                                "activationDate": "2023-09-16T11:35:31.650Z",
+                                "imsiNumber": "645020060967360",
+                                "simNumber": "89645020002709662777",
+                                "@baseType": "Product",
+                                "@type": "Product",
+                                "isCustomerVisible": true,
+                                "LoB": "Mobile",
+                                "xDir": "1",
+                                "isPrimaryMSISDN": true
+                            },
+                            "state": "completed",
+                            "orderItem": [
+                                {
+                                    "id": "OI1",
+                                    "action": "add",
+                                    "product": {
+                                        "id": "PR45527",
+                                        "startDate": "2023-09-16T11:30:11.070Z",
+                                        "status": "active",
+                                        "createdDate": "2023-09-16T11:30:11.072Z",
+                                        "modifiedDate": "2023-09-16T11:35:31.682Z",
+                                        "productSpecification": {
+                                            "id": "648aafe2580f23dc091480d7",
+                                            "name": "Prepaid SIM Product Specification",
+                                            "version": "129",
+                                            "technology": [
+                                                "GSM"
+                                            ],
+                                            "resourcePoolType": "SIM",
+                                            "@baseType": "AtomicProductSpecification",
+                                            "@type": "GoodsProductSpec",
+                                            "LoB": "Mobile"
+                                        },
+                                        "productOrder": [
+                                            {
+                                                "orderItemId": "OI1",
+                                                "orderItemAction": "add",
+                                                "id": "PO77928",
+                                                "@referredType": "ProductOrder"
+                                            }
+                                        ],
+                                        "relatedParty": [
+                                            {
+                                                "role": "CSRAgent",
+                                                "validFor": [
+                                                    {
+                                                        "startDateTime": "2023-09-16T11:22:29.322Z",
+                                                        "endDateTime": "2023-09-16T11:22:29.322Z"
+                                                    }
+                                                ],
+                                                "id": "Syed",
+                                                "@referredType": "SSOUser",
+                                                "name": "Syed",
+                                                "contactMedium": [
+                                                    {
+                                                        "medium": {
+                                                            "type": "Mobile",
+                                                            "verified": false,
+                                                            "number": "8765434333"
+                                                        },
+                                                        "type": "Phone",
+                                                        "preferred": false
+                                                    },
+                                                    {
+                                                        "medium": {
+                                                            "type": "EmailAddress",
+                                                            "verified": false,
+                                                            "emailAddress": "Syed@gmail.com"
+                                                        },
+                                                        "type": "EmailAddress",
+                                                        "preferred": false
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "role": "Customer",
+                                                "id": "C11252",
+                                                "@referredType": "Customer",
+                                                "name": "syed farman",
+                                                "engagedParty": {
+                                                    "id": "I26128",
+                                                    "@referredType": "Individual",
+                                                    "name": "syed farman"
+                                                }
+                                            }
+                                        ],
+                                        "realizingResource": [
+                                            {
+                                                "name": "SIM",
+                                                "id": "64df1dd83d41180007db769e",
+                                                "@referredType": "SIM",
+                                                "@baseType": "PhysicalResource",
+                                                "@type": "SIM"
+                                            },
+                                            {
+                                                "name": "Prepaid SIM Resource Specification Inventory",
+                                                "id": "a88b4dba-60f3-4f07-86c1-7084678e8d8e",
+                                                "@referredType": "Resource"
+                                            }
+                                        ],
+                                        "characteristic": [
+                                            {
+                                                "name": "SIM number",
+                                                "value": "89645020002709662777",
+                                                "@type": "SIM"
+                                            },
+                                            {
+                                                "name": "PIN1 number",
+                                                "value": "0000",
+                                                "@type": "PIN1"
+                                            },
+                                            {
+                                                "name": "PIN2 number",
+                                                "value": "1483",
+                                                "@type": "PIN2"
+                                            },
+                                            {
+                                                "name": "PUK1 number",
+                                                "value": "02238176",
+                                                "@type": "PUK1"
+                                            },
+                                            {
+                                                "name": "PUK2 number",
+                                                "value": "63866288",
+                                                "@type": "PUK2"
+                                            },
+                                            {
+                                                "name": "IMSI number",
+                                                "value": "645020060967360",
+                                                "@type": "IMSI"
+                                            },
+                                            {
+                                                "name": "KI number",
+                                                "value": "4022C1667FD4277647B7B7E395A43DB4",
+                                                "@type": "KI"
+                                            }
+                                        ],
+                                        "activationDate": "2023-09-16T11:35:31.672Z",
+                                        "@baseType": "Product",
+                                        "@type": "Product",
+                                        "isCustomerVisible": false,
+                                        "xDir": "1"
+                                    },
+                                    "productSpecification": {
+                                        "id": "648aafe2580f23dc091480d7",
+                                        "name": "Prepaid SIM Product Specification",
+                                        "technology": [
+                                            "GSM"
+                                        ],
+                                        "resourcePoolType": "SIM",
+                                        "@type": "GoodsProductSpec",
+                                        "LoB": "Mobile"
+                                    },
+                                    "reservationId": "65059121fcf94a0007dcde29",
+                                    "modifiable": true
+                                },
+                                {
+                                    "id": "OI2",
+                                    "action": "add",
+                                    "product": {
+                                        "id": "PR45528",
+                                        "startDate": "2023-09-16T11:30:11.086Z",
+                                        "status": "active",
+                                        "createdDate": "2023-09-16T11:30:11.088Z",
+                                        "modifiedDate": "2023-09-16T11:35:31.703Z",
+                                        "productSpecification": {
+                                            "id": "648afc124a03a3a9b079ba4a",
+                                            "name": "Prepaid MSISDN Product Specification",
+                                            "version": "90",
+                                            "technology": [
+                                                "GSM"
+                                            ],
+                                            "resourcePoolType": "MSISDN",
+                                            "@baseType": "AtomicProductSpecification",
+                                            "@type": "MSISDNProductSpec",
+                                            "LoB": "Mobile"
+                                        },
+                                        "productOrder": [
+                                            {
+                                                "orderItemId": "OI2",
+                                                "orderItemAction": "add",
+                                                "id": "PO77928",
+                                                "@referredType": "ProductOrder"
+                                            }
+                                        ],
+                                        "relatedParty": [
+                                            {
+                                                "role": "CSRAgent",
+                                                "validFor": [
+                                                    {
+                                                        "startDateTime": "2023-09-16T11:22:29.322Z",
+                                                        "endDateTime": "2023-09-16T11:22:29.322Z"
+                                                    }
+                                                ],
+                                                "id": "Syed",
+                                                "@referredType": "SSOUser",
+                                                "name": "Syed",
+                                                "contactMedium": [
+                                                    {
+                                                        "medium": {
+                                                            "type": "Mobile",
+                                                            "verified": false,
+                                                            "number": "8765434333"
+                                                        },
+                                                        "type": "Phone",
+                                                        "preferred": false
+                                                    },
+                                                    {
+                                                        "medium": {
+                                                            "type": "EmailAddress",
+                                                            "verified": false,
+                                                            "emailAddress": "Syed@gmail.com"
+                                                        },
+                                                        "type": "EmailAddress",
+                                                        "preferred": false
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "role": "Customer",
+                                                "id": "C11252",
+                                                "@referredType": "Customer",
+                                                "name": "syed farman",
+                                                "engagedParty": {
+                                                    "id": "I26128",
+                                                    "@referredType": "Individual",
+                                                    "name": "syed farman"
+                                                }
+                                            }
+                                        ],
+                                        "realizingResource": [
+                                            {
+                                                "name": "MSISDN",
+                                                "id": "64df1afe3d41180007db74ee",
+                                                "@referredType": "MSISDN",
+                                                "@baseType": "LogicalResource",
+                                                "@type": "MSISDN"
+                                            },
+                                            {
+                                                "name": "Prepaid MSISDN Resource Specification Inventory",
+                                                "id": "ac8bdbcd-379c-4682-8b84-2832f989769d",
+                                                "@referredType": "Resource"
+                                            }
+                                        ],
+                                        "characteristic": [
+                                            {
+                                                "name": "MSISDN",
+                                                "value": "967741988",
+                                                "@type": "MSISDN"
+                                            }
+                                        ],
+                                        "activationDate": "2023-09-16T11:35:31.693Z",
+                                        "@baseType": "Product",
+                                        "@type": "Product",
+                                        "isCustomerVisible": false,
+                                        "xDir": "1"
+                                    },
+                                    "productSpecification": {
+                                        "id": "648afc124a03a3a9b079ba4a",
+                                        "name": "Prepaid MSISDN Product Specification",
+                                        "technology": [
+                                            "GSM"
+                                        ],
+                                        "resourcePoolType": "MSISDN",
+                                        "@type": "MSISDNProductSpec",
+                                        "LoB": "Mobile"
+                                    },
+                                    "reservationId": "65059121fcf94a0007dcde29",
+                                    "modifiable": true
+                                },
+                                {
+                                    "id": "OI3",
+                                    "action": "add",
+                                    "product": {
+                                        "id": "PR45529",
+                                        "startDate": "2023-09-16T11:30:11.102Z",
+                                        "status": "active",
+                                        "createdDate": "2023-09-16T11:30:11.103Z",
+                                        "modifiedDate": "2023-09-16T11:35:31.723Z",
+                                        "productSpecification": {
+                                            "id": "648bf2794a03a3a9b079c047",
+                                            "name": "CLASS 8 - CLASS8-NE",
+                                            "version": "44",
+                                            "technology": [
+                                                "GSM"
+                                            ],
+                                            "@baseType": "AtomicProductSpecification",
+                                            "@type": "NetworkProductSpec",
+                                            "LoB": "Mobile"
+                                        },
+                                        "productOrder": [
+                                            {
+                                                "orderItemId": "OI3",
+                                                "orderItemAction": "add",
+                                                "id": "PO77928",
+                                                "@referredType": "ProductOrder"
+                                            }
+                                        ],
+                                        "relatedParty": [
+                                            {
+                                                "role": "CSRAgent",
+                                                "validFor": [
+                                                    {
+                                                        "startDateTime": "2023-09-16T11:22:29.322Z",
+                                                        "endDateTime": "2023-09-16T11:22:29.322Z"
+                                                    }
+                                                ],
+                                                "id": "Syed",
+                                                "@referredType": "SSOUser",
+                                                "name": "Syed",
+                                                "contactMedium": [
+                                                    {
+                                                        "medium": {
+                                                            "type": "Mobile",
+                                                            "verified": false,
+                                                            "number": "8765434333"
+                                                        },
+                                                        "type": "Phone",
+                                                        "preferred": false
+                                                    },
+                                                    {
+                                                        "medium": {
+                                                            "type": "EmailAddress",
+                                                            "verified": false,
+                                                            "emailAddress": "Syed@gmail.com"
+                                                        },
+                                                        "type": "EmailAddress",
+                                                        "preferred": false
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "role": "Customer",
+                                                "id": "C11252",
+                                                "@referredType": "Customer",
+                                                "name": "syed farman",
+                                                "engagedParty": {
+                                                    "id": "I26128",
+                                                    "@referredType": "Individual",
+                                                    "name": "syed farman"
+                                                }
+                                            }
+                                        ],
+                                        "realizingService": [
+                                            {
+                                                "name": "CLASS 8 - CLASS8-CFSS Inventory",
+                                                "id": "c53269bd-4cde-482a-8ce0-d51f78ce39aa",
+                                                "@referredType": "Service"
+                                            }
+                                        ],
+                                        "realizingResource": [
+                                            {
+                                                "name": "CLASS 8 - CLASS8-LRS Inventory",
+                                                "id": "17919b43-1b2c-4e1b-99c5-21da26b18960",
+                                                "@referredType": "Resource"
+                                            }
+                                        ],
+                                        "characteristic": [
+                                            {
+                                                "name": "Product Details",
+                                                "value": "CLASS 8 - CLASS8",
+                                                "@type": "Characteristic"
+                                            }
+                                        ],
+                                        "productTerm": [
+                                            {
+                                                "validFor": {
+                                                    "startDateTime": "2023-09-16T11:35:31.714Z"
+                                                }
+                                            }
+                                        ],
+                                        "activationDate": "2023-09-16T11:35:31.713Z",
+                                        "@baseType": "Product",
+                                        "@type": "Product",
+                                        "isCustomerVisible": false,
+                                        "xDir": "1"
+                                    },
+                                    "productSpecification": {
+                                        "id": "648bf2794a03a3a9b079c047",
+                                        "name": "CLASS 8 - CLASS8-NE",
+                                        "technology": [
+                                            "GSM"
+                                        ],
+                                        "@type": "NetworkProductSpec",
+                                        "LoB": "Mobile"
+                                    },
+                                    "modifiable": true
+                                }
+                            ],
+                            "productSpecification": {
+                                "id": "648bf2794a03a3a9b079c049",
+                                "name": "CLASS 8 - CLASS8-PS",
+                                "technology": [
+                                    "GSM"
+                                ],
+                                "@type": "CompositeProductSpecification",
+                                "LoB": "Mobile"
+                            },
+                            "modifiable": false
+                        }
+                    ],
+                    "state": "completed",
+                    "orderDate": "2023-09-16T11:30:10.655Z",
+                    "completionDate": "2023-09-16T11:35:31.085Z",
+                    "requestedStartDate": "2023-09-16T11:30:10.655Z",
+                    "channel": [
+                        {
+                            "name": "DCLM",
+                            "role": "interaction creation",
+                            "id": "dclm",
+                            "@referredType": "Channel",
+                            "@type": "DCLM"
+                        }
+                    ],
+                    "createdDate": "2023-09-16T11:30:10.657Z",
+                    "modifiedDate": "2023-09-16T11:35:31.789Z",
+                    "request": {
+                        "id": "PI124720",
+                        "@referredType": "RegistrationRequest",
+                        "@baseType": "PartyInteraction"
+                    },
+                    "cancellable": false,
+                    "modifiable": false,
+                    "orderTotalPrice": [],
+                    "payment": []
+                },
+                "interactionItemRelationship": []
+            },
+            {
+                "id": "IIcq30",
+                "itemDate": "2023-09-16T11:23:24.779Z",
+                "item": {
+                    "id": "C11252",
+                    "customFields": {
+                        "occupation": "AGR",
+                        "fathersName": "",
+                        "documentType": "PhotoID",
+                        "prefix": "DOCT",
+                        "companyName": "",
+                        "partnerMembership": false,
+                        "linkedin": "",
+                        "instagram": "",
+                        "customerCountry": "",
+                        "bloodGroup": "",
+                        "elite": "",
+                        "twitter": "",
+                        "preferredTime": "9 AM To 1 PM ",
+                        "taxed": 1,
+                        "govIdSponsor": "",
+                        "vip": false,
+                        "govIdReference": "",
+                        "professionType": "Others",
+                        "communicationLanguage": "en",
+                        "partnership": "",
+                        "fullNameAR": "",
+                        "parentPublicIdentifier": "",
+                        "facebook": "",
+                        "telegram": "",
+                        "certificateNo": "",
+                        "customerSubCategory2": "",
+                        "citizenType": "G",
+                        "registrationType": "Prepaid",
+                        "mothersName": "",
+                        "verticle": "",
+                        "nationalityAR": "",
+                        "residencyType": ""
+                    },
+                    "name": "syed farman",
+                    "@baseType": "PartyRole",
+                    "@type": "Customer",
+                    "@referredType": "Customer",
+                    "status": "active",
+                    "customerCategory": "SBI",
+                    "customerSubCategory": "SUBI01",
+                    "customerType": "Individual",
+                    "riskCategory": "HIGH",
+                    "createdDate": "2023-09-16T11:22:29.788Z",
+                    "modifiedDate": "2023-09-16T11:30:11.328Z",
+                    "engagedParty": {
+                        "id": "I26128",
+                        "customFields": {
+                            "emailVerified": false,
+                            "role": [
+                                "Customer"
+                            ],
+                            "mobileVerified": false
+                        },
+                        "contactMedium": [
+                            {
+                                "medium": {
+                                    "verified": false,
+                                    "postcode": "3456456",
+                                    "city": "CHIBOMBO",
+                                    "stateOrProvince": "CENTRAL",
+                                    "country": "ZM",
+                                    "addressLine1": "dfghj"
+                                },
+                                "type": "Address",
+                                "role": "ResidenceAddress",
+                                "id": "1",
+                                "preferred": false
+                            },
+                            {
+                                "medium": {
+                                    "type": "mobile",
+                                    "verified": false,
+                                    "number": "234567891"
+                                },
+                                "type": "Phone",
+                                "id": "3",
+                                "preferred": false
+                            },
+                            {
+                                "medium": {
+                                    "type": "emailAddress",
+                                    "verified": false,
+                                    "emailAddress": "syedfarman@gmail.com"
+                                },
+                                "type": "EmailAddress",
+                                "id": "4",
+                                "preferred": true
+                            }
+                        ],
+                        "occupation": [
+                            {}
+                        ],
+                        "gender": "M",
+                        "individualIdentification": [
+                            {
+                                "documentPurpose": "POID",
+                                "type": "PhotoID",
+                                "identificationId": "123347/22/2"
+                            }
+                        ],
+                        "title": "DOCT",
+                        "familyName": "farman",
+                        "areaOfInterest": [
+                            ""
+                        ],
+                        "sourceMainIncome": [
+                            ""
+                        ],
+                        "givenName": "syed",
+                        "fullName": "syed farman",
+                        "relatedParty": [
+                            {
+                                "role": "secondaryContact",
+                                "@referredType": "Individual"
+                            }
+                        ],
+                        "birthDate": "1925-01-01",
+                        "nationality": "Zambian",
+                        "maritalStatus": "S",
+                        "status": "initialized",
+                        "suffix": "SR",
+                        "createdDate": "2023-09-16T11:22:29.775Z",
+                        "modifiedDate": "2023-09-16T11:30:09.346Z",
+                        "citizenType": "G",
+                        "@baseType": "Party",
+                        "@type": "Individual",
+                        "vip": false,
+                        "ageGroup": "senior"
+                    },
+                    "relatedParty": [
+                        {
+                            "role": "CSRAgent",
+                            "validFor": [
+                                {
+                                    "startDateTime": "2023-09-16T11:22:29.322Z",
+                                    "endDateTime": "2023-09-16T11:22:29.322Z"
+                                }
+                            ],
+                            "id": "Syed",
+                            "@referredType": "SSOUser",
+                            "name": "Syed",
+                            "contactMedium": [
+                                {
+                                    "medium": {
+                                        "type": "Mobile",
+                                        "verified": false,
+                                        "number": "8765434333"
+                                    },
+                                    "type": "Phone",
+                                    "preferred": false
+                                },
+                                {
+                                    "medium": {
+                                        "type": "EmailAddress",
+                                        "verified": false,
+                                        "emailAddress": "Syed@gmail.com"
+                                    },
+                                    "type": "EmailAddress",
+                                    "preferred": false
+                                }
+                            ]
+                        }
+                    ],
+                    "registeredChannel": {
+                        "name": "DCLM",
+                        "id": "dclm",
+                        "@referredType": "Channel"
+                    },
+                    "xDir": "1",
+                    "greyList": false
+                }
+            },
+            {
+                "id": "IIcq32",
+                "role": "Photograph",
+                "item": {
+                    "id": "DOC175722",
+                    "externalSystem": [
+                        {
+                            "id": "6755399441266531",
+                            "system": "DMS",
+                            "@type": "workflow"
+                        }
+                    ],
+                    "@baseType": "PartyRole",
+                    "@type": "Document",
+                    "lifecycleState": "verified",
+                    "documentSpecification": {
+                        "id": "Photograph"
+                    },
+                    "documentCharacteristic": [
+                        {
+                            "name": "partyInteractionId",
+                            "value": "PI124720"
+                        },
+                        {
+                            "name": "requestType",
+                            "value": "RegistrationRequest"
+                        },
+                        {
+                            "name": "documentRelation",
+                            "value": "ProductConfig"
+                        },
+                        {
+                            "name": "channel",
+                            "value": "dclm"
+                        },
+                        {
+                            "name": "dmsReferenceNumber",
+                            "value": "DOC171946"
+                        },
+                        {
+                            "name": "dmsReceviedDate",
+                            "value": "2023-08-13T03:30:00.000Z"
+                        },
+                        {
+                            "name": "publicIdentifier",
+                            "value": "967741988"
+                        },
+                        {
+                            "name": "dmsReferenceNumber",
+                            "value": "DOC171947"
+                        }
+                    ],
+                    "relatedParty": [
+                        {
+                            "role": "Customer",
+                            "validFor": [
+                                {
+                                    "startDateTime": "2023-09-16T11:22:29.322Z",
+                                    "endDateTime": "2023-09-16T11:22:29.322Z"
+                                }
+                            ],
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "contactMedium": [
+                                {
+                                    "medium": {
+                                        "type": "Mobile",
+                                        "verified": false,
+                                        "number": "8765434333"
+                                    },
+                                    "type": "Phone",
+                                    "preferred": false
+                                },
+                                {
+                                    "medium": {
+                                        "type": "EmailAddress",
+                                        "verified": false,
+                                        "emailAddress": "Syed@gmail.com"
+                                    },
+                                    "type": "EmailAddress",
+                                    "preferred": false
+                                }
+                            ],
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "@type": "Individual"
+                            }
+                        },
+                        {
+                            "role": "Customer",
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        },
+                        {
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        },
+                        {
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        }
+                    ],
+                    "relatedEntity": {
+                        "id": "PR45526",
+                        "@referredType": "Product"
+                    },
+                    "reason": "na",
+                    "createdDate": "2023-09-16T11:28:29.335Z",
+                    "modifiedDate": "2023-09-16T11:30:10.241Z",
+                    "reminderDate": "2023-09-28T18:30:00.000Z",
+                    "documentDueDate": "2023-09-30T18:30:00.000Z"
+                },
+                "interactionItemRelationship": [
+                    {
+                        "id": "IIcq26",
+                        "relationshipType": "reliesOn",
+                        "orderItemId": "IIcq31"
+                    },
+                    {
+                        "id": "IIcq26",
+                        "relationshipType": "reliesOn",
+                        "orderItemId": "IIcq31"
+                    }
+                ],
+                "status": "verified"
+            },
+            {
+                "id": "IIcq33",
+                "role": "REGISTRATION_FORM_IMG",
+                "item": {
+                    "id": "DOC175723",
+                    "externalSystem": [
+                        {
+                            "id": "6755399441266531",
+                            "system": "DMS",
+                            "@type": "workflow"
+                        }
+                    ],
+                    "@baseType": "PartyRole",
+                    "@type": "Document",
+                    "lifecycleState": "unindexed",
+                    "documentSpecification": {
+                        "id": "REGISTRATION_FORM_IMG"
+                    },
+                    "documentCharacteristic": [
+                        {
+                            "name": "partyInteractionId",
+                            "value": "PI124720"
+                        },
+                        {
+                            "name": "requestType",
+                            "value": "RegistrationRequest"
+                        },
+                        {
+                            "name": "documentRelation",
+                            "value": "ProductConfig"
+                        },
+                        {
+                            "name": "channel",
+                            "value": "dclm"
+                        },
+                        {
+                            "name": "dmsReferenceNumber",
+                            "value": "DOC171951"
+                        },
+                        {
+                            "name": "dmsReceviedDate",
+                            "value": "2023-08-13T03:30:00.000Z"
+                        },
+                        {
+                            "name": "publicIdentifier",
+                            "value": "967741988"
+                        },
+                        {
+                            "name": "dmsReferenceNumber",
+                            "value": "DOC171952"
+                        }
+                    ],
+                    "relatedParty": [
+                        {
+                            "role": "Customer",
+                            "validFor": [
+                                {
+                                    "startDateTime": "2023-09-16T11:22:29.322Z",
+                                    "endDateTime": "2023-09-16T11:22:29.322Z"
+                                }
+                            ],
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "contactMedium": [
+                                {
+                                    "medium": {
+                                        "type": "Mobile",
+                                        "verified": false,
+                                        "number": "8765434333"
+                                    },
+                                    "type": "Phone",
+                                    "preferred": false
+                                },
+                                {
+                                    "medium": {
+                                        "type": "EmailAddress",
+                                        "verified": false,
+                                        "emailAddress": "Syed@gmail.com"
+                                    },
+                                    "type": "EmailAddress",
+                                    "preferred": false
+                                }
+                            ],
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "@type": "Individual"
+                            }
+                        },
+                        {
+                            "role": "Customer",
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        },
+                        {
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        },
+                        {
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        }
+                    ],
+                    "relatedEntity": {
+                        "id": "PR45526",
+                        "@referredType": "Product"
+                    },
+                    "reason": "na",
+                    "createdDate": "2023-09-16T11:28:55.734Z",
+                    "modifiedDate": "2023-09-16T11:30:10.292Z",
+                    "reminderDate": "2023-09-28T18:30:00.000Z",
+                    "documentDueDate": "2023-09-30T18:30:00.000Z"
+                },
+                "interactionItemRelationship": [
+                    {
+                        "id": "IIcq26",
+                        "relationshipType": "reliesOn",
+                        "orderItemId": "IIcq31"
+                    },
+                    {
+                        "id": "IIcq26",
+                        "relationshipType": "reliesOn",
+                        "orderItemId": "IIcq31"
+                    }
+                ],
+                "status": "verified"
+            },
+            {
+                "id": "IIcq34",
+                "role": "IDBACKSIDE",
+                "item": {
+                    "id": "DOC175724",
+                    "externalSystem": [
+                        {
+                            "id": "6755399441266531",
+                            "system": "DMS",
+                            "@type": "workflow"
+                        }
+                    ],
+                    "@baseType": "PartyRole",
+                    "@type": "Document",
+                    "lifecycleState": "verified",
+                    "documentSpecification": {
+                        "id": "IDBACKSIDE"
+                    },
+                    "documentCharacteristic": [
+                        {
+                            "name": "partyInteractionId",
+                            "value": "PI124720"
+                        },
+                        {
+                            "name": "requestType",
+                            "value": "RegistrationRequest"
+                        },
+                        {
+                            "name": "documentRelation",
+                            "value": "ProductConfig"
+                        },
+                        {
+                            "name": "channel",
+                            "value": "dclm"
+                        },
+                        {
+                            "name": "dmsReferenceNumber",
+                            "value": "DOC171948"
+                        },
+                        {
+                            "name": "dmsReceviedDate",
+                            "value": "2023-08-13T03:30:00.000Z"
+                        },
+                        {
+                            "name": "publicIdentifier",
+                            "value": "967741988"
+                        },
+                        {
+                            "name": "dmsReferenceNumber",
+                            "value": "DOC171950"
+                        }
+                    ],
+                    "relatedParty": [
+                        {
+                            "role": "Customer",
+                            "validFor": [
+                                {
+                                    "startDateTime": "2023-09-16T11:22:29.322Z",
+                                    "endDateTime": "2023-09-16T11:22:29.322Z"
+                                }
+                            ],
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "contactMedium": [
+                                {
+                                    "medium": {
+                                        "type": "Mobile",
+                                        "verified": false,
+                                        "number": "8765434333"
+                                    },
+                                    "type": "Phone",
+                                    "preferred": false
+                                },
+                                {
+                                    "medium": {
+                                        "type": "EmailAddress",
+                                        "verified": false,
+                                        "emailAddress": "Syed@gmail.com"
+                                    },
+                                    "type": "EmailAddress",
+                                    "preferred": false
+                                }
+                            ],
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "@type": "Individual"
+                            }
+                        },
+                        {
+                            "role": "Customer",
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        },
+                        {
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        },
+                        {
+                            "id": "C11252",
+                            "@referredType": "Customer",
+                            "name": "syed farman",
+                            "engagedParty": {
+                                "id": "I26128",
+                                "@referredType": "Individual",
+                                "name": "syed farman"
+                            }
+                        }
+                    ],
+                    "relatedEntity": {
+                        "id": "PR45526",
+                        "@referredType": "Product"
+                    },
+                    "reason": "na",
+                    "createdDate": "2023-09-16T11:29:10.905Z",
+                    "modifiedDate": "2023-09-16T11:30:10.502Z",
+                    "reminderDate": "2023-09-28T18:30:00.000Z",
+                    "documentDueDate": "2023-09-30T18:30:00.000Z"
+                },
+                "interactionItemRelationship": [
+                    {
+                        "id": "IIcq26",
+                        "relationshipType": "reliesOn",
+                        "orderItemId": "IIcq31"
+                    },
+                    {
+                        "id": "IIcq26",
+                        "relationshipType": "reliesOn",
+                        "orderItemId": "IIcq31"
+                    }
+                ],
+                "status": "verified"
+            }
+        ],
+        "channel": [
+            {
+                "name": "DCLM",
+                "role": "interaction creation",
+                "id": "dclm",
+                "@referredType": "Channel",
+                "@type": "DCLM"
+            }
+        ],
+        "customerId": [
+            "C11252"
+        ],
+        "productId": [
+            "PR45526"
+        ],
+        "publicIdentifier": [
+            "967741988"
+        ],
+        "privateIdentifier": [
+            "PR45526"
+        ],
+        "productOrderId": [
+            "PO77928"
+        ],
+        "createdDate": "2023-09-16T11:22:29.694Z",
+        "modifiedDate": "2023-09-16T11:46:06.274Z",
+        "_internal": {},
+        "@baseType": "PartyInteraction",
+        "@type": "RegistrationRequest",
+        "@schemaLocation": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/schema",
+        "retryable": false,
+        "retryableCount": 0
+    }
+]

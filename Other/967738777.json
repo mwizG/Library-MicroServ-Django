@@ -1,0 +1,412 @@
+{
+  "RequestPayload": {
+    "commonInformation": {
+      "transactionId": "9979",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "status": "captured",
+      "interactionItem": [
+        {
+          "item": {
+            "orderItem": [
+              {
+                "product": {
+                  "productRelationship": null,
+                  "publicIdentifier": "967738777"
+                }
+              }
+            ],
+            "@type": "ProductOrder"
+          }
+        }
+      ],
+      "channel": [
+        {
+          "name": "ussd",
+          "role": "interaction creation",
+          "id": "ussd",
+          "@referredType": "Channel"
+        }
+      ],
+      "reason": "Scamming Message(MoMo Fraud)",
+      "description": "fraud"
+    }
+  },
+  "ResponseObject": {
+    "commonInformation": {
+      "responseCode": "0",
+      "responseMessage": "Operation successful",
+      "creationDateTime": "2024-03-14T08:50:31.203-04:00",
+      "transactionId": "9979",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "retryable": false,
+      "reason": "Scamming Message(MoMo Fraud)",
+      "productId": ["PR50107"],
+      "customFields": {},
+      "@type": "SuspendProductRequest",
+      "channel": [
+        {
+          "@referredType": "Channel",
+          "role": "interaction creation",
+          "name": "ussd",
+          "id": "ussd"
+        }
+      ],
+      "description": "fraud",
+      "productOrderId": ["PO80568"],
+      "relatedParty": [
+        {
+          "@referredType": "Customer",
+          "role": "Customer",
+          "name": "syed farman",
+          "id": "C11966",
+          "engagedParty": {
+            "@referredType": "Individual",
+            "name": "syed farman",
+            "id": "I27344"
+          }
+        },
+        {
+          "@referredType": "SSOUser",
+          "contactMedium": [
+            {
+              "medium": {
+                "number": "87654345",
+                "verified": false,
+                "type": "Mobile"
+              },
+              "type": "Phone",
+              "preferred": false
+            },
+            {
+              "medium": {
+                "emailAddress": "Zicta707@gmail.com",
+                "verified": false,
+                "type": "EmailAddress"
+              },
+              "type": "EmailAddress",
+              "preferred": false
+            }
+          ],
+          "role": "ussd",
+          "validFor": [
+            {
+              "startDateTime": "2024-03-14T12:50:26.188Z",
+              "endDateTime": "2024-03-14T12:50:26.188Z"
+            }
+          ],
+          "name": "Zicta707",
+          "id": "Zicta707"
+        }
+      ],
+      "retryableCount": 0,
+      "interactionDate": {
+        "startDateTime": "2024-03-14T12:50:26.158Z"
+      },
+      "interactionItem": [
+        {
+          "item": {
+            "request": {
+              "@referredType": "SuspendProductRequest",
+              "@baseType": "PartyInteraction",
+              "id": "PI133824"
+            },
+            "orderItem": [
+              {
+                "product": {
+                  "productSpecification": {
+                    "@referredType": "ProductSpecification",
+                    "@baseType": "ProductSpecification",
+                    "@type": "CompositeProductSpecification",
+                    "name": "CLASS 8 - CLASS8-PS",
+                    "id": "648bf2794a03a3a9b079c049",
+                    "technology": ["GSM"],
+                    "version": "51",
+                    "LoB": "Mobile"
+                  },
+                  "xDir": "1",
+                  "customFields": {
+                    "registrationType": "Starter Pack",
+                    "moMoFlag": false,
+                    "assignType": "Manual",
+                    "vip": false
+                  },
+                  "@type": "Product",
+                  "channel": [
+                    {
+                      "@referredType": "Channel",
+                      "role": "created",
+                      "name": "DCLM",
+                      "id": "dclm"
+                    }
+                  ],
+                  "productOrder": [
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemId": "IIlu7",
+                      "id": "PO80166",
+                      "orderItemAction": "add"
+                    }
+                  ],
+                  "isPrimaryMSISDN": true,
+                  "@baseType": "Product",
+                  "id": "PR50107",
+                  "publicIdentifier": "967738777",
+                  "simNumber": "8964502000270966146",
+                  "productOffering": {
+                    "@type": "SimpleProductOffering",
+                    "name": "CLASS 8 - CLASS8",
+                    "id": "648bf27b4a03a3a9b079c0a8",
+                    "category": [
+                      {
+                        "@referredType": "Category",
+                        "name": "Plan",
+                        "id": "5ce67563a9060a9e0944ad57",
+                        "version": "0"
+                      }
+                    ],
+                    "externalSystem": [
+                      {
+                        "prodSpecCharValueUse": [
+                          {
+                            "productSpecification": "648bf2794a03a3a9b079c047",
+                            "@type": "Characteristic",
+                            "valueType": "string",
+                            "name": "Product Details",
+                            "productSpecCharacteristicValue": [
+                              {
+                                "isDefault": true,
+                                "@type": "CharacteristicValue",
+                                "valueType": "string",
+                                "value": "CLASS 8 - CLASS8"
+                              }
+                            ]
+                          }
+                        ],
+                        "system": "EricssonCharging",
+                        "@baseType": "Offering",
+                        "@type": "BPLAN",
+                        "autoRenew": "Yes",
+                        "id": "100"
+                      },
+                      {
+                        "system": "EricssonCharging",
+                        "@baseType": "Offering",
+                        "@type": "ServiceActivationCSOFRID",
+                        "autoRenew": "No",
+                        "id": "1"
+                      },
+                      {
+                        "system": "EricssonCharging",
+                        "@baseType": "Offering",
+                        "@type": "MigrationOFRID",
+                        "autoRenew": "No",
+                        "id": "100"
+                      },
+                      {
+                        "system": "EricssonCharging",
+                        "@baseType": "Offering",
+                        "@type": "ImmediatePackageChangeCISOFRID",
+                        "autoRenew": "No",
+                        "id": "NACT_ZM_Others_4819"
+                      },
+                      {
+                        "system": "NGB",
+                        "@baseType": "Offering",
+                        "@type": "MandatoryOffering",
+                        "id": "60eb1e2a-df4e-45d1-983a-1a0cb81403c2"
+                      }
+                    ]
+                  },
+                  "technology": "GSM",
+                  "relatedParty": [
+                    {
+                      "@referredType": "Customer",
+                      "role": "Customer",
+                      "name": "syed farman",
+                      "id": "C11966",
+                      "engagedParty": {
+                        "@referredType": "Individual",
+                        "name": "syed farman",
+                        "id": "I27344"
+                      }
+                    }
+                  ],
+                  "productTerm": [
+                    {
+                      "validFor": {
+                        "startDateTime": "2024-02-21T10:53:41.739Z",
+                        "endDateTime": "2099-12-31T23:59:59.999Z"
+                      },
+                      "@type": "ProductTerm",
+                      "description": "default term",
+                      "status": "active"
+                    }
+                  ],
+                  "externalSystem": [
+                    {
+                      "system": "DAAS",
+                      "@baseType": "DAAS",
+                      "@type": "DAAS",
+                      "id": "11383"
+                    }
+                  ],
+                  "createdDate": "2024-02-21T10:53:41.753Z",
+                  "privateIdentifier": "PR50107",
+                  "imsiNumber": "645020060967229",
+                  "name": "CLASS 8 - CLASS8",
+                  "modifiedDate": "2024-02-21T10:55:38.069Z",
+                  "_internal": {},
+                  "productRelationship": [
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "@baseType": "Product",
+                        "@type": "Product",
+                        "customFields": {},
+                        "id": "PR50108"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    },
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "@baseType": "Product",
+                        "@type": "Product",
+                        "customFields": {},
+                        "id": "PR50109"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    },
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "@baseType": "Product",
+                        "@type": "Product",
+                        "customFields": {},
+                        "id": "PR50110"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    }
+                  ],
+                  "businessType": "Prepaid",
+                  "activationDate": "2024-02-21T10:55:38.057Z",
+                  "isCustomerVisible": true,
+                  "startDate": "2024-02-21T10:53:41.751Z",
+                  "LoB": "Mobile",
+                  "status": "active"
+                },
+                "productOffering": {
+                  "@type": "SimpleProductOffering",
+                  "name": "CLASS 8 - CLASS8",
+                  "id": "648bf27b4a03a3a9b079c0a8"
+                },
+                "action": "modify",
+                "id": "OI1",
+                "actionSubType": "suspension",
+                "modifiable": true
+              }
+            ],
+            "customFields": {
+              "productOrderGroup": ["PO80568"]
+            },
+            "@type": "ProductOrder",
+            "channel": [
+              {
+                "@referredType": "Channel",
+                "role": "interaction creation",
+                "name": "ussd",
+                "id": "ussd"
+              }
+            ],
+            "relatedParty": [
+              {
+                "@referredType": "Customer",
+                "role": "Customer",
+                "name": "syed farman",
+                "id": "C11966",
+                "engagedParty": {
+                  "@referredType": "Individual",
+                  "name": "syed farman",
+                  "id": "I27344"
+                }
+              },
+              {
+                "@referredType": "SSOUser",
+                "contactMedium": [
+                  {
+                    "medium": {
+                      "number": "87654345",
+                      "verified": false,
+                      "type": "Mobile"
+                    },
+                    "type": "Phone",
+                    "preferred": false
+                  },
+                  {
+                    "medium": {
+                      "emailAddress": "Zicta707@gmail.com",
+                      "verified": false,
+                      "type": "EmailAddress"
+                    },
+                    "type": "EmailAddress",
+                    "preferred": false
+                  }
+                ],
+                "role": "ussd",
+                "validFor": [
+                  {
+                    "startDateTime": "2024-03-14T12:50:26.188Z",
+                    "endDateTime": "2024-03-14T12:50:26.188Z"
+                  }
+                ],
+                "name": "Zicta707",
+                "id": "Zicta707"
+              }
+            ],
+            "cancellable": true,
+            "requestedStartDate": "2024-03-14T12:50:29.311Z",
+            "externalSystem": [
+              {
+                "system": "workflow",
+                "id": "6755399441872868"
+              },
+              {
+                "system": "DOM",
+                "id": "b9fda8f9-e0da-4f2c-b05d-69a1fee74f02"
+              }
+            ],
+            "createdDate": "2024-03-14T12:50:29.314Z",
+            "@baseType": "ProductOrder",
+            "modifiedDate": "2024-03-14T12:50:30.874Z",
+            "id": "PO80568",
+            "state": "inProgress",
+            "modifiable": true,
+            "orderDate": "2024-03-14T12:50:29.311Z"
+          },
+          "id": "II1"
+        }
+      ],
+      "createdDate": "2024-03-14T12:50:26.159Z",
+      "privateIdentifier": ["PR50107"],
+      "@baseType": "PartyInteraction",
+      "customerId": ["C11966"],
+      "modifiedDate": "2024-03-14T12:50:30.895Z",
+      "_internal": {},
+      "id": "PI133824",
+      "href": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/PI133824",
+      "@schemaLocation": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/schema",
+      "publicIdentifier": ["967738777"],
+      "status": "inProgress",
+      "direction": "inbound"
+    }
+  }
+}

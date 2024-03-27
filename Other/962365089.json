@@ -1,0 +1,398 @@
+{
+  "RequestPayload": {
+    "commonInformation": {
+      "transactionId": "9980",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "status": "captured",
+      "interactionItem": [
+        {
+          "item": {
+            "orderItem": [
+              {
+                "product": {
+                  "productRelationship": null,
+                  "publicIdentifier": "962365089"
+                }
+              }
+            ],
+            "@type": "ProductOrder"
+          }
+        }
+      ],
+      "channel": [
+        {
+          "name": "ussd",
+          "role": "interaction creation",
+          "id": "ussd",
+          "@referredType": "Channel"
+        }
+      ],
+      "reason": "Scamming Message(MoMo Fraud)",
+      "description": "fraud"
+    }
+  },
+  "ResponseObject": {
+    "commonInformation": {
+      "responseCode": "0",
+      "responseMessage": "Operation successful",
+      "creationDateTime": "2024-03-14T08:48:33.24-04:00",
+      "transactionId": "9980",
+      "senderId": "sender",
+      "opcoId": "ZM"
+    },
+    "dataArea": {
+      "retryable": false,
+      "reason": "Scamming Message(MoMo Fraud)",
+      "productId": ["PR37415"],
+      "customFields": {},
+      "@type": "SuspendProductRequest",
+      "channel": [
+        {
+          "@referredType": "Channel",
+          "role": "interaction creation",
+          "name": "ussd",
+          "id": "ussd"
+        }
+      ],
+      "description": "fraud",
+      "productOrderId": ["PO80567"],
+      "relatedParty": [
+        {
+          "@referredType": "Customer",
+          "role": "Customer",
+          "name": "Hannah Mon",
+          "id": "C9560",
+          "engagedParty": {
+            "@referredType": "Individual",
+            "name": "Hannah Mon",
+            "id": "I23901"
+          }
+        },
+        {
+          "@referredType": "SSOUser",
+          "contactMedium": [
+            {
+              "medium": {
+                "number": "87654345",
+                "verified": false,
+                "type": "Mobile"
+              },
+              "type": "Phone",
+              "preferred": false
+            },
+            {
+              "medium": {
+                "emailAddress": "Zicta707@gmail.com",
+                "verified": false,
+                "type": "EmailAddress"
+              },
+              "type": "EmailAddress",
+              "preferred": false
+            }
+          ],
+          "role": "ussd",
+          "validFor": [
+            {
+              "startDateTime": "2024-03-14T12:48:29.007Z",
+              "endDateTime": "2024-03-14T12:48:29.007Z"
+            }
+          ],
+          "name": "Zicta707",
+          "id": "Zicta707"
+        }
+      ],
+      "retryableCount": 0,
+      "interactionDate": {
+        "startDateTime": "2024-03-14T12:48:28.973Z"
+      },
+      "interactionItem": [
+        {
+          "item": {
+            "request": {
+              "@referredType": "SuspendProductRequest",
+              "@baseType": "PartyInteraction",
+              "id": "PI133823"
+            },
+            "orderItem": [
+              {
+                "product": {
+                  "productSpecification": {
+                    "@referredType": "ProductSpecification",
+                    "@baseType": "ProductSpecification",
+                    "@type": "CompositeProductSpecification",
+                    "name": "MTNZ-Starter Pack-GSM product specification",
+                    "id": "63e4c04331bc0980e6270449",
+                    "technology": ["GSM"],
+                    "version": "42",
+                    "LoB": "Mobile"
+                  },
+                  "xDir": "1",
+                  "@type": "Product",
+                  "channel": [
+                    {
+                      "@referredType": "Channel",
+                      "role": "created",
+                      "name": "ISL",
+                      "id": "isl"
+                    }
+                  ],
+                  "productOrder": [
+                    {
+                      "@referredType": "ProductOrder",
+                      "orderItemId": "OI1",
+                      "id": "PO74140",
+                      "orderItemAction": "add"
+                    }
+                  ],
+                  "@baseType": "Product",
+                  "id": "PR37415",
+                  "publicIdentifier": "962365089",
+                  "simNumber": "89645020002733032161",
+                  "productOffering": {
+                    "@type": "SimpleProductOffering",
+                    "name": "MTNZ-Starter Pack-GSM",
+                    "id": "63e4c04631bc0980e627046b",
+                    "category": [
+                      {
+                        "@referredType": "Category",
+                        "name": "Plan",
+                        "id": "5ce67563a9060a9e0944ad57",
+                        "version": "0"
+                      }
+                    ],
+                    "externalSystem": [
+                      {
+                        "system": "NGB",
+                        "@baseType": "Offering",
+                        "@type": "MandatoryOffering",
+                        "id": "5f217ecf-6971-4631-a69f-35b9ac0c3585"
+                      }
+                    ]
+                  },
+                  "technology": "GSM",
+                  "relatedParty": [
+                    {
+                      "@referredType": "Customer",
+                      "role": "Customer",
+                      "name": "Hannah Mon",
+                      "id": "C9560",
+                      "engagedParty": {
+                        "@referredType": "Individual",
+                        "name": "Hannah Mon",
+                        "id": "I23901"
+                      }
+                    }
+                  ],
+                  "productTerm": [
+                    {
+                      "duration": {
+                        "amount": 12,
+                        "units": "months"
+                      },
+                      "validFor": {
+                        "startDateTime": "2023-06-23T09:58:38.595Z",
+                        "endDateTime": "2024-06-23T09:58:38.595Z"
+                      },
+                      "@type": "ProductTerm",
+                      "name": "MTNZ-Starter Pack-GSM - MTNZ-GSMPostpaid Plan postpaid plan term",
+                      "description": "MTNZ-Starter Pack-GSM - MTNZ-GSM Prepaid StarterPack Plan - postpaid plan term",
+                      "productOfferingTerm": {
+                        "@referredType": "ProductOfferingTerm",
+                        "id": "63e4c04831bc0980e6270473"
+                      },
+                      "status": "active"
+                    }
+                  ],
+                  "externalSystem": [
+                    {
+                      "system": "DAAS",
+                      "@baseType": "DAAS",
+                      "@type": "DAAS",
+                      "id": "8636"
+                    }
+                  ],
+                  "createdDate": "2023-06-23T09:57:36.230Z",
+                  "privateIdentifier": "PR37415",
+                  "imsiNumber": "645020063304299",
+                  "name": "MTNZ-Starter Pack-GSM",
+                  "modifiedDate": "2023-06-23T09:58:38.606Z",
+                  "_internal": {},
+                  "productRelationship": [
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "@baseType": "Product",
+                        "@type": "Product",
+                        "id": "PR37416"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    },
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "@baseType": "Product",
+                        "@type": "Product",
+                        "id": "PR37417"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    },
+                    {
+                      "product": {
+                        "@referredType": "Product",
+                        "@baseType": "Product",
+                        "@type": "Product",
+                        "id": "PR37418"
+                      },
+                      "relationshipType": "bundled",
+                      "type": "bundled"
+                    }
+                  ],
+                  "businessType": "Prepaid",
+                  "activationDate": "2023-06-23T09:58:38.595Z",
+                  "isCustomerVisible": true,
+                  "startDate": "2023-06-23T09:57:36.229Z",
+                  "productPrice": [
+                    {
+                      "price": {
+                        "taxRate": 0,
+                        "taxIncludedAmount": {
+                          "unit": "ZMW",
+                          "value": "100"
+                        },
+                        "dutyFreeAmount": {
+                          "unit": "ZMW",
+                          "value": "100"
+                        }
+                      },
+                      "priceType": "oneTimeCharge"
+                    },
+                    {
+                      "price": {
+                        "taxRate": 0,
+                        "taxIncludedAmount": {
+                          "unit": "ZMW",
+                          "value": "300"
+                        },
+                        "dutyFreeAmount": {
+                          "unit": "ZMW",
+                          "value": "300"
+                        }
+                      },
+                      "priceType": "Rental",
+                      "recurringChargePeriod": "Monthly"
+                    }
+                  ],
+                  "LoB": "Mobile",
+                  "status": "active"
+                },
+                "productOffering": {
+                  "@type": "SimpleProductOffering",
+                  "name": "MTNZ-Starter Pack-GSM",
+                  "id": "63e4c04631bc0980e627046b"
+                },
+                "action": "modify",
+                "id": "OI1",
+                "actionSubType": "suspension",
+                "modifiable": true
+              }
+            ],
+            "customFields": {
+              "productOrderGroup": ["PO80567"]
+            },
+            "@type": "ProductOrder",
+            "channel": [
+              {
+                "@referredType": "Channel",
+                "role": "interaction creation",
+                "name": "ussd",
+                "id": "ussd"
+              }
+            ],
+            "relatedParty": [
+              {
+                "@referredType": "Customer",
+                "role": "Customer",
+                "name": "Hannah Mon",
+                "id": "C9560",
+                "engagedParty": {
+                  "@referredType": "Individual",
+                  "name": "Hannah Mon",
+                  "id": "I23901"
+                }
+              },
+              {
+                "@referredType": "SSOUser",
+                "contactMedium": [
+                  {
+                    "medium": {
+                      "number": "87654345",
+                      "verified": false,
+                      "type": "Mobile"
+                    },
+                    "type": "Phone",
+                    "preferred": false
+                  },
+                  {
+                    "medium": {
+                      "emailAddress": "Zicta707@gmail.com",
+                      "verified": false,
+                      "type": "EmailAddress"
+                    },
+                    "type": "EmailAddress",
+                    "preferred": false
+                  }
+                ],
+                "role": "ussd",
+                "validFor": [
+                  {
+                    "startDateTime": "2024-03-14T12:48:29.007Z",
+                    "endDateTime": "2024-03-14T12:48:29.007Z"
+                  }
+                ],
+                "name": "Zicta707",
+                "id": "Zicta707"
+              }
+            ],
+            "cancellable": true,
+            "requestedStartDate": "2024-03-14T12:48:31.948Z",
+            "externalSystem": [
+              {
+                "system": "workflow",
+                "id": "29273397578722169"
+              },
+              {
+                "system": "DOM",
+                "id": "5d9674e6-9a8e-4e7f-abe6-b816fb4eef39"
+              }
+            ],
+            "createdDate": "2024-03-14T12:48:31.951Z",
+            "@baseType": "ProductOrder",
+            "modifiedDate": "2024-03-14T12:48:33.585Z",
+            "id": "PO80567",
+            "state": "inProgress",
+            "modifiable": true,
+            "orderDate": "2024-03-14T12:48:31.948Z"
+          },
+          "id": "II1"
+        }
+      ],
+      "createdDate": "2024-03-14T12:48:28.974Z",
+      "privateIdentifier": ["PR37415"],
+      "@baseType": "PartyInteraction",
+      "customerId": ["C9560"],
+      "modifiedDate": "2024-03-14T12:48:33.606Z",
+      "_internal": {},
+      "id": "PI133823",
+      "href": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/PI133823",
+      "@schemaLocation": "https://bss-uat.mtnzambia.co.zm/partyInteractionManagement/v1/partyInteraction/schema",
+      "publicIdentifier": ["962365089"],
+      "status": "inProgress",
+      "direction": "inbound"
+    }
+  }
+}
