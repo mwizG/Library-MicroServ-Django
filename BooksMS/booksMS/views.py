@@ -19,8 +19,6 @@ def books(request):
 ##search for books in the db
 @csrf_exempt
 def query_books(request):
-    print("here3")
-    print(request)
     if 'query' in request.GET and request.GET["query"]:
         search_term = request.GET.get("query")
         searched_books = Books.objects.filter(title__icontains=search_term)
