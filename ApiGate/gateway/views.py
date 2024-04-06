@@ -1,5 +1,5 @@
 from functools import wraps
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -8,33 +8,15 @@ from rest_framework.views import APIView
 import jwt
 import requests
 import logging
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.shortcuts import render
+from django.contrib.auth.forms import AuthenticationForm
+
 # URL of the Users Microservice
-USERS_MS_URL = 'http://127.0.0.1:8002/users/login/'
+USERS_MS_URL = 'http://127.0.0.1:8002/users/'
 
 # URL of the Books Microservice
 BOOKS_MS_URL = 'http://127.0.0.1:8000/books/'
-
-
-# Custom decorator for token extraction and validation
-def authenticate_request(view_func):
-    @wraps(view_func)
-    def wrapped_view(request, *args, **kwargs):
-        print(request.headers)
-        # Extract token from the Authorization header
-        token = request.headers.get('Authorization', '').split(' ')[1]
-        # Decode the token
-        decoded_token = decode_jwt(token, 'My_Secret113')
-        print(decoded_token)
-        if decoded_token:
-            # Add the decoded token to the request object for easy access in the view
-            request.decoded_token = decoded_token
-            # Call the view function
-
-            return view_func(request, *args, **kwargs)
-        else:
-            # Return error response for invalid or expired token
-            return JsonResponse({'error': 'Invalid or expired token'}, status=status.HTTP_401_UNAUTHORIZED)
-    return wrapped_view
 
 # Function to decode JWT token
 def decode_jwt(token, secret_key):
@@ -46,40 +28,109 @@ def decode_jwt(token, secret_key):
     except jwt.InvalidTokenError:
         return None
 
-class AuthView(APIView):
-    allowed_methods = ['GET', 'POST']  
-    
-    @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-       return super().dispatch(*args, **kwargs)
+# Custom decorator for token extraction and validation
+def authenticate_request(view_func):
+    @wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        # Extract token from the Authorization header
+        token = request.headers.get('Authorization', '').split(' ')[1]
+        # Decode the token
+        decoded_token = decode_jwt(token, 'My_Secret113')
+        if decoded_token:
+            # Add the decoded token to the request object for easy access in the view
+            request.decoded_token = decoded_token
+            # Call the view function
+            return view_func(request, *args, **kwargs)
+        else:
+            # Return error response for invalid or expired token
+            return JsonResponse({'error': 'Invalid or expired token'}, status=status.HTTP_401_UNAUTHORIZED)
+    return wrapped_view
+
+class UserSignUp(APIView):
+    """
+    Endpoint for user signup.
+    """
+    permission_classes = []
 
     def get(self, request):
-        # Redirect the user to the Users Microservice login page
-        return redirect(USERS_MS_URL)
+        """
+        Render sign up form
+        """
+        form = AuthenticationForm()
+        return render(request, 'signup.html', {'form': form})
     
     def post(self, request):
-        # Extract the tokens from the response data sent by the Users Microservice
-        response_data = request.data
-        refresh_token = response_data.get('refresh_token')
-        access_token = response_data.get('access_token')
-        print("login post request")
-        print(request.data)
-        # Assuming the response contains both refresh_token and access_token
-        if refresh_token and access_token:
-            # Use the tokens for further authentication and authorization
-            # For now, we'll just return a success message
-            return JsonResponse({'message': 'Tokens received successfully'}, status=status.HTTP_200_OK)
+        # Extract username and password from the request data
+        username = request.data.get('username')
+        password = request.data.get('password')
+        # Send signup details to Users Microservice for registration
+        response = requests.post('http://127.0.0.1:8002/users/signup/', data={'username': username, 'password': password})
+        # Return the response from Users Microservice
+        if response.status_code == 200:
+            return redirect('http://127.0.0.1:8001/gateway/login/')
         else:
-            # Handle the case where tokens are not present in the response
-            return JsonResponse({'error': 'Tokens not received'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'error': 'Failed to signup user'}, status=response.status_code)
+
+class UserLogin(APIView):
+    """
+    Endpoint for user login
+    """
+    def get(self, request):
+        """
+        Render the login form.
+        """
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form': form})
+    
+    def post(self, request):
+        # Extract username and password from the request data
+        username = request.data.get('username')
+        password = request.data.get('password')
+        # Send login details to Users Microservice for authentication
+        response = requests.post('http://127.0.0.1:8002/users/login/', data={'username': username, 'password': password})
+        # Return the response from Users Microservice
+        if response.status_code == 200:
+            return JsonResponse(response.json(), status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'error': 'Failed to login user'}, status=response.status_code)
+
+class AuthView(APIView):
+    allowed_methods = ['GET', 'POST']
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def post(self, request):
+        # Extract the token from the request headers
+        authorization_header = request.headers.get('Authorization')
+        if authorization_header:
+            token = authorization_header.split(' ')[1]
+
+            # Decode the token
+            decoded_token = decode_jwt(token, 'My_Secret113')
+            if decoded_token:
+                # Check if the token contains necessary information for authorization
+                user_id = decoded_token.get('user_id')
+                if user_id:
+                    # Implement your authorization logic here, e.g., check user permissions
+                    # For now, just return a success message
+                    return JsonResponse({'message': 'Token validated successfully'}, status=status.HTTP_200_OK)
+                else:
+                    return JsonResponse({'error': 'Invalid token format'}, status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                # Return error response for invalid or expired token
+                return JsonResponse({'error': 'Invalid or expired token'}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            # Return error response for missing Authorization header
+            return JsonResponse({'error': 'Authorization header missing'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 class BooksView(APIView):
     @method_decorator(authenticate_request)
     def get(self, request):
-        print("in books gateway")
         # Use request.decoded_token to access the decoded token
         response = requests.get(f'{BOOKS_MS_URL}')
-        
         if response.status_code == 200:
             return JsonResponse(response.json(), status=status.HTTP_200_OK)
         else:
@@ -91,7 +142,6 @@ class BooksView(APIView):
         search_term = request.data.get("query")
         # Forward the request to the Books Microservice to search for books
         response = requests.post(f'{BOOKS_MS_URL}', data={'query': search_term})
-        print(response,"here")
         if response.status_code == 200:
             # Return the list of searched books to the client
             return JsonResponse(response.json(), status=status.HTTP_200_OK)
