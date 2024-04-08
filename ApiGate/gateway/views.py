@@ -19,13 +19,16 @@ USERS_MS_URL = 'http://127.0.0.1:8002/users/'
 BOOKS_MS_URL = 'http://127.0.0.1:8000/books/'
 
 # Function to decode JWT token
-def decode_jwt(token, secret_key):
+def decode_jwt(token):
     try:
-        decoded_token = jwt.decode(token, secret_key, algorithms=['HS256'])
+        decoded_token = jwt.decode(token, None, None)
         return decoded_token
     except jwt.ExpiredSignatureError:
+        print(1)
         return None
     except jwt.InvalidTokenError:
+        return None
+    except Exception as e:
         return None
 
 # Custom decorator for token extraction and validation
@@ -81,7 +84,7 @@ class UserLogin(APIView):
         """
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
-    
+    @csrf_exempt
     def post(self, request):
         # Extract username and password from the request data
         username = request.data.get('username')
@@ -101,21 +104,24 @@ class AuthView(APIView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
+    @csrf_exempt
     def post(self, request):
         # Extract the token from the request headers
         authorization_header = request.headers.get('Authorization')
+        print("Authorization: {}\n".format(authorization_header))
         if authorization_header:
             token = authorization_header.split(' ')[1]
-
             # Decode the token
-            decoded_token = decode_jwt(token, 'My_Secret113')
+            decoded_token = decode_jwt(token)
+            print(decoded_token)
             if decoded_token:
                 # Check if the token contains necessary information for authorization
                 user_id = decoded_token.get('user_id')
                 if user_id:
                     # Implement your authorization logic here, e.g., check user permissions
                     # For now, just return a success message
-                    return JsonResponse({'message': 'Token validated successfully'}, status=status.HTTP_200_OK)
+                    
+                    return JsonResponse({'user_id': f'{user_id}'}, status=status.HTTP_200_OK)
                 else:
                     return JsonResponse({'error': 'Invalid token format'}, status=status.HTTP_401_UNAUTHORIZED)
             else:

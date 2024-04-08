@@ -10,6 +10,8 @@ from .serializers import CustomUserSerializer  # Import CustomUserSerializer
 import logging
 import json
 
+from django.views.decorators.csrf import csrf_exempt
+
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -75,6 +77,7 @@ class UserSignUp(TokenObtainPairView):
 class UserLogin(APIView):
     permission_classes = []
 
+    @csrf_exempt
     def post(self, request):
         # Extract username and password from the request data
         username = request.data.get('username')
@@ -86,17 +89,16 @@ class UserLogin(APIView):
             # Generate tokens for the authenticated user
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
-            print("here are the token",refresh)
             # Send the access token to the API Gateway
             headers = {
                 'Authorization': f'Bearer {access_token}',
                 'Content-Type': 'application/json'
             }
             response = requests.post('http://127.0.0.1:8001/gateway/auth/login/', headers=headers)
-            print("HERE ARE THE response",response)
-            print("HEREs the header",headers)
+            user_id = response.json()['user_id']
             if response.status_code == 200:
                 # Return a success response
+                # redirect to booksMS 
                 return Response({'access_token': access_token}, status=status.HTTP_200_OK)
             else:
                 # Return an error response if sending the token fails
