@@ -102,8 +102,7 @@ class AuthView(APIView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
-       
-       return super().dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
     @csrf_exempt
     def post(self, request):
@@ -129,9 +128,9 @@ class AuthView(APIView):
                 # Return error response for invalid or expired token
                 return JsonResponse({'error': 'Invalid or expired token'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            # Handle authentication failure
-            return JsonResponse({'error': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
-# api_gateway/views.py
+            # Return error response for missing Authorization header
+            return JsonResponse({'error': 'Authorization header missing'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 class BooksView(APIView):
     @method_decorator(authenticate_request)
