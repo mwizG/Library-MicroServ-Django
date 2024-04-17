@@ -20,6 +20,12 @@ BooksMS/booksMS/migrations/__pycache__/
 BooksMS/LibraryProject/__pycache__/
 BooksMS/__pycache__/
 UsersMS/__pycache__/
-ApiGateway/ApiGateway/__pycache__/
-ApiGateway/gateway/__pycache__/
-ApiGateway/gateway/migrations/__pycache__/
+ApiGate/ApiGateway/__pycache__/
+ApiGate/gateway/__pycache__/
+ApiGate/gateway/migrations/__pycache__/
+ApiGate/ApiGate/__pycache__/
+ApiGate/__pycache__/
+Other/
+UsersMS/db.sqlite3
+BooksMS/db.sqlite3
+ApiGate/db.sqlite3

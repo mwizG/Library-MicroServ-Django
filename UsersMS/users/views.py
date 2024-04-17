@@ -7,15 +7,22 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.hashers import make_password  # Import make_password to hash passwords
 from .models import CustomUser  # Import CustomUser model
 from .serializers import CustomUserSerializer  # Import CustomUserSerializer
+import logging
+import json
 
+from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView, TokenBlacklistView
-import logging
-
+from django.contrib.auth import authenticate
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -36,12 +43,6 @@ class UserSignUp(TokenObtainPairView):
     """
     permission_classes = []
 
-    def get(self, request):
-        """
-        Render sign up form
-        """
-        form = AuthenticationForm()
-        return render(request, 'signup.html', {'form': form})
 
     # POST request for user signup
     def post(self, request):
@@ -71,53 +72,41 @@ class UserSignUp(TokenObtainPairView):
                 return Response({'error': e})
 
 # Endpoint for user login.
-class UserLogin(TokenObtainPairView):
-    """
-    Endpoint for user login
-    """
-    
-class UserLogin(TokenObtainPairView):
-    """
-    Endpoint for user login
-    """
-    def get(self, request):
-        """
-        Render the login form.
-        """
-        form = AuthenticationForm()
-        return render(request, 'login.html', {'form': form})
-    
+
+
+class UserLogin(APIView):
+    permission_classes = []
+
+    @csrf_exempt
     def post(self, request):
-        """
-        Handle login request
-        """
-        # Get the username and password from the request data
+        # Extract username and password from the request data
         username = request.data.get('username')
         password = request.data.get('password')
-        
-        # Authenticate the user using the provided username and password
+
+        # Authenticate user using Django's authenticate function
         user = authenticate(username=username, password=password)
-        
-        # If authentication is successful, generate a new refresh token for the user
         if user:
+            # Generate tokens for the authenticated user
             refresh = RefreshToken.for_user(user)
-            
-            # Send a POST request to the API Gateway with the refresh token and access token
-            response = requests.post('http://127.0.0.1:8000/gateway/', data={
-                'refresh_token': str(refresh),
-                'access_token': str(refresh.access_token),
-            })
-            print(response,"here")
-            
-            # If the request to the API Gateway is successful, redirect the user to the Books Microservice
+            access_token = str(refresh.access_token)
+            # Send the access token to the API Gateway
+            headers = {
+                'Authorization': f'Bearer {access_token}',
+                'Content-Type': 'application/json'
+            }
+            response = requests.post('http://127.0.0.1:8001/gateway/auth/login/', headers=headers)
+            user_id = response.json()['user_id']
             if response.status_code == 200:
-                return HttpResponseRedirect('http://127.0.0.1:8002/books/')
+                # Return a success response
+                # redirect to booksMS 
+                return Response({'access_token': access_token}, status=status.HTTP_200_OK)
             else:
-                # If the request to the API Gateway fails, return an error response
-                return Response({'error': 'Failed to authenticate with API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                # Return an error response if sending the token fails
+                return Response({'error': 'Failed to send access token to API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
-            # If authentication fails, return an error response
+            # Return an error response if authentication fails
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
 #work in progress
 class UserLogout(TokenBlacklistView):
     """
