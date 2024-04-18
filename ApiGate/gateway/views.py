@@ -93,7 +93,7 @@ class UserLogin(APIView):
         response = requests.post('http://127.0.0.1:8002/users/login/', data={'username': username, 'password': password})
         # Return the response from Users Microservice
         if response.status_code == 200:
-            return JsonResponse(response.json(), status=status.HTTP_200_OK)
+            return HttpResponseRedirect(f'http://127.0.0.1:8000/books/')
         else:
             return JsonResponse({'error': 'Failed to login user'}, status=response.status_code)
 
@@ -150,6 +150,7 @@ class BooksView(APIView):
         response = requests.post(f'{BOOKS_MS_URL}', data={'query': search_term})
         if response.status_code == 200:
             # Return the list of searched books to the client
+            return redirect()
             return JsonResponse(response.json(), status=status.HTTP_200_OK)
         else:
             # Return an error message to the client
