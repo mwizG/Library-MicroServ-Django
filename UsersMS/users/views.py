@@ -99,7 +99,8 @@ class UserLogin(APIView):
             if response.status_code == 200:
                 # Return a success response
                 # redirect to booksMS 
-                return Response({'access_token': access_token}, status=status.HTTP_200_OK)
+
+                return Response({'access_token': access_token,'user_id':user_id}, status=status.HTTP_200_OK)
             else:
                 # Return an error response if sending the token fails
                 return Response({'error': 'Failed to send access token to API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -134,12 +135,13 @@ class UserList(APIView):
         return Response(serializer.data)
 
 # Endpoint for retrieving, updating, or deleting a user.
+
 class UserDetail(APIView):
     """
     Endpoint for retrieving, updating, or deleting a user.
     """
     permission_classes = [IsAuthenticated]
-
+    @csrf_exempt
     def get_object(self, pk):
         try:
             # Retrieve a specific user object based on the provided primary key (pk)
@@ -147,14 +149,14 @@ class UserDetail(APIView):
         except CustomUser.DoesNotExist:
             # Raise Http404 exception if the user does not exist
             raise Http404
-
+    @csrf_exempt
     def get(self, request, pk):
         # Retrieve the user object
         user = self.get_object(pk)
         # Serialize the user object
         serializer = CustomUserSerializer(user)
         return Response(serializer.data)
-
+    @csrf_exempt
     def put(self, request, pk):
         # Retrieve the user object
         user = self.get_object(pk)
@@ -165,7 +167,7 @@ class UserDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    @csrf_exempt
     def delete(self, request, pk):
         # Retrieve the user object
         user = self.get_object(pk)

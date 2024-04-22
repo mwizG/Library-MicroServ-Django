@@ -31,7 +31,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         password = validated_data.get('password')
         if password:
             # Hash the new password if provided
-            instance.password = password
+            instance.password = make_password(password)
         # Save the updated user instance
         instance.save()
         return instance
+    

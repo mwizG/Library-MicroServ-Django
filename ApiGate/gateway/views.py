@@ -31,24 +31,6 @@ def decode_jwt(token):
     except Exception as e:
         return None
 
-# Custom decorator for token extraction and validation
-def authenticate_request(view_func):
-    @wraps(view_func)
-    def wrapped_view(request, *args, **kwargs):
-        # Extract token from the Authorization header
-        token = request.headers.get('Authorization', '').split(' ')[1]
-        # Decode the token
-        decoded_token = decode_jwt(token, 'My_Secret113')
-        if decoded_token:
-            # Add the decoded token to the request object for easy access in the view
-            request.decoded_token = decoded_token
-            # Call the view function
-            return view_func(request, *args, **kwargs)
-        else:
-            # Return error response for invalid or expired token
-            return JsonResponse({'error': 'Invalid or expired token'}, status=status.HTTP_401_UNAUTHORIZED)
-    return wrapped_view
-
 class UserSignUp(APIView):
     """
     Endpoint for user signup.
@@ -93,7 +75,26 @@ class UserLogin(APIView):
         response = requests.post('http://127.0.0.1:8002/users/login/', data={'username': username, 'password': password})
         # Return the response from Users Microservice
         if response.status_code == 200:
+            accesstoken=response.json()['access_token']
+            print('here acc: ',accesstoken)
+            user_id=response.json()['user_id']
+            print("user id in gate:",user_id)
+            if user_id:
+                    # Implement your authorization logic here, e.g., check user permissions
+                    # For now, just return a success message
+                    user_info_url= f'http://127.0.0.1:8002/users/users/?user_id={user_id}'
+                    response=requests.get(user_info_url)
+                    
+                    if response.status_code==200:
+                       user_info = response.json()
+                       print("User information:", user_info)
+                       
+                    else:
+                       print("the response: ", response)
+                       print("Failed to retrieve user information")
+                       
             return HttpResponseRedirect(f'http://127.0.0.1:8000/books/')
+            
         else:
             return JsonResponse({'error': 'Failed to login user'}, status=response.status_code)
 
@@ -133,25 +134,7 @@ class AuthView(APIView):
 
 
 class BooksView(APIView):
-    @method_decorator(authenticate_request)
-    def get(self, request):
-        # Use request.decoded_token to access the decoded token
-        response = requests.get(f'{BOOKS_MS_URL}')
-        if response.status_code == 200:
-            return JsonResponse(response.json(), status=status.HTTP_200_OK)
-        else:
-            return JsonResponse({'error': 'Failed to retrieve books'}, status=response.status_code)
-
-    @method_decorator(authenticate_request)
-    def post(self, request):
-        # Extract the search term from the request data
-        search_term = request.data.get("query")
-        # Forward the request to the Books Microservice to search for books
-        response = requests.post(f'{BOOKS_MS_URL}', data={'query': search_term})
-        if response.status_code == 200:
-            # Return the list of searched books to the client
-            return redirect()
-            return JsonResponse(response.json(), status=status.HTTP_200_OK)
-        else:
-            # Return an error message to the client
-            return JsonResponse({'error': 'Failed to search for books'}, status=response.status_code)
+    def dummy(self,requests):
+    
+       return render(requests,f"{BOOKS_MS_URL}")
+    
