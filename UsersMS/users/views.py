@@ -99,8 +99,9 @@ class UserLogin(APIView):
             if response.status_code == 200:
                 # Return a success response
                 # redirect to booksMS 
-
-                return Response({'access_token': access_token,'user_id':user_id}, status=status.HTTP_200_OK)
+                #user_info_url= f'http://127.0.0.1:8002/users/users/?user_id={user_id}'
+               # respon=requests.get(user_info_url)
+                return Response({'access_token': access_token,'user_id':user_id},status=status.HTTP_200_OK)
             else:
                 # Return an error response if sending the token fails
                 return Response({'error': 'Failed to send access token to API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -140,7 +141,7 @@ class UserDetail(APIView):
     """
     Endpoint for retrieving, updating, or deleting a user.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     @csrf_exempt
     def get_object(self, pk):
         try:
@@ -151,10 +152,13 @@ class UserDetail(APIView):
             raise Http404
     @csrf_exempt
     def get(self, request, pk):
+        
         # Retrieve the user object
-        user = self.get_object(pk)
+        user = CustomUser.objects.get(pk=pk)
         # Serialize the user object
         serializer = CustomUserSerializer(user)
+        
+        print("here: ",serializer.data)
         return Response(serializer.data)
     @csrf_exempt
     def put(self, request, pk):

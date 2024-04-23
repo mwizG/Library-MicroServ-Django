@@ -82,7 +82,7 @@ class UserLogin(APIView):
             if user_id:
                     # Implement your authorization logic here, e.g., check user permissions
                     # For now, just return a success message
-                    user_info_url= f'http://127.0.0.1:8002/users/users/?user_id={user_id}'
+                    user_info_url= f'http://127.0.0.1:8002/users/users/{user_id}'
                     response=requests.get(user_info_url)
                     
                     if response.status_code==200:
