@@ -13,11 +13,11 @@
     <ul>
         {% for book in books %}
         <div>
-            <li><a href="{% url 'books:details' pk=book.pk %}">{{ book.title }}</a></li>
-            <a href="{% url 'books:delete' pk=book.pk %}"><button>Delete</button></a>
+            <li><a href='http://127.0.0.1:8000/details/{{book.id}}'>{{ book.title }}</a></li>
+            <a href="http://127.0.0.1:8000/book/{{book.id}}/delete/"><button>Delete</button></a>
         </div>
         {% endfor %}
     </ul>
-    <a href="{% url 'books:book_create' %}">Add New Book</a>
+    <a href="http://127.0.0.1:8000/new/">Add New Book</a>
 </body>
 </html>

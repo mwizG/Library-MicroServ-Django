@@ -1,9 +1,9 @@
 from django.urls import path
-
+from . views import BooksView
 from . import views
 app_name='books'
 urlpatterns = [
-    path('books/',views.books, name='books'),
+    path('books/', BooksView.as_view(), name='books'),
     path('books/results',views.query_books, name='results'),
     path('details/<int:pk>',views.book_details,name='details'),
     path('new/', views.book_create, name='book_create'),

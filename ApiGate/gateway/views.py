@@ -80,21 +80,17 @@ class UserLogin(APIView):
             user_id=response.json()['user_id']
             print("user id in gate:",user_id)
             if user_id:
-                    # Implement your authorization logic here, e.g., check user permissions
-                    # For now, just return a success message
-                    user_info_url= f'http://127.0.0.1:8002/users/users/{user_id}'
-                    response=requests.get(user_info_url)
-                    
-                    if response.status_code==200:
-                       user_info = response.json()
-                       print("User information:", user_info)
-                       
-                    else:
-                       print("the response: ", response)
-                       print("Failed to retrieve user information")
-                       
-            return HttpResponseRedirect(f'http://127.0.0.1:8000/books/')
-            
+                # Implement your authorization logic here, e.g., check user permissions
+                # For now, just return a success message
+                user_info_url= f'http://127.0.0.1:8002/users/users/{user_id}'
+                response=requests.get(user_info_url)
+                user_info = response.json()
+                print(user_info)
+                response = requests.get('http://127.0.0.1:8000/books/')
+                books = response.json()
+                return render(request, 'books.html', {'books': books,'user_info': user_info})  
+            else:
+                return JsonResponse({'error': 'No user id'}, status=402)
         else:
             return JsonResponse({'error': 'Failed to login user'}, status=response.status_code)
 

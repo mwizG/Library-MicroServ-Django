@@ -1,22 +1,33 @@
+import json
 from urllib import request
 from django.shortcuts import redirect, render
+from django.views import View
 import requests
 from .models import Books
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import logging
 from django.views.decorators.csrf import csrf_exempt
 from . forms import BookForm,AuthorForm
+from rest_framework.views import APIView
+from rest_framework import status
+from rest_framework.response import Response
 
+from . serializers import BooksSerializer
 # Create your views here.
 
 logger = logging.getLogger(__name__)
 
 ##return all books in the db
-@csrf_exempt
-def books(request):
-   
-    books = Books.objects.all()
-    return render(request, 'books.html', {'books': books})
+
+class BooksView(APIView):
+    permission_classes = []
+    @csrf_exempt
+    def get(self, request):
+        books = Books.objects.all()
+        serializer = BooksSerializer(books, many=True)
+        return Response(serializer.data)
+
+    
 
 ##search for books in the db
 @csrf_exempt
