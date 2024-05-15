@@ -49,7 +49,7 @@ def book_create(request):
         form =BookForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/books/')
+            return redirect('http://127.0.0.1:8001/gateway/home/')
     else:
         form =BookForm()
     return render(request, 'book_form.html',{'form':form})
@@ -60,7 +60,7 @@ def book_update(request, pk):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect('/books/')
+            return redirect('http://127.0.0.1:8001/gateway/home/')
     else:
         form = BookForm(instance=book)
     return render(request, 'book_form.html', {'form': form})
@@ -69,5 +69,5 @@ def book_delete(request, pk):
     book = Books.objects.get(pk=pk)
     if request.method == 'POST':
         book.delete()
-        return redirect('/books/')
+        return redirect('http://127.0.0.1:8001/gateway/home/')
     return render(request, 'book_delete.html', {'book': book})

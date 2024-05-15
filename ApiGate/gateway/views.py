@@ -83,16 +83,33 @@ class UserLogin(APIView):
                 # Implement your authorization logic here, e.g., check user permissions
                 # For now, just return a success message
                 user_info_url= f'http://127.0.0.1:8002/users/users/{user_id}'
-                response=requests.get(user_info_url)
-                user_info = response.json()
-                print(user_info)
-                response = requests.get('http://127.0.0.1:8000/books/')
-                books = response.json()
-                return render(request, 'books.html', {'books': books,'user_info': user_info})  
+                user_info_response = requests.get(user_info_url)
+                if user_info_response.status_code == 200:
+                    user_info = user_info_response.json()
+                    # Store user_info in session
+                    request.session['user_info'] = user_info
+                    return redirect('http://127.0.0.1:8001/gateway/home/')
+
+                else:
+                    return JsonResponse({'error': 'Failed to fetch user info'}, status=401)
+           
             else:
                 return JsonResponse({'error': 'No user id'}, status=402)
         else:
             return JsonResponse({'error': 'Failed to login user'}, status=response.status_code)
+class HomeView(APIView):
+    def get(self,request):
+        user_info=request.session.get('user_info')
+        print('here boy:',user_info)
+        if user_info:
+           response = requests.get('http://127.0.0.1:8000/books/')
+           books = response.json()
+           return render(request, 'home.html', {'books': books,'user_info': user_info})     
+        else:
+             return JsonResponse({'error': 'No user info'}, status=402)
+    
+        
+    
 
 class AuthView(APIView):
     allowed_methods = ['GET', 'POST']
