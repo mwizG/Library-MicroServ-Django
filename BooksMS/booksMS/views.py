@@ -11,7 +11,7 @@ from . forms import BookForm,AuthorForm
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-
+from django.shortcuts import render, get_object_or_404
 from . serializers import BooksSerializer
 # Create your views here.
 
@@ -39,11 +39,18 @@ def query_books(request):
     else:
         return HttpResponse("No books foudn matching %s", search_term)
     
-def book_details(request,pk):
-    book=Books.objects.get(pk=pk)
+@csrf_exempt    
 
-    return render(request,'book_details.html',{'book':book})
+def book_details(request, pk):
+    book = get_object_or_404(Books, pk=pk)
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+    else:
+        user_id = None
+    print("User ID from form:", user_id)  # Verify the user_id is received correctly
+    return render(request, 'book_details.html', {'book': book, 'user_id': user_id})
 
+@csrf_exempt
 def book_create(request):
     if request.method=='POST':
         form =BookForm(request.POST)

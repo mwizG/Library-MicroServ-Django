@@ -92,7 +92,10 @@ class UserLogin(APIView):
 
                 else:
                     return JsonResponse({'error': 'Failed to fetch user info'}, status=401)
-           
+           # else:
+                #response = requests.get('http://127.0.0.1:8000/books/')
+               # books = response.json()
+               # return render(request, 'books.html', {'books': books,'user_info': user_info})  
             else:
                 return JsonResponse({'error': 'No user id'}, status=402)
         else:
@@ -108,7 +111,18 @@ class HomeView(APIView):
         else:
              return JsonResponse({'error': 'No user info'}, status=402)
     
-        
+""" class BorrowView(APIView):
+    print("1")
+    def get(self,request):
+        print("2")
+        user_info=request.session.get('user_info')
+        print('here boy 5:',user_info)
+        if user_info:
+           response = requests.get('http://127.0.0.1:8000/books/')
+           books = response.json()
+           return render(request, 'borrow.html', {'books': books,'user_info': user_info})     
+        else:
+             return JsonResponse({'error': 'No user info'}, status=402) """       
     
 
 class AuthView(APIView):

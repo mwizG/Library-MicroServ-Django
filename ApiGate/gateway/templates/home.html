@@ -4,7 +4,7 @@
     <title>Book List</title>
 </head>
 <body>
-    
+
     {% if user_info %}
     <div>
         <p>Hi {{ user_info.username }}</p>
@@ -14,11 +14,45 @@
     <ul>
         {% for book in books %}
         <div>
-            <li><a href='http://127.0.0.1:8000/details/{{book.id}}'>{{ book.title }}</a></li>
-            <a href="http://127.0.0.1:8000/book/{{book.id}}/delete/"><button>Delete</button></a>
+            <li>
+                <a class="book-details-link" href="#" data-book-id="{{ book.id }}">{{ book.title }}</a>
+                <form id="book-details-form-{{ book.id }}" method="POST" action="http://127.0.0.1:8000/details/{{ book.id }}" style="display: none;">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" id="user_id-{{ book.id }}" value="{{ user_info.id }}">
+                </form>
+            </li>
+            <a href="http://127.0.0.1:8000/book/{{ book.id }}/delete/"><button>Delete</button></a>
+            
+            <form method="POST" action="http://127.0.0.1:8003/loans/borrow/">
+                {% csrf_token %}
+                {% if user_info %}
+                <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
+                {% endif %}
+                <input type="hidden" id="book_id" name="book_id" value="{{ book.id }}">
+                <button type="submit">Borrow Me!!</button>  
+            </form> 
         </div>
         {% endfor %}
     </ul>
     <a href="http://127.0.0.1:8000/new/">Add New Book</a>
+
+    <script>
+        // Wait for the document to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select all elements with class 'book-details-link'
+            var links = document.querySelectorAll('a.book-details-link');
+            // Loop through each selected link
+            links.forEach(function(link) {
+                // Add a click event listener to each link
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();  // Prevent the default link behavior
+                    var bookId = event.target.getAttribute('data-book-id');  // Get the book ID from the data attribute
+                    // Submit the form with the hidden user ID
+                    document.getElementById('book-details-form-' + bookId).submit();
+                });
+            });
+        });
+    </script>
+    
 </body>
 </html>

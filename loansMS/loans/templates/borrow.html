@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Borrow Book</title>
+</head>
+<body>
+    <h1>Add Return Date</h1>
+    <form method="post" action="http://127.0.0.1:8003/loans/create/">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="user_id" value="{{ request.session.user_id }}">
+        <input type="hidden" name="book_id" value="{{ request.session.book_id }}">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
