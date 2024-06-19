@@ -8,6 +8,7 @@
     {% if user_info %}
     <div>
         <p>Hi {{ user_info.username }}</p>
+
     </div>
     {% endif %}
     <h1>Book List</h1>
@@ -16,14 +17,15 @@
         <div>
             <li>
                 <a class="book-details-link" href="#" data-book-id="{{ book.id }}">{{ book.title }}</a>
-                <form id="book-details-form-{{ book.id }}" method="POST" action="http://127.0.0.1:8000/details/{{ book.id }}" style="display: none;">
+                <form id="book-details-form-{{ book.id }}" method="POST" action="http://127.0.0.1:8001/gateway/details/{{ book.id }}" style="display: none;">
                     {% csrf_token %}
-                    <input type="hidden" name="user_id" id="user_id-{{ book.id }}" value="{{ user_info.id }}">
+                    {% if user_info %}
+                    <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
+                    {% endif %}
                 </form>
             </li>
-            <a href="http://127.0.0.1:8000/book/{{ book.id }}/delete/"><button>Delete</button></a>
             
-            <form method="POST" action="http://127.0.0.1:8003/loans/borrow/">
+            <form method="POST" action="http://127.0.0.1:8001/gateway/borrow/">
                 {% csrf_token %}
                 {% if user_info %}
                 <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
@@ -34,8 +36,17 @@
         </div>
         {% endfor %}
     </ul>
-    <a href="http://127.0.0.1:8000/new/">Add New Book</a>
-
+    
+    <div>
+        <form method="POST" action="http://127.0.0.1:8001/gateway/new/">
+            {% csrf_token %}
+            {% if user_info %}
+            <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
+            {% endif %}
+            <button type="submit">ADD BOOK!!</button>  
+        </form> 
+    </div>
+    
     <script>
         // Wait for the document to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {

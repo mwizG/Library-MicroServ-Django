@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,29 +10,34 @@ from . forms import LoanForm
 
 @csrf_exempt
 def borrow_book(request):
+    print("borrow_book view called")
+    
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         book_id = request.POST.get('book_id')
         
-        if not user_id or not book_id:
-            # Redirect to an error page or render an error message
-            return render(request, 'error.html', {'error_message': 'User ID and Book ID are required.'})
-
-        # Save user_id and book_id in the session
-        request.session['user_id'] = user_id
-        request.session['book_id'] = book_id
+        print(f"Received POST request with user_id: {user_id}, book_id: {book_id}")
         
-        # Display the form to input return date
+        if not user_id or not book_id:
+            print("User ID or Book ID missing")
+            return JsonResponse({'error_message': 'User ID and Book ID are required.'}, status=400)
+        
         form = LoanForm()
-        return render(request, 'borrow.html', {'form': form})
+        print("Displaying the form for return date")
+        return JsonResponse({'form': form.as_p()}, status=200)
     
-    return redirect('mybooks')  # Redirect to mybooks if the request is not POST
+    print("Request method is not POST")
+    return JsonResponse({'error_message': 'Invalid request method.'}, status=400)
+
+    
+    
 @csrf_exempt
 def create_loan(request):
+    print("we are running create")
     if request.method == 'POST':
-        user_id = request.session.get('user_id')
-        book_id = request.session.get('book_id')
-        return_date=request.POST.get('return_date')
+        user_id = request.POST.get('user_id')
+        book_id = request.POST.get('book_id')
+        return_date = request.POST.get('return_date')
         
         if not user_id or not book_id:
             # Redirect to an error page or render an error message
@@ -47,16 +53,19 @@ def create_loan(request):
                 new_loan.save()
                 
                 book_details_url = 'http://127.0.0.1:8000/details/{}'.format(book_id)
+
                 
                 # Redirect to another page after successfully saving the loan
-                return redirect(book_details_url)# Change 'success_page' to the actual URL name or path you want to redirect to
+                return redirect('http://127.0.0.1:8001/gateway/home/')# Change 'success_page' to the actual URL name or path you want to redirect to
             else:
                 return render(request, 'create.html', {'form': form, 'error_message': 'Please provide a valid return date'})
         else:
             return render(request, 'return.html', {'form': form, 'error_message': 'Please provide a return date'})
     
-    return redirect('mybooks')  # Redirect to mybooks if the request is not POST
+    return render(request,'error.html')  # Redirect to error if the request is not POST
 
+def Mybooks(request):
+      return render(request,'mybooks')
 
 
 
@@ -86,3 +95,5 @@ class ReturnBookView(APIView):
 
     def get(self, request):
         return Response(status=status.HTTP_200_OK)
+    
+

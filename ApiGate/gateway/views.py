@@ -31,75 +31,6 @@ def decode_jwt(token):
     except Exception as e:
         return None
 
-class UserSignUp(APIView):
-    """
-    Endpoint for user signup.
-    """
-    permission_classes = []
-
-    def get(self, request):
-        """
-        Render sign up form
-        """
-        form = AuthenticationForm()
-        return render(request, 'signup.html', {'form': form})
-    
-    def post(self, request):
-        # Extract username and password from the request data
-        username = request.data.get('username')
-        password = request.data.get('password')
-        # Send signup details to Users Microservice for registration
-        response = requests.post('http://127.0.0.1:8002/users/signup/', data={'username': username, 'password': password})
-        # Return the response from Users Microservice
-        if response.status_code == 200:
-            return redirect('http://127.0.0.1:8001/gateway/login/')
-        else:
-            return JsonResponse({'error': 'Failed to signup user'}, status=response.status_code)
-
-class UserLogin(APIView):
-    """
-    Endpoint for user login
-    """
-    def get(self, request):
-        """
-        Render the login form.
-        """
-        form = AuthenticationForm()
-        return render(request, 'login.html', {'form': form})
-    @csrf_exempt
-    def post(self, request):
-        # Extract username and password from the request data
-        username = request.data.get('username')
-        password = request.data.get('password')
-        # Send login details to Users Microservice for authentication
-        response = requests.post('http://127.0.0.1:8002/users/login/', data={'username': username, 'password': password})
-        # Return the response from Users Microservice
-        if response.status_code == 200:
-            accesstoken=response.json()['access_token']
-            print('here acc: ',accesstoken)
-            user_id=response.json()['user_id']
-            print("user id in gate:",user_id)
-            if user_id:
-                # Implement your authorization logic here, e.g., check user permissions
-                # For now, just return a success message
-                user_info_url= f'http://127.0.0.1:8002/users/users/{user_id}'
-                user_info_response = requests.get(user_info_url)
-                if user_info_response.status_code == 200:
-                    user_info = user_info_response.json()
-                    # Store user_info in session
-                    request.session['user_info'] = user_info
-                    return redirect('http://127.0.0.1:8001/gateway/home/')
-
-                else:
-                    return JsonResponse({'error': 'Failed to fetch user info'}, status=401)
-           # else:
-                #response = requests.get('http://127.0.0.1:8000/books/')
-               # books = response.json()
-               # return render(request, 'books.html', {'books': books,'user_info': user_info})  
-            else:
-                return JsonResponse({'error': 'No user id'}, status=402)
-        else:
-            return JsonResponse({'error': 'Failed to login user'}, status=response.status_code)
 class HomeView(APIView):
     def get(self,request):
         user_info=request.session.get('user_info')
@@ -110,20 +41,102 @@ class HomeView(APIView):
            return render(request, 'home.html', {'books': books,'user_info': user_info})     
         else:
              return JsonResponse({'error': 'No user info'}, status=402)
-    
-""" class BorrowView(APIView):
-    print("1")
-    def get(self,request):
-        print("2")
-        user_info=request.session.get('user_info')
-        print('here boy 5:',user_info)
+
+class BookDetailView(APIView):
+    def post(self, request, pk):
+        user_info = request.data.get('user_id')
+        
+        book_id = pk  # Use the pk from the URL as the book_id
+        book_details_url = f'http://127.0.0.1:8000/details/{book_id}'
+        print('user id:', user_info)
+        
         if user_info:
-           response = requests.get('http://127.0.0.1:8000/books/')
-           books = response.json()
-           return render(request, 'borrow.html', {'books': books,'user_info': user_info})     
+            response=requests.post(book_details_url, data={'user_id': user_info})
+            print(f"Response status code: {response.status_code}")
+            print(f"Response content: {response.content}")
+            
+            if response.status_code == 200:
+                try:
+                    books = response.json()
+                    print("response: ", books)
+                    return render(request, 'book_details.html', {'books': books, 'user_info': {'id': user_info}})
+                except ValueError:
+                    return JsonResponse({'error': 'Invalid JSON response'}, status=500)
+            else:
+                return JsonResponse({'error': 'Failed to fetch book details'}, status=response.status_code)
         else:
-             return JsonResponse({'error': 'No user info'}, status=402) """       
-    
+            return JsonResponse({'error': 'No user info'}, status=402)
+class BookDele(APIView):
+    def get(self, request, pk):
+        user_id = request.GET.get('user_id')
+        book_details_url = f'http://127.0.0.1:8000/details/{pk}'
+        
+        response = requests.get(book_details_url)
+        if response.status_code == 200:
+            book = response.json()
+            return render(request, 'book_delete.html', {'book': book['book'], 'user_id': user_id})
+        else:
+            return JsonResponse({'error': 'Failed to fetch book details'}, status=response.status_code)
+
+    def post(self, request, pk):
+        user_id = request.POST.get('user_id')
+        book_dele_url = f'http://127.0.0.1:8000/book/{pk}/delete/'
+        print('book_id:', pk, 'user_id:', user_id)
+        
+        if user_id:
+            response = requests.post(book_dele_url, data={'user_id': user_id})
+            if response.status_code == 200:
+                return redirect('http://127.0.0.1:8001/gateway/home/')
+                #return JsonResponse({'message': 'Book deleted successfully'})
+            else:
+                return JsonResponse({'error': 'Failed to delete book'}, status=response.status_code)
+        else:
+            return JsonResponse({'error': 'No user info'}, status=402)
+
+class BookEdit(APIView):
+    def get(self,request,pk):
+        user_id = request.data.get('user_id')
+        book_id = request.data.get('book_id')
+        book_details_url = 'http://127.0.0.1:8000/{}/edit/'.format(book_id)
+        print('book_id:',book_id)
+        if user_id:
+           response = requests.get(book_details_url)
+           books = response.json().get('form')
+           return render(request, 'book_form.html', {'books': books,'book_id': book_id})     
+        else:
+             return JsonResponse({'error': 'No user info'}, status=402)
+        
+class BookCreate(APIView):
+    print('we are running')
+    def get(self,request):
+        user_id = request.data.get('user_id')
+        book_create_url = 'http://127.0.0.1:8000/new/'
+        print('here boy:',user_id)
+        if user_id:
+           response = requests.get(book_create_url)
+           #books = response.json().get('form')
+           return render(request, 'book_form.html', {'form': response.json().get('form'),'user_info': user_id})     
+        else:
+             return JsonResponse({'error': 'No user info'}, status=402)
+
+class BorrowView(APIView):
+    def post(self,request):  
+        #extract userinfo
+        user_id = request.data.get('user_id')
+        book_id = request.data.get('book_id')
+         # Send borrow details to the borrow_book function
+        response = requests.post('http://127.0.0.1:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id})   
+        
+        #rendering the borrow form which is just the dates
+        if response.status_code == 200:
+            print("success")
+            return render(request, 'borrow.html', {
+                'form': response.json().get('form'),
+                'user_id': user_id,
+                'book_id': book_id
+            })
+        else:
+            return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
 
 class AuthView(APIView):
     allowed_methods = ['GET', 'POST']

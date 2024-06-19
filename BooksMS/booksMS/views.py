@@ -40,18 +40,26 @@ def query_books(request):
         return HttpResponse("No books foudn matching %s", search_term)
     
 @csrf_exempt    
-
 def book_details(request, pk):
     book = get_object_or_404(Books, pk=pk)
-    if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-    else:
-        user_id = None
-    print("User ID from form:", user_id)  # Verify the user_id is received correctly
-    return render(request, 'book_details.html', {'book': book, 'user_id': user_id})
-
+    user_id = request.POST.get('user_id') if request.method == 'POST' else request.GET.get('user_id')
+    print("User ID from form:", user_id)
+    print("Displaying the form for return date")
+    
+    book_data = {
+        'id': book.id,
+        'title': book.title,
+        'author': book.author_name if book.author else 'Unknown Author',
+        'published_date': book.pub_year,
+        'coverimg': book.coverimg,
+        'rating': book.rating,
+        'genre': book.genre,
+    }
+    
+    return JsonResponse({'book': book_data}, status=200)
 @csrf_exempt
 def book_create(request):
+    user_id = request.POST.get('user_id') if request.method == 'POST' else request.GET.get('user_id')
     if request.method=='POST':
         form =BookForm(request.POST)
         if form.is_valid():
@@ -59,10 +67,11 @@ def book_create(request):
             return redirect('http://127.0.0.1:8001/gateway/home/')
     else:
         form =BookForm()
-    return render(request, 'book_form.html',{'form':form})
-
+    return JsonResponse('book_form.html',{'form':form.as_p()}, status=200)
+   
+@csrf_exempt
 def book_update(request, pk):
-    book = Books.objects.get(pk=pk)
+    book = get_object_or_404(Books, pk=pk)
     if request.method == 'POST':
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
@@ -70,11 +79,21 @@ def book_update(request, pk):
             return redirect('http://127.0.0.1:8001/gateway/home/')
     else:
         form = BookForm(instance=book)
-    return render(request, 'book_form.html', {'form': form})
+    return JsonResponse('book_form.html',{'form':form.as_p()}, status=200)
 
+@csrf_exempt
 def book_delete(request, pk):
-    book = Books.objects.get(pk=pk)
+    # Only handle POST requests
     if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        book = get_object_or_404(Books, pk=pk)
+        print("book id:", book)
+        
+        # Delete the book
         book.delete()
-        return redirect('http://127.0.0.1:8001/gateway/home/')
-    return render(request, 'book_delete.html', {'book': book})
+        
+        # Return a success response
+        return JsonResponse({'message': 'Book deleted successfully'})
+    
+    # Return an error response for non-POST requests
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
