@@ -24,7 +24,7 @@
                     {% endif %}
                 </form>
             </li>
-            
+       <!--    
             <form method="POST" action="http://127.0.0.1:8001/gateway/borrow/">
                 {% csrf_token %}
                 {% if user_info %}
@@ -33,20 +33,20 @@
                 <input type="hidden" id="book_id" name="book_id" value="{{ book.id }}">
                 <button type="submit">Borrow Me!!</button>  
             </form> 
+            -->
         </div>
         {% endfor %}
     </ul>
     
     <div>
-        <form method="POST" action="http://127.0.0.1:8001/gateway/new/">
+        <form method="GET" action="http://127.0.0.1:8001/gateway/new/">
             {% csrf_token %}
             {% if user_info %}
-            <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
+                <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
             {% endif %}
-            <button type="submit">ADD BOOK!!</button>  
-        </form> 
+            <button type="submit">ADD BOOK!!</button> 
+        </form>
     </div>
-    
     <script>
         // Wait for the document to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {

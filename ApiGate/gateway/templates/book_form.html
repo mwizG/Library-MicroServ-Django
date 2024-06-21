@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% if form.instance.pk %}Edit Book{% else %}New Book{% endif %}</title>
+    <title>{% if form_html.instance.pk %}Edit Book{% else %}New Book{% endif %}</title>
 </head>
 <body>
-    <h1>{% if form.instance.pk %}Edit Book{% else %}New Book{% endif %}</h1>
-    <form method="post">
+    <h1>{% if form_html.instance.pk %}Edit Book{% else %}New Book{% endif %}</h1>
+    <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        {{ form_html|safe }}
+        {%if user_id%}
+        <input type="hidden" name="user_id" value="{{ user_id }}">
         <button type="submit">Save</button>
+        
+        {%endif%}
     </form>
     <a href="http://127.0.0.1:8001/gateway/home/">Cancel</a>
 </body>
 </html>
+

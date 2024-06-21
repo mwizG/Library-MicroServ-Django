@@ -17,10 +17,10 @@
         <p>Genre: {{ books.book.genre }}</p>
     {% endif %}
     <a href="http://127.0.0.1:8001/gateway/home/"><button>Back</button></a>
-    <form method="POST" action="http://127.0.0.1:8003/loans/borrow/">
+    <form method="POST" action="http://127.0.0.1:8001/gateway/borrow/">
         {% csrf_token %}
         {% if user_info %}
-        <input type="hidden" name="user_id" value="{{ user_info }}">
+        <input type="hidden" name="user_id" value="{{ user_info.id }}">
         {% endif %}
         <input type="hidden" name="book_id" value="{{ books.book.id }}">
         <button type="submit">Borrow Me!!</button>  

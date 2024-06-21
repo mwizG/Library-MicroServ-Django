@@ -33,15 +33,13 @@ def borrow_book(request):
     
 @csrf_exempt
 def create_loan(request):
-    print("we are running create")
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         book_id = request.POST.get('book_id')
         return_date = request.POST.get('return_date')
-        
+        print("date:",return_date)
         if not user_id or not book_id:
-            # Redirect to an error page or render an error message
-            return render(request, 'error.html', {'error_message': 'Session expired. Please try borrowing the book again.'})
+            return JsonResponse({'error_message': 'Session expired. Please try borrowing the book again.'}, status=400)
 
         form = LoanForm(request.POST)
         if 'return_date' in request.POST:
@@ -49,20 +47,17 @@ def create_loan(request):
                 new_loan = form.save(commit=False)
                 new_loan.user_id = user_id
                 new_loan.book_id = book_id
-                new_loan.return_date=return_date
+                new_loan.return_date = return_date
                 new_loan.save()
-                
-                book_details_url = 'http://127.0.0.1:8000/details/{}'.format(book_id)
 
-                
-                # Redirect to another page after successfully saving the loan
-                return redirect('http://127.0.0.1:8001/gateway/home/')# Change 'success_page' to the actual URL name or path you want to redirect to
+                return JsonResponse({"message": "Book BORROWED successfully"}, status=201)
             else:
-                return render(request, 'create.html', {'form': form, 'error_message': 'Please provide a valid return date'})
+                return JsonResponse({'form': form.as_p(), 'error_message': 'Please provide a valid return date'}, status=400)
         else:
-            return render(request, 'return.html', {'form': form, 'error_message': 'Please provide a return date'})
-    
-    return render(request,'error.html')  # Redirect to error if the request is not POST
+            return JsonResponse({'form': form.as_p(), 'error_message': 'Please provide a return date'}, status=400)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
 
 def Mybooks(request):
       return render(request,'mybooks')

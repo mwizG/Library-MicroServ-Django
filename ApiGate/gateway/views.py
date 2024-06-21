@@ -1,6 +1,7 @@
 from functools import wraps
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
@@ -11,7 +12,7 @@ import logging
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
-
+logger = logging.getLogger(__name__)
 # URL of the Users Microservice
 USERS_MS_URL = 'http://127.0.0.1:8002/users/'
 
@@ -93,6 +94,39 @@ class BookDele(APIView):
         else:
             return JsonResponse({'error': 'No user info'}, status=402)
 
+
+class BookCreate(APIView):
+    def get(self, request):
+        book_create_url = 'http://127.0.0.1:8000/new/'  # URL to fetch the book creation form
+        user_id = request.GET.get('user_id')  # Retrieve the user_id from the GET parameters
+
+        if not user_id:  # Check if user_id is not provided
+            return JsonResponse({'error': 'Missing user_id'}, status=400)  # Return error if user_id is missing
+        
+        response = requests.get(book_create_url)  # Make a GET request to fetch the form
+        response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
+        
+        form_html = response.json().get('form')  # Extract the form HTML from the JSON response
+        return render(request, 'book_form.html', {'form_html': form_html, 'user_id': user_id})  # Render the form HTML along with the user_id
+
+    def post(self, request):
+        book_create_url = 'http://127.0.0.1:8000/new/'  # URL to post the book creation data
+        user_id = request.POST.get('user_id')  # Retrieve the user_id from the POST data
+        print('userssss:', user_id)  # Print the user_id for debugging purposes
+
+        if not user_id:  # Check if user_id is not provided
+            return JsonResponse({'error': 'Missing user_id'}, status=400)  # Return error if user_id is missing
+        
+        data = request.POST.copy()  # Copy the POST data to modify it
+        response = requests.post(book_create_url, data=data)  # Make a POST request to create the book with the form data
+        response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
+
+        if response.status_code == 200:  # Check if the book was created successfully (HTTP 200)
+            return redirect('http://127.0.0.1:8001/gateway/home/')  # Redirect to the home page upon successful creation
+        else:  # Handle unexpected status codes
+            return JsonResponse({'error': 'Unexpected status code', 'status_code': response.status_code}, status=500)  # Return error if the status code is not 200
+
+
 class BookEdit(APIView):
     def get(self,request,pk):
         user_id = request.data.get('user_id')
@@ -106,38 +140,31 @@ class BookEdit(APIView):
         else:
              return JsonResponse({'error': 'No user info'}, status=402)
         
-class BookCreate(APIView):
-    print('we are running')
-    def get(self,request):
-        user_id = request.data.get('user_id')
-        book_create_url = 'http://127.0.0.1:8000/new/'
-        print('here boy:',user_id)
-        if user_id:
-           response = requests.get(book_create_url)
-           #books = response.json().get('form')
-           return render(request, 'book_form.html', {'form': response.json().get('form'),'user_info': user_id})     
-        else:
-             return JsonResponse({'error': 'No user info'}, status=402)
+
 
 class BorrowView(APIView):
-    def post(self,request):  
-        #extract userinfo
+    def post(self, request):  
         user_id = request.data.get('user_id')
+        print("user_idsss",user_id)
         book_id = request.data.get('book_id')
-         # Send borrow details to the borrow_book function
+        print("book_idsss",book_id)
+        book_details_url = 'http://127.0.0.1:8000/details/{}'.format(book_id)
+
         response = requests.post('http://127.0.0.1:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id})   
-        
-        #rendering the borrow form which is just the dates
+
         if response.status_code == 200:
-            print("success")
+            form_html = response.json().get('form')
             return render(request, 'borrow.html', {
-                'form': response.json().get('form'),
+                'form': form_html,
                 'user_id': user_id,
                 'book_id': book_id
             })
+        
+        elif response.status_code == 201:
+            return redirect(book_details_url)
+        
         else:
             return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
-
 class AuthView(APIView):
     allowed_methods = ['GET', 'POST']
 

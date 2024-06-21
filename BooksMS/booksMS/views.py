@@ -57,19 +57,29 @@ def book_details(request, pk):
     }
     
     return JsonResponse({'book': book_data}, status=200)
+
+
 @csrf_exempt
 def book_create(request):
-    user_id = request.POST.get('user_id') if request.method == 'POST' else request.GET.get('user_id')
-    if request.method=='POST':
-        form =BookForm(request.POST)
+    if request.method == 'GET':
+        form = BookForm()
+        return JsonResponse({'form': form.as_p()}, status=200)
+
+    if request.method == 'POST':
+        print("we are saving")
+        user_id = request.POST.get('user_id')
+        print("for book cre user_id:", user_id)
+        form = BookForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('http://127.0.0.1:8001/gateway/home/')
+            return JsonResponse({"message": "Book saved successfully"}, status=200)
+        else:
+            return JsonResponse({'form': form.as_p(), 'errors': form.errors.as_json()}, status=400)
+
     else:
-        form =BookForm()
-    return JsonResponse('book_form.html',{'form':form.as_p()}, status=200)
-   
-@csrf_exempt
+        form = BookForm()
+        return JsonResponse({'form': form.as_p()}, status=200)
+    
 def book_update(request, pk):
     book = get_object_or_404(Books, pk=pk)
     if request.method == 'POST':
