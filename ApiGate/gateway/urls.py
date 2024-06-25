@@ -1,7 +1,7 @@
 # api_gateway/urls.py
 
 from django.urls import path
-from .views import AuthView, BooksView,HomeView,BorrowView,BookDetailView,BookDele,BookEdit,BookCreate
+from .views import AuthView, BooksView,HomeView,BorrowView,BookDetailView,BookDele,BookEdit,BookCreate,BookDateSend
 from . view_classes.UserSignUp import UserSignUp
 from .view_classes.UserLogin import UserLogin
 app_name ='gateway'
@@ -17,4 +17,5 @@ urlpatterns = [
     path('book/<int:pk>/delete/', BookDele.as_view(), name='delete'),
     path('new/', BookCreate.as_view(), name='create'),#book_form
     path('book/<int:pk>/edit/', BookEdit.as_view(), name='edit'),#book_form
+    path('senddate/',BookDateSend.as_view(),name='senddate')
 ]

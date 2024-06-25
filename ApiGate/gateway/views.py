@@ -125,8 +125,7 @@ class BookCreate(APIView):
             return redirect('http://127.0.0.1:8001/gateway/home/')  # Redirect to the home page upon successful creation
         else:  # Handle unexpected status codes
             return JsonResponse({'error': 'Unexpected status code', 'status_code': response.status_code}, status=500)  # Return error if the status code is not 200
-
-
+    
 class BookEdit(APIView):
     def get(self,request,pk):
         user_id = request.data.get('user_id')
@@ -148,7 +147,7 @@ class BorrowView(APIView):
         print("user_idsss",user_id)
         book_id = request.data.get('book_id')
         print("book_idsss",book_id)
-        book_details_url = 'http://127.0.0.1:8000/details/{}'.format(book_id)
+        
 
         response = requests.post('http://127.0.0.1:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id})   
 
@@ -160,11 +159,27 @@ class BorrowView(APIView):
                 'book_id': book_id
             })
         
-        elif response.status_code == 201:
-            return redirect(book_details_url)
+       
         
         else:
             return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
+        
+class BookDateSend(APIView):
+    def post(self, request):
+        return_date=request.POST.get('return_date')
+        user_id=request.POST.get('user_id')
+        book_id=request.POST.get('book_id')
+        home = 'http://127.0.0.1:8001/gateway/home/'
+        print("daatteee",return_date)
+        if not return_date:
+            return JsonResponse({'error':'missing date'})
+        response = requests.post('http://127.0.0.1:8003/loans/create/', data={'user_id': user_id, 'book_id': book_id,'return_date':return_date})
+        if response.status_code == 201:
+            return redirect(home)
+        else:
+            return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
+
+
 class AuthView(APIView):
     allowed_methods = ['GET', 'POST']
 

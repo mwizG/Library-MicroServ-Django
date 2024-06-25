@@ -10,9 +10,8 @@ from . forms import LoanForm
 
 @csrf_exempt
 def borrow_book(request):
-    print("borrow_book view called")
-    
     if request.method == 'POST':
+        print("borrow_book view called")
         user_id = request.POST.get('user_id')
         book_id = request.POST.get('book_id')
         
@@ -33,7 +32,9 @@ def borrow_book(request):
     
 @csrf_exempt
 def create_loan(request):
+    
     if request.method == 'POST':
+        print('we are running create loan')
         user_id = request.POST.get('user_id')
         book_id = request.POST.get('book_id')
         return_date = request.POST.get('return_date')
