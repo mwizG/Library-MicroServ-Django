@@ -13,6 +13,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
+
 # URL of the Users Microservice
 USERS_MS_URL = 'http://127.0.0.1:8002/users/'
 
@@ -42,105 +43,7 @@ class HomeView(APIView):
            return render(request, 'home.html', {'books': books,'user_info': user_info})     
         else:
              return JsonResponse({'error': 'No user info'}, status=402)
-
-class BookDetailView(APIView):
-    def post(self, request, pk):
-        user_info = request.data.get('user_id')
-        
-        book_id = pk  # Use the pk from the URL as the book_id
-        book_details_url = f'http://127.0.0.1:8000/details/{book_id}'
-        print('user id:', user_info)
-        
-        if user_info:
-            response=requests.post(book_details_url, data={'user_id': user_info})
-            print(f"Response status code: {response.status_code}")
-            print(f"Response content: {response.content}")
-            
-            if response.status_code == 200:
-                try:
-                    books = response.json()
-                    print("response: ", books)
-                    return render(request, 'book_details.html', {'books': books, 'user_info': {'id': user_info}})
-                except ValueError:
-                    return JsonResponse({'error': 'Invalid JSON response'}, status=500)
-            else:
-                return JsonResponse({'error': 'Failed to fetch book details'}, status=response.status_code)
-        else:
-            return JsonResponse({'error': 'No user info'}, status=402)
-class BookDele(APIView):
-    def get(self, request, pk):
-        user_id = request.GET.get('user_id')
-        book_details_url = f'http://127.0.0.1:8000/details/{pk}'
-        
-        response = requests.get(book_details_url)
-        if response.status_code == 200:
-            book = response.json()
-            return render(request, 'book_delete.html', {'book': book['book'], 'user_id': user_id})
-        else:
-            return JsonResponse({'error': 'Failed to fetch book details'}, status=response.status_code)
-
-    def post(self, request, pk):
-        user_id = request.POST.get('user_id')
-        book_dele_url = f'http://127.0.0.1:8000/book/{pk}/delete/'
-        print('book_id:', pk, 'user_id:', user_id)
-        
-        if user_id:
-            response = requests.post(book_dele_url, data={'user_id': user_id})
-            if response.status_code == 200:
-                return redirect('http://127.0.0.1:8001/gateway/home/')
-                #return JsonResponse({'message': 'Book deleted successfully'})
-            else:
-                return JsonResponse({'error': 'Failed to delete book'}, status=response.status_code)
-        else:
-            return JsonResponse({'error': 'No user info'}, status=402)
-
-
-class BookCreate(APIView):
-    def get(self, request):
-        book_create_url = 'http://127.0.0.1:8000/new/'  # URL to fetch the book creation form
-        user_id = request.GET.get('user_id')  # Retrieve the user_id from the GET parameters
-
-        if not user_id:  # Check if user_id is not provided
-            return JsonResponse({'error': 'Missing user_id'}, status=400)  # Return error if user_id is missing
-        
-        response = requests.get(book_create_url)  # Make a GET request to fetch the form
-        response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
-        
-        form_html = response.json().get('form')  # Extract the form HTML from the JSON response
-        return render(request, 'book_form.html', {'form_html': form_html, 'user_id': user_id})  # Render the form HTML along with the user_id
-
-    def post(self, request):
-        book_create_url = 'http://127.0.0.1:8000/new/'  # URL to post the book creation data
-        user_id = request.POST.get('user_id')  # Retrieve the user_id from the POST data
-        print('userssss:', user_id)  # Print the user_id for debugging purposes
-
-        if not user_id:  # Check if user_id is not provided
-            return JsonResponse({'error': 'Missing user_id'}, status=400)  # Return error if user_id is missing
-        
-        data = request.POST.copy()  # Copy the POST data to modify it
-        response = requests.post(book_create_url, data=data)  # Make a POST request to create the book with the form data
-        response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
-
-        if response.status_code == 200:  # Check if the book was created successfully (HTTP 200)
-            return redirect('http://127.0.0.1:8001/gateway/home/')  # Redirect to the home page upon successful creation
-        else:  # Handle unexpected status codes
-            return JsonResponse({'error': 'Unexpected status code', 'status_code': response.status_code}, status=500)  # Return error if the status code is not 200
-    
-class BookEdit(APIView):
-    def get(self,request,pk):
-        user_id = request.data.get('user_id')
-        book_id = request.data.get('book_id')
-        book_details_url = 'http://127.0.0.1:8000/{}/edit/'.format(book_id)
-        print('book_id:',book_id)
-        if user_id:
-           response = requests.get(book_details_url)
-           books = response.json().get('form')
-           return render(request, 'book_form.html', {'books': books,'book_id': book_id})     
-        else:
-             return JsonResponse({'error': 'No user info'}, status=402)
-        
-
-
+      
 class BorrowView(APIView):
     def post(self, request):  
         user_id = request.data.get('user_id')
@@ -159,27 +62,9 @@ class BorrowView(APIView):
                 'book_id': book_id
             })
         
-       
-        
         else:
             return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
-        
-class BookDateSend(APIView):
-    def post(self, request):
-        return_date=request.POST.get('return_date')
-        user_id=request.POST.get('user_id')
-        book_id=request.POST.get('book_id')
-        home = 'http://127.0.0.1:8001/gateway/home/'
-        print("daatteee",return_date)
-        if not return_date:
-            return JsonResponse({'error':'missing date'})
-        response = requests.post('http://127.0.0.1:8003/loans/create/', data={'user_id': user_id, 'book_id': book_id,'return_date':return_date})
-        if response.status_code == 201:
-            return redirect(home)
-        else:
-            return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
-
-
+    
 class AuthView(APIView):
     allowed_methods = ['GET', 'POST']
 

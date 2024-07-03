@@ -2,13 +2,14 @@
 <html>
 <head>
     <title>Book List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/styles.css' %}">
 </head>
 <body>
 
     {% if user_info %}
     <div>
         <p>Hi {{ user_info.username }}</p>
-
     </div>
     {% endif %}
     <h1>Book List</h1>
@@ -24,16 +25,6 @@
                     {% endif %}
                 </form>
             </li>
-       <!--    
-            <form method="POST" action="http://127.0.0.1:8001/gateway/borrow/">
-                {% csrf_token %}
-                {% if user_info %}
-                <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
-                {% endif %}
-                <input type="hidden" id="book_id" name="book_id" value="{{ book.id }}">
-                <button type="submit">Borrow Me!!</button>  
-            </form> 
-            -->
         </div>
         {% endfor %}
     </ul>
@@ -48,17 +39,12 @@
         </form>
     </div>
     <script>
-        // Wait for the document to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Select all elements with class 'book-details-link'
             var links = document.querySelectorAll('a.book-details-link');
-            // Loop through each selected link
             links.forEach(function(link) {
-                // Add a click event listener to each link
                 link.addEventListener('click', function(event) {
-                    event.preventDefault();  // Prevent the default link behavior
-                    var bookId = event.target.getAttribute('data-book-id');  // Get the book ID from the data attribute
-                    // Submit the form with the hidden user ID
+                    event.preventDefault();
+                    var bookId = event.target.getAttribute('data-book-id');
                     document.getElementById('book-details-form-' + bookId).submit();
                 });
             });

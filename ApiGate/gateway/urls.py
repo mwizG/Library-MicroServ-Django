@@ -1,9 +1,14 @@
 # api_gateway/urls.py
 
 from django.urls import path
-from .views import AuthView, BooksView,HomeView,BorrowView,BookDetailView,BookDele,BookEdit,BookCreate,BookDateSend
+from .views import AuthView, BooksView,HomeView,BorrowView
 from . view_classes.UserSignUp import UserSignUp
 from .view_classes.UserLogin import UserLogin
+from .view_classes.BookCreate import BookCreate
+from .view_classes.BookDateSend import BookDateSend
+from .view_classes.BookDele import BookDele
+from .view_classes.BookDetailsView import BookDetailView
+from .view_classes.BookEdit import BookEdit
 app_name ='gateway'
 urlpatterns = [
     

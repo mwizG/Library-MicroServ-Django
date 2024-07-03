@@ -1,0 +1,74 @@
+/* delete.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    max-width: 400px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.container h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.container p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.container form {
+    margin-top: 20px;
+}
+
+.container form input[type="hidden"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.container button[type="submit"], .container .cancel-link a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    vertical-align: middle; /* Ensure vertical alignment */
+}
+
+.container button[type="submit"] {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    margin-right: 10px;
+}
+
+.container button[type="submit"]:hover {
+    background-color: #c82333;
+}
+
+.container .cancel-link a {
+    color: #007bff;
+    border: 1px solid #007bff;
+    margin-left: 10px;
+}
+
+.container .cancel-link a:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    text-decoration: none;
+}

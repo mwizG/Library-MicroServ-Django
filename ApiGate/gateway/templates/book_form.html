@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>{% if form_html.instance.pk %}Edit Book{% else %}New Book{% endif %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/styles.css' %}">
 </head>
 <body>
     <h1>{% if form_html.instance.pk %}Edit Book{% else %}New Book{% endif %}</h1>
@@ -15,7 +17,9 @@
         
         {%endif%}
     </form>
-    <a href="http://127.0.0.1:8001/gateway/home/">Cancel</a>
+    <div class="cancel-link">
+        <a href="http://127.0.0.1:8001/gateway/home/">Cancel</a>
+    </div>
 </body>
 </html>
 

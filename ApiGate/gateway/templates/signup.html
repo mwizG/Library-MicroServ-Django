@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Sign UP</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/signup.css' %}">
 </head>
 <body>
-    <h2>Sign Up</h2>
+    
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
