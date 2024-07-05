@@ -35,16 +35,12 @@ Handles authentication and token validation.
 Technologies Used
 Python
 Django & Django REST Framework
-PostgreSQL
-Docker
-Nginx
+
 JWT (JSON Web Tokens) for authentication
 Gunicorn as WSGI HTTP Server
 Installation
 Prerequisites
 Python 3.8+
-Docker & Docker Compose
-Steps
 Clone the Repository
 
 bash
