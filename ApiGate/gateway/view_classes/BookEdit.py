@@ -19,7 +19,7 @@ class BookEdit(APIView):
     def get(self,request,pk):
         user_id = request.data.get('user_id')
         book_id = request.data.get('book_id')
-        book_details_url = 'http://127.0.0.1:8000/{}/edit/'.format(book_id)
+        book_details_url = 'http://44.223.18.17:8000/{}/edit/'.format(book_id)
         print('book_id:',book_id)
         if user_id:
            response = requests.get(book_details_url)

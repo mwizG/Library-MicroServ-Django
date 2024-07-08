@@ -15,10 +15,10 @@ from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
 
 # URL of the Users Microservice
-USERS_MS_URL = 'http://127.0.0.1:8002/users/'
+USERS_MS_URL = 'http://44.223.18.17:8002/users/'
 
 # URL of the Books Microservice
-BOOKS_MS_URL = 'http://127.0.0.1:8000/books/'
+BOOKS_MS_URL = 'http://44.223.18.17:8000/books/'
 
 # Function to decode JWT token
 def decode_jwt(token):
@@ -38,7 +38,7 @@ class HomeView(APIView):
         user_info=request.session.get('user_info')
         print('here boy:',user_info)
         if user_info:
-           response = requests.get('http://127.0.0.1:8000/books/')
+           response = requests.get('http://44.223.18.17:8000/books/')
            books = response.json()
            return render(request, 'home.html', {'books': books,'user_info': user_info})     
         else:
@@ -52,7 +52,7 @@ class BorrowView(APIView):
         print("book_idsss",book_id)
         
 
-        response = requests.post('http://127.0.0.1:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id})   
+        response = requests.post('http://44.223.18.17:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id})   
 
         if response.status_code == 200:
             form_html = response.json().get('form')

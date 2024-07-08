@@ -23,10 +23,10 @@ class UserSignUp(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         # Send signup details to Users Microservice for registration
-        response = requests.post('http://127.0.0.1:8002/users/signup/', data={'username': username, 'password': password})
+        response = requests.post('http://44.223.18.17:8002/users/signup/', data={'username': username, 'password': password})
         # Return the response from Users Microservice
         if response.status_code == 200:
-            return redirect('http://127.0.0.1:8001/gateway/login/')
+            return redirect('http://44.223.18.17:8001/gateway/login/')
         else:
             return JsonResponse({'error': 'Failed to signup user'}, status=response.status_code)
 

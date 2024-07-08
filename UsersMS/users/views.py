@@ -94,7 +94,7 @@ class UserLogin(APIView):
                 'Authorization': f'Bearer {access_token}',
                 'Content-Type': 'application/json'
             }
-            response = requests.post('http://127.0.0.1:8001/gateway/auth/login/', headers=headers)
+            response = requests.post('http://44.223.18.17:8001/gateway/auth/login/', headers=headers)
             user_id = response.json()['user_id']
             if response.status_code == 200:
                 # Return a success response

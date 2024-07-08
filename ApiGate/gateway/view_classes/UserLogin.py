@@ -22,7 +22,7 @@ class UserLogin(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         # Send login details to Users Microservice for authentication
-        response = requests.post('http://127.0.0.1:8002/users/login/', data={'username': username, 'password': password})
+        response = requests.post('http://44.223.18.17:8002/users/login/', data={'username': username, 'password': password})
         # Return the response from Users Microservice
         if response.status_code == 200:
             accesstoken=response.json()['access_token']

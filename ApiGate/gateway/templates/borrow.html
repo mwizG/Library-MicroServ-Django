@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Add Return Date</h1>
-    <form method="post" action="http://127.0.0.1:8001/gateway/senddate/">
+    <form method="post" action="http://44.223.18.17:8001/gateway/senddate/">
         {% csrf_token %}
         {{ form|safe }}
         <input type="hidden" name="user_id" value="{{ user_id }}">
