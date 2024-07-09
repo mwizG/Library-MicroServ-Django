@@ -25,8 +25,14 @@ SECRET_KEY = 'django-insecure-iq$2=bn3)5y%=52+cn@5z-ap2mp2c_nhq-77jd+x+5%kwhv=h3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+from .secrets import get_server_ip
 
+ALLOWED_HOSTS = [
+    get_server_ip(),    # Include dynamically fetched IP address
+    'localhost',        # Local development
+    '127.0.0.1',        # Local development
+    '[::1]',            # Local development for IPv6
+]
 
 # Application definition
 
