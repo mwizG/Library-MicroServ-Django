@@ -27,12 +27,7 @@ DEBUG = True
 
 from .secrets import get_server_ip
 
-ALLOWED_HOSTS = [
-    get_server_ip(),    # Include dynamically fetched IP address
-    'localhost',        # Local development
-    '127.0.0.1',        # Local development
-    '[::1]',            # Local development for IPv6
-]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
