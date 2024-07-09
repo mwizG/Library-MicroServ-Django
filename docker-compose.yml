@@ -1,9 +1,7 @@
 version: '3'
 services:
   apigateway:
-    build:
-      context: ./ApiGate
-      dockerfile: Dockerfile
+    image: myapp-api  # Use the image name you tagged when building
     ports:
       - "8001:8001"
     depends_on:
@@ -12,22 +10,17 @@ services:
       - loansms
 
   usersms:
-    build:
-      context: ./UsersMS
-      dockerfile: Dockerfile
+    image: myapp-usersms  # Use the image name you tagged when building
     ports:
       - "8002:8002"
 
   bookms:
-    build:
-      context: ./BooksMS
-      dockerfile: Dockerfile
+    image: myapp-bookms  # Use the image name you tagged when building
     ports:
       - "8000:8000"
 
   loansms:
-    build:
-      context: ./loansMS
-      dockerfile: Dockerfile
+    image: myapp-loansms  # Use the image name you tagged when building
     ports:
       - "8003:8003"
+
