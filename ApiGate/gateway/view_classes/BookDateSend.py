@@ -21,11 +21,11 @@ class BookDateSend(APIView):
         return_date=request.POST.get('return_date')
         user_id=request.POST.get('user_id')
         book_id=request.POST.get('book_id')
-        home = 'http://44.223.18.17:8001/gateway/home/'
+        home = 'http://localhost:8001/gateway/home/'
         print("daatteee",return_date)
         if not return_date:
             return JsonResponse({'error':'missing date'})
-        response = requests.post('http://44.223.18.17:8003/loans/create/', data={'user_id': user_id, 'book_id': book_id,'return_date':return_date})
+        response = requests.post('http://loansms:8003/loans/create/', data={'user_id': user_id, 'book_id': book_id,'return_date':return_date})
         if response.status_code == 201:
             return redirect(home)
         else:

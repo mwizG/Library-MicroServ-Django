@@ -22,7 +22,7 @@ class UserLogin(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         # Send login details to Users Microservice for authentication
-        response = requests.post('http://44.223.18.17:8002/users/login/', data={'username': username, 'password': password})
+        response = requests.post('http://usersms:8002/users/login/', data={'username': username, 'password': password})
         # Return the response from Users Microservice
         if response.status_code == 200:
             accesstoken=response.json()['access_token']
@@ -32,13 +32,13 @@ class UserLogin(APIView):
             if user_id:
                 # Implement your authorization logic here, e.g., check user permissions
                 # For now, just return a success message
-                user_info_url= f'http://127.0.0.1:8002/users/users/{user_id}'
+                user_info_url= f'http://usersms:8002/users/users/{user_id}'
                 user_info_response = requests.get(user_info_url)
                 if user_info_response.status_code == 200:
                     user_info = user_info_response.json()
                     # Store user_info in session
                     request.session['user_info'] = user_info
-                    return redirect('http://127.0.0.1:8001/gateway/home/')
+                    return redirect('http://localhost:8001/gateway/home/')
 
                 else:
                     return JsonResponse({'error': 'Failed to fetch user info'}, status=401)

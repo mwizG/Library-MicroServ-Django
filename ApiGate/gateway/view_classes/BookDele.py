@@ -29,13 +29,13 @@ class BookDele(APIView):
 
     def post(self, request, pk):
         user_id = request.POST.get('user_id')
-        book_dele_url = f'http://44.223.18.17:8000/book/{pk}/delete/'
+        book_dele_url = f'http://booksmss:8000/book/{pk}/delete/'
         print('book_id:', pk, 'user_id:', user_id)
         
         if user_id:
             response = requests.post(book_dele_url, data={'user_id': user_id})
             if response.status_code == 200:
-                return redirect('http://44.223.18.17:8001/gateway/home/')
+                return redirect('http://localhost:8001/gateway/home/')
                 #return JsonResponse({'message': 'Book deleted successfully'})
             else:
                 return JsonResponse({'error': 'Failed to delete book'}, status=response.status_code)
