@@ -18,7 +18,7 @@
         <div>
             <li>
                 <a class="book-details-link" href="#" data-book-id="{{ book.id }}">{{ book.title }}</a>
-                <form id="book-details-form-{{ book.id }}" method="POST" action="http://apigateway:8001/gateway/details/{{ book.id }}" style="display: none;">
+                <form id="book-details-form-{{ book.id }}" method="POST" action="http://localhost:8001/gateway/details/{{ book.id }}" style="display: none;">
                     {% csrf_token %}
                     {% if user_info %}
                     <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
@@ -30,7 +30,7 @@
     </ul>
     
     <div>
-        <form method="GET" action="http://apigateway:8001/gateway/new/">
+        <form method="GET" action="http://localhost:8001/gateway/new/">
             {% csrf_token %}
             {% if user_info %}
                 <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
