@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 class BookDele(APIView):
     def get(self, request, pk):
         user_id = request.GET.get('user_id')
-        book_details_url = f'http://44.223.18.17:8000/details/{pk}'
+        book_details_url = f'http://bookms:8000/details/{pk}'
         
         response = requests.get(book_details_url)
         if response.status_code == 200:
@@ -29,7 +29,7 @@ class BookDele(APIView):
 
     def post(self, request, pk):
         user_id = request.POST.get('user_id')
-        book_dele_url = f'http://booksmss:8000/book/{pk}/delete/'
+        book_dele_url = f'http://bookms:8000/book/{pk}/delete/'
         print('book_id:', pk, 'user_id:', user_id)
         
         if user_id:

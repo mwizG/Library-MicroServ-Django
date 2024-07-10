@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class BookCreate(APIView):
     def get(self, request):
-        book_create_url = 'http://booksms:8000/new/'  # URL to fetch the book creation form
+        book_create_url = 'http://bookms:8000/new/'  # URL to fetch the book creation form
         user_id = request.GET.get('user_id')  # Retrieve the user_id from the GET parameters
 
         if not user_id:  # Check if user_id is not provided
@@ -31,7 +31,7 @@ class BookCreate(APIView):
         return render(request, 'book_form.html', {'form_html': form_html, 'user_id': user_id})  # Render the form HTML along with the user_id
 
     def post(self, request):
-        book_create_url = 'http://booksms:8000/new/'  # URL to post the book creation data
+        book_create_url = 'http://bookms:8000/new/'  # URL to post the book creation data
         user_id = request.POST.get('user_id')  # Retrieve the user_id from the POST data
         print('userssss:', user_id)  # Print the user_id for debugging purposes
 

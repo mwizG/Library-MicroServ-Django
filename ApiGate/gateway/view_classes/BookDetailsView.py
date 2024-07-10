@@ -20,7 +20,7 @@ class BookDetailView(APIView):
         user_info = request.data.get('user_id')
         
         book_id = pk  # Use the pk from the URL as the book_id
-        book_details_url = f'http://booksms:8000/details/{book_id}'
+        book_details_url = f'http://bookms:8000/details/{book_id}'
         print('user id:', user_info)
         
         if user_info:

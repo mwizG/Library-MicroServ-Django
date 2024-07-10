@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 USERS_MS_URL = 'http://usersms:8002/users/'
 
 # URL of the Books Microservice
-BOOKS_MS_URL = 'http://booksms:8000/books/'
+BOOKS_MS_URL = 'http://bookms:8000/books/'
 
 # Function to decode JWT token
 def decode_jwt(token):
@@ -38,7 +38,7 @@ class HomeView(APIView):
         user_info=request.session.get('user_info')
         print('here boy:',user_info)
         if user_info:
-           response = requests.get('http://booksms:8000/books/')
+           response = requests.get('http://bookms:8000/books/')
            books = response.json()
            return render(request, 'home.html', {'books': books,'user_info': user_info})     
         else:
