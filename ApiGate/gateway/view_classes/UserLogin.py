@@ -68,8 +68,8 @@ class UserLogin(APIView):
                         user_info = user_info_response.json()
                         print('user data: ', user_info)
                         # Store user_info in session or use it as needed
-                        request.session['user_info'] = user_info
-                        return redirect('http://localhost:8001/gateway/home/')
+                        request.session['user_info BOY!!!!'] = user_info
+                        return redirect('http://apigateway:8001/gateway/home/')
                     else:
                         return JsonResponse({'error': 'Failed to fetch user info'}, status=401)
                 else:

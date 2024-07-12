@@ -35,7 +35,7 @@ class BookDele(APIView):
         if user_id:
             response = requests.post(book_dele_url, data={'user_id': user_id})
             if response.status_code == 200:
-                return redirect('http://localhost:8001/gateway/home/')
+                return redirect('http://apigateway:8001/gateway/home/')
                 #return JsonResponse({'message': 'Book deleted successfully'})
             else:
                 return JsonResponse({'error': 'Failed to delete book'}, status=response.status_code)

@@ -23,6 +23,7 @@ BOOKS_MS_URL = 'http://bookms:8000/books/'
 
 
 class HomeView(APIView):
+    print('IM RUNNING')
     def get(self,request):
         user_info=request.session.get('user_info')
         print('here boy:',user_info)
