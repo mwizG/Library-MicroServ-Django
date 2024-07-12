@@ -74,6 +74,7 @@ class UserSignUp(TokenObtainPairView):
 # Endpoint for user login.
 
 
+
 class UserLogin(APIView):
     permission_classes = []
 
@@ -89,22 +90,7 @@ class UserLogin(APIView):
             # Generate tokens for the authenticated user
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
-            # Send the access token to the API Gateway
-            headers = {
-                'Authorization': f'Bearer {access_token}',
-                'Content-Type': 'application/json'
-            }
-            response = requests.post('http://127.0.0.1:8001/gateway/auth/login/', headers=headers)
-            user_id = response.json()['user_id']
-            if response.status_code == 200:
-                # Return a success response
-                # redirect to booksMS 
-                #user_info_url= f'http://127.0.0.1:8002/users/users/?user_id={user_id}'
-               # respon=requests.get(user_info_url)
-                return Response({'access_token': access_token,'user_id':user_id},status=status.HTTP_200_OK)
-            else:
-                # Return an error response if sending the token fails
-                return Response({'error': 'Failed to send access token to API Gateway'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'access_token': access_token, 'user_id': user.id}, status=status.HTTP_200_OK)
         else:
             # Return an error response if authentication fails
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
