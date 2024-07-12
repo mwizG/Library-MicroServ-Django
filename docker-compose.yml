@@ -1,26 +1,48 @@
-version: '3'
+version: '3.8'
+
 services:
   apigateway:
     image: myapp-api  # Use the image name you tagged when building
+    container_name: library-microserv-django-apigateway-1
     ports:
       - "8001:8001"
     depends_on:
       - usersms
       - bookms
       - loansms
+    networks:
+      - library-network
 
   usersms:
     image: myapp-usersms  # Use the image name you tagged when building
+    container_name: library-microserv-django-usersms-1
     ports:
       - "8002:8002"
+    networks:
+      - library-network
+    environment:
+      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
 
   bookms:
     image: myapp-bookms  # Use the image name you tagged when building
+    container_name: library-microserv-django-bookms-1
     ports:
       - "8000:8000"
+    networks:
+      - library-network
+    environment:
+      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
 
   loansms:
     image: myapp-loansms  # Use the image name you tagged when building
+    container_name: library-microserv-django-loansms-1
     ports:
       - "8003:8003"
+    networks:
+      - library-network
+    environment:
+      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
 
+networks:
+  library-network:
+    driver: bridge

@@ -50,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# UsersMS settings
+API_GATEWAY_URL = "http://apigateway:8001/gateway/home/"
 
 ROOT_URLCONF = 'LibraryProject.urls'
 
