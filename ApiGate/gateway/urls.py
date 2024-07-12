@@ -1,7 +1,7 @@
 # api_gateway/urls.py
 
 from django.urls import path
-from .views import AuthView, BooksView,HomeView,BorrowView
+from .views import BooksView,HomeView,BorrowView
 from . view_classes.UserSignUp import UserSignUp
 from .view_classes.UserLogin import UserLogin
 from .view_classes.BookCreate import BookCreate
@@ -15,7 +15,7 @@ urlpatterns = [
     path('books/query/', BooksView.as_view(), name='books-query'),
     path('signup/', UserSignUp.as_view(), name='signup'),
     path('login/', UserLogin.as_view(), name='login'),
-    path('auth/login/', AuthView.as_view(), name='auth-login'),
+    
     path('home/', HomeView.as_view(), name='home'),
     path('borrow/', BorrowView.as_view(), name='borrow'),
     path('details/<int:pk>', BookDetailView.as_view(), name='details'),
