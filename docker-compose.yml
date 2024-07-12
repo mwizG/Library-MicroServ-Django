@@ -12,6 +12,8 @@ services:
       - loansms
     networks:
       - library-network
+    environment:
+      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
 
   usersms:
     image: myapp-usersms  # Use the image name you tagged when building
