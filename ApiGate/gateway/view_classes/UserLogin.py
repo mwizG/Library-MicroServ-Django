@@ -50,7 +50,7 @@ class UserLogin(APIView):
         password = request.data.get('password')
 
         # Send login details to usersms API for authentication
-        auth_response = requests.post('http://127.0.0.1:8002/users/login/', data={'username': username, 'password': password})
+        auth_response = requests.post('http://usersms:8002/users/login/', data={'username': username, 'password': password})
 
         if auth_response.status_code == 200:
             auth_data = auth_response.json()
