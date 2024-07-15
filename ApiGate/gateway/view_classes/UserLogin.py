@@ -69,9 +69,11 @@ class UserLogin(APIView):
                         print('user data HERE: ', user_info)
                         # Store user_info in session or use it as needed
                         request.session['user_info'] = user_info
+                        print("requeSSST: ",request)
                         server_ip = os.environ.get('SERVER_IP')
+                        print("server ip: ",server_ip)
                         redirect_url = f'http://{server_ip}:8001/gateway/home/'
-                        
+                        print('Redirect URL: ', redirect_url)
                         return redirect(redirect_url)
                     else:
                         return JsonResponse({'error': 'Failed to fetch user info'}, status=401)
