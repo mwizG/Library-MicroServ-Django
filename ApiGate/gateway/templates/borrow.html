@@ -15,6 +15,10 @@
         <input type="submit" value="Submit">
     </form>
 
+    <div id="successMessage" style="display: none; color: green;">
+        Successfully borrowed the book!
+    </div>
+
     <script>
         document.getElementById('borrowForm').addEventListener('submit', function(event) {
             event.preventDefault();  // Prevent the default form submission
@@ -26,7 +30,7 @@
             var serverIp = "{{ SERVER_IP }}";
             
             // Send the data using fetch
-            fetch('http://' + serverIp + ':8001/gateway/borrow/', {
+            fetch('http://' + serverIp + ':8001/gateway/senddate/', {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
@@ -38,8 +42,12 @@
                 if (data.error) {
                     alert('Error: ' + data.error);
                 } else {
-                    alert('Success: ' + data.message);
-                    window.location.href = 'http://' + serverIp + ':8001/gateway/home/';
+                    // Show success message
+                    document.getElementById('successMessage').style.display = 'block';
+                    // Optionally redirect after a delay
+                    setTimeout(function() {
+                        window.location.href = 'http://' + serverIp + ':8001/gateway/home/';
+                    }, 2000);  // Redirect after 2 seconds
                 }
             })
             .catch(error => console.error('Error:', error));
