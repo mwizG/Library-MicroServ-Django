@@ -30,7 +30,7 @@
             var serverIp = "{{ SERVER_IP }}";
             
             // Send the data using fetch
-            fetch('http://' + serverIp + ':8001/gateway/senddate/', {
+            fetch('http://' + serverIp + ':8001/gateway/borrow/', {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
@@ -44,10 +44,10 @@
                 } else {
                     // Show success message
                     document.getElementById('successMessage').style.display = 'block';
-                    // Optionally redirect after a delay
+                    // Redirect after 2 seconds
                     setTimeout(function() {
                         window.location.href = 'http://' + serverIp + ':8001/gateway/home/';
-                    }, 2000);  // Redirect after 2 seconds
+                    }, 2000);  // 2 seconds delay before redirect
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -55,3 +55,4 @@
     </script>
 </body>
 </html>
+
