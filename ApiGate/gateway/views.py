@@ -83,7 +83,7 @@ class BorrowAndDateSendView(APIView):
             # Success message prompt
             success_message = 'Book return date set successfully.'
             # Redirect after delay (adjust as needed)
-            return render(request, 'success_redirect.html', {'success_message': success_message, 'redirect_url': home})
+            return render(request, 'success.html', {'success_message': success_message, 'redirect_url': home})
         else:
             return JsonResponse({'error': 'Failed to set return date.'}, status=response.status_code)
 
