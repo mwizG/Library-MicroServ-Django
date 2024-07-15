@@ -15,7 +15,7 @@ urlpatterns = [
     path('books/query/', BooksView.as_view(), name='books-query'),
     path('signup/', UserSignUp.as_view(), name='signup'),
     path('login/', UserLogin.as_view(), name='login'),
-    path('gateway/borrow_or_senddate/', BorrowAndDateSendView.as_view(), name='borrow_or_senddate'),
+    path('borrow/', BorrowAndDateSendView.as_view(), name='borrow'),
     path('home/', HomeView.as_view(), name='home'),
     
     path('details/<int:pk>', BookDetailView.as_view(), name='details'),
