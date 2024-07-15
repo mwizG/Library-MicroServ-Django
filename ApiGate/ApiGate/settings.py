@@ -146,7 +146,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-API_GATEWAY_URL = "http://apigateway:8001/gateway/home/"
+import os
+
+API_GATEWAY_URL = os.environ.get('API_GATEWAY_URL', 'http://localhost:8001/gateway/home/')
 
 
 LOGGING = {

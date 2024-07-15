@@ -86,7 +86,7 @@ def book_update(request, pk):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect('http://apigateway:8001/gateway/home/')
+            return redirect('http://apigateway:8001/gateway/home/') #needs to be updated to only send a reponse
     else:
         form = BookForm(instance=book)
     return JsonResponse('book_form.html',{'form':form.as_p()}, status=200)

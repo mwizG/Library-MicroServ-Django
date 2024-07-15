@@ -43,7 +43,7 @@ class BookCreate(APIView):
         response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
 
         if response.status_code == 200:  # Check if the book was created successfully (HTTP 200)
-            return redirect('http://apigateway:8001/gateway/home/')  # Redirect to the home page upon successful creation
+            return redirect('http://localhost:8001/gateway/home/')  # Redirect to the home page upon successful creation
         else:  # Handle unexpected status codes
             return JsonResponse({'error': 'Unexpected status code', 'status_code': response.status_code}, status=500)  # Return error if the status code is not 200
     

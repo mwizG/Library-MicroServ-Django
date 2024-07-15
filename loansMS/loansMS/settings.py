@@ -99,9 +99,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-# UsersMS settings
-API_GATEWAY_URL = "http://apigateway:8001/gateway/home/"
+import os
 
+API_GATEWAY_URL = os.environ.get('API_GATEWAY_URL', 'http://localhost:8001/gateway/home/')
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

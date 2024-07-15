@@ -21,7 +21,7 @@ class BookDateSend(APIView):
         return_date=request.POST.get('return_date')
         user_id=request.POST.get('user_id')
         book_id=request.POST.get('book_id')
-        home = 'http://apigateway:8001/gateway/home/'
+        home = 'http://localhost:8001/gateway/home/'
         print("daatteee",return_date)
         if not return_date:
             return JsonResponse({'error':'missing date'})
