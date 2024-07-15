@@ -7,13 +7,43 @@
 </head>
 <body>
     <h1>Add Return Date</h1>
-    
-    <form method="post" action="http://{{SERVER_IP}}/gateway/borrow/">
+    <form id="borrowForm">
         {% csrf_token %}
         {{ form|safe }}
         <input type="hidden" name="user_id" value="{{ user_id }}">
         <input type="hidden" name="book_id" value="{{ book_id }}">
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+        document.getElementById('borrowForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the default form submission
+            
+            // Get the form data
+            var formData = new FormData(this);
+            
+            // Get the server IP
+            var serverIp = "{{ SERVER_IP }}";
+            
+            // Send the data using fetch
+            fetch('http://' + serverIp + ':8001/gateway/borrow/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Success: ' + data.message);
+                    window.location.href = 'http://' + serverIp + ':8001/gateway/home/';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 </html>
