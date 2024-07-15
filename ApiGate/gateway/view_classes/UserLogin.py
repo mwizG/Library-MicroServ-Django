@@ -13,7 +13,7 @@ import logging
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-
+import os
 # userlogin_gateway.py
 
 
@@ -68,8 +68,10 @@ class UserLogin(APIView):
                         user_info = user_info_response.json()
                         print('user data HERE: ', user_info)
                         # Store user_info in session or use it as needed
+                        server_ip = os.environ.get('SERVER_IP')
+                        redirect_url = f'http://{server_ip}:8001/gateway/home/'
                         request.session['user_info'] = user_info
-                        return redirect('http://localhost:8001/gateway/home/')
+                        return redirect(redirect_url)
                     else:
                         return JsonResponse({'error': 'Failed to fetch user info'}, status=401)
                 else:
