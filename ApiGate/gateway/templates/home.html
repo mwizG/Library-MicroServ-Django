@@ -30,7 +30,7 @@
     </ul>
     
     <div>
-        <form method="GET" action="http://{{ SERVER_IP }}:8001/gateway/home/">
+        <form method="GET" action="http://{{SERVER_IP}}:8001/gateway/home/">
             {% csrf_token %}
             {% if user_info %}
                 <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
