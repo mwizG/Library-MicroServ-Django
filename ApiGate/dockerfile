@@ -29,5 +29,8 @@ COPY . /code/
 # Expose the port on which the API Gateway will run (adjust if necessary)
 EXPOSE 8001
 
+# Default value for SERVER_IP, in case it's not provided
+ENV SERVER_IP localhost
+
 # Run the API Gateway service
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]
