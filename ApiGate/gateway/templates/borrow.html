@@ -3,11 +3,18 @@
 <head>
     <title>Borrow Book</title>
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/borrow.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/styles.css' %}">
 </head>
 <body>
-    <h1>Add Return Date</h1>
-    
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="successMessage" style="color: green;">Successfully borrowed the book!</p>
+            <a id="backToHomeButton" class="button" href="#">Back to Home</a>
+        </div>
+    </div>
+
     <form id="borrowForm">
         {% csrf_token %}
         {{ form|safe }}
@@ -16,20 +23,22 @@
         <input type="submit" value="Submit">
     </form>
 
-    <div id="successMessage" style="display: none; color: green;">
-        Successfully borrowed the book!
-    </div>
-
     <script>
+        // Modal functionality
+        var modal = document.getElementById('successModal');
+        var closeButton = document.getElementsByClassName('close')[0];
+        var backToHomeButton = document.getElementById('backToHomeButton');
+
+        // Open the modal when the form is successfully submitted
         document.getElementById('borrowForm').addEventListener('submit', function(event) {
             event.preventDefault();  // Prevent the default form submission
-            
+
             // Get the form data
             var formData = new FormData(this);
-            
+
             // Get the server IP
             var serverIp = "{{ SERVER_IP }}";
-            
+
             // Send the data using fetch
             fetch('http://' + serverIp + ':8001/gateway/borrow/', {
                 method: 'POST',
@@ -43,9 +52,15 @@
                 if (data.error) {
                     alert('Error: ' + data.error);
                 } else {
-                    // Show success message
-                    document.getElementById('successMessage').style.display = 'block';
-                    // Redirect after 2 seconds
+                    // Show success modal
+                    modal.style.display = 'block';
+
+                    // Close modal when close button is clicked
+                    closeButton.onclick = function() {
+                        modal.style.display = 'none';
+                    };
+
+                    // Redirect to home page after 2 seconds
                     setTimeout(function() {
                         window.location.href = 'http://' + serverIp + ':8001/gateway/home/';
                     }, 2000);  // 2 seconds delay before redirect
@@ -53,6 +68,13 @@
             })
             .catch(error => console.error('Error:', error));
         });
+
+        // Close the modal when user clicks outside the modal content
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>
