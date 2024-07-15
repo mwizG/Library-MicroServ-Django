@@ -31,7 +31,7 @@
             <a href="http://{{SERVER_IP}}:8001/gateway/home/"><button>Back</button></a>
         </nav>
         
-        <form method="POST" action="http://{{SERVER_IP}}:8001/gateway/home/">
+        <form method="POST" action="http://{{SERVER_IP}}:8001/gateway/borrow/">
             {% csrf_token %}
             {% if user_info %}
                 <input type="hidden" name="user_id" value="{{ user_info.id }}">
@@ -42,10 +42,10 @@
         
         <footer>
             <div>
-                <a href="http://localhost:8001/gateway/book/{{ books.book.id }}/edit/"><button>Edit</button></a>
+               <!--<a href="http://localhost:8001/gateway/book/{{ books.book.id }}/edit/"><button>Edit</button></a> -->
             </div>
             <div>
-                <a href="http://localhost:8001/gateway/book/{{ books.book.id }}/delete/"><button>Delete</button></a>
+                <a href="http://{{SERVER_IP}}:8001/gateway/book/{{ books.book.id }}/delete/"><button>Delete</button></a>
             </div>
         </footer>
     </main>
