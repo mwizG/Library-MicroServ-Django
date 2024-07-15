@@ -22,43 +22,18 @@ BOOKS_MS_URL = 'http://bookms:8000/books/'
 
 
 
-from django.conf import settings
-from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
-import requests
-
 class HomeView(APIView):
     print('IM RUNNING')
-
-    def get(self, request):
-        user_info = request.session.get('user_info')
-        print('here boy:', user_info)
-
+    def get(self,request):
+        user_info=request.session.get('user_info')
+        print('here boy:',user_info)
         if user_info:
-            # Assuming SERVER_IP is defined in Django settings
-            server_ip = settings.SERVER_IP
-            
-            # You may want to log the server_ip for debugging purposes
-            print('SERVER_IP:', server_ip)
-
-            # Make a request to bookms microservice
-            response = requests.get(f'http://bookms:8000/books/')
-            response.raise_for_status()  # Raise an exception for bad responses
-
-            # Process the response assuming it's JSON data
-            books = response.json()
-
-            # Render the template with context
-            context = {
-                'books': books,
-                'user_info': user_info,
-                'SERVER_IP': server_ip,  # Pass SERVER_IP to the context
-            }
-            return render(request, 'home.html', context)
+           response = requests.get('http://bookms:8000/books/')
+           books = response.json()
+           return render(request, 'home.html', {'books': books,'user_info': user_info})     
         else:
-            return Response({'error': 'No user info'}, status=402)
-
+             return JsonResponse({'error': 'No user info'}, status=402)
+      
 class BorrowView(APIView):
     def post(self, request):  
         user_id = request.data.get('user_id')
