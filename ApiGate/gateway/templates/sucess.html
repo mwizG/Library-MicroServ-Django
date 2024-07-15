@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+    <script>
+        // Display success message
+        alert("{{ success_message }}");
+        // Redirect after 2 seconds (adjust as needed)
+        setTimeout(function() {
+            window.location.href = "{{ redirect_url }}";
+        }, 2000); // 2000 milliseconds = 2 seconds
+    </script>
+</head>
+<body>
+    <p>{{ success_message }}</p>
+    <p>Redirecting...</p>
+</body>
+</html>

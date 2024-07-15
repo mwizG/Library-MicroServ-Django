@@ -67,7 +67,6 @@ class BorrowAndDateSendView(APIView):
             return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
 
     def send_date(self, request):
-        print('send date code running')
         return_date = request.POST.get('return_date')
         user_id = request.POST.get('user_id')
         book_id = request.POST.get('book_id')
@@ -75,16 +74,18 @@ class BorrowAndDateSendView(APIView):
         server_ip = os.environ.get('SERVER_IP')
         home = f'http://{server_ip}:8001/gateway/home/'
 
-        print("daatteee", return_date)
         if not return_date:
-            return JsonResponse({'error': 'missing date'})
+            return JsonResponse({'error': 'Missing date'}, status=400)
         
         response = requests.post('http://loansms:8003/loans/create/', data={'user_id': user_id, 'book_id': book_id, 'return_date': return_date})
         
         if response.status_code == 201:
-            return redirect(home)
+            # Success message prompt
+            success_message = 'Book return date set successfully.'
+            # Redirect after delay (adjust as needed)
+            return render(request, 'success_redirect.html', {'success_message': success_message, 'redirect_url': home})
         else:
-            return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
+            return JsonResponse({'error': 'Failed to set return date.'}, status=response.status_code)
 
 class BooksView(APIView):
     def dummy(self,requests):
