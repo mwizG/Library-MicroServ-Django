@@ -42,11 +42,12 @@ class BorrowView(APIView):
         print("user_idsss",user_id)
         book_id = request.data.get('book_id')
         print("book_idsss",book_id)
-        server_ip = os.environ.get('SERVER_IP')
+        
         #sending a post
         response = requests.post('http://loansms:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id,})   
-
+        print('we are back here to allow send render borrow.html')
         if response.status_code == 200:
+            server_ip = os.environ.get('SERVER_IP')
             form_html = response.json().get('form')
             return render(request, 'borrow.html', {
                 'form': form_html,

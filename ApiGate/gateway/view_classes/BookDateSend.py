@@ -18,6 +18,7 @@ import os
 
 class BookDateSend(APIView):
     def post(self, request):
+        print('send date code running')
         return_date=request.POST.get('return_date')
         user_id=request.POST.get('user_id')
         book_id=request.POST.get('book_id')
