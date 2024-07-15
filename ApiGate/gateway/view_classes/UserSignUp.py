@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm
 import requests
 from rest_framework.views import APIView
-
+import os
 
 class UserSignUp(APIView):
     """
@@ -26,7 +26,10 @@ class UserSignUp(APIView):
         response = requests.post('http://usersms:8002/users/signup/', data={'username': username, 'password': password})
         # Return the response from Users Microservice
         if response.status_code == 200:
-            return redirect('http://localhost:8001/gateway/login/')
+            #getting the docker compose exported server IP
+            server_ip = os.environ.get('SERVER_IP')
+            redirect_url = f'http://{server_ip}:8001/gateway/home/'
+            return redirect(redirect_url)
         else:
             return JsonResponse({'error': 'Failed to signup user'}, status=response.status_code)
 

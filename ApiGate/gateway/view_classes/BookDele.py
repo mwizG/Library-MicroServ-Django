@@ -13,7 +13,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
-
+import os
 
 class BookDele(APIView):
     def get(self, request, pk):
@@ -35,7 +35,10 @@ class BookDele(APIView):
         if user_id:
             response = requests.post(book_dele_url, data={'user_id': user_id})
             if response.status_code == 200:
-                return redirect('http://localhost:8001/gateway/home/')
+                 #getting the docker compose exported server IP
+                server_ip = os.environ.get('SERVER_IP')
+                redirect_url = f'http://{server_ip}:8001/gateway/home/'
+                return redirect(redirect_url)
                 #return JsonResponse({'message': 'Book deleted successfully'})
             else:
                 return JsonResponse({'error': 'Failed to delete book'}, status=response.status_code)

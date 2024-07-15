@@ -14,14 +14,17 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
-
+import os
 
 class BookDateSend(APIView):
     def post(self, request):
         return_date=request.POST.get('return_date')
         user_id=request.POST.get('user_id')
         book_id=request.POST.get('book_id')
-        home = 'http://localhost:8001/gateway/home/'
+         #getting the docker compose exported server IP
+        server_ip = os.environ.get('SERVER_IP')
+        home = f'http://{server_ip}:8001/gateway/home/'
+
         print("daatteee",return_date)
         if not return_date:
             return JsonResponse({'error':'missing date'})

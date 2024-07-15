@@ -28,10 +28,10 @@
         </section>
         
         <nav>
-            <a href="http://localhost:8001/gateway/home/"><button>Back</button></a>
+            <a href="http://{{ SERVER_IP }}:8001/gateway/home/"><button>Back</button></a>
         </nav>
         
-        <form method="POST" action="http://localhost:8001/gateway/borrow/">
+        <form method="POST" action="http://{{ SERVER_IP }}:8001/gateway/home/">
             {% csrf_token %}
             {% if user_info %}
                 <input type="hidden" name="user_id" value="{{ user_info.id }}">

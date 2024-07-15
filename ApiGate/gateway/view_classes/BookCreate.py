@@ -14,7 +14,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
 
-
+import os
 
 class BookCreate(APIView):
     def get(self, request):
@@ -43,7 +43,10 @@ class BookCreate(APIView):
         response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
 
         if response.status_code == 200:  # Check if the book was created successfully (HTTP 200)
-            return redirect('http://localhost:8001/gateway/home/')  # Redirect to the home page upon successful creation
+            #getting the docker compose exported server IP
+            server_ip = os.environ.get('SERVER_IP')
+            redirect_url = f'http://{server_ip}:8001/gateway/home/'
+            return redirect(redirect_url)  # Redirect to the home page upon successful creation
         else:  # Handle unexpected status codes
             return JsonResponse({'error': 'Unexpected status code', 'status_code': response.status_code}, status=500)  # Return error if the status code is not 200
     
