@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Add Return Date</h1>
+    <p>Server IP: {{ SERVER_IP }}</p> <!-- Add this line to print SERVER_IP -->
     <form method="post" action="http://{{SERVER_IP}}/gateway/senddate/">
         {% csrf_token %}
         {{ form|safe }}

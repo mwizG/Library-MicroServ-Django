@@ -22,5 +22,5 @@ urlpatterns = [
     path('book/<int:pk>/delete/', BookDele.as_view(), name='delete'),
     path('new/', BookCreate.as_view(), name='create'),#book_form
     path('book/<int:pk>/edit/', BookEdit.as_view(), name='edit'),#book_form
-    path('senddate/',BookDateSend.as_view(),name='senddate')
+    path('senddate/',BookDateSend.as_view(),name='send_date')
 ]
