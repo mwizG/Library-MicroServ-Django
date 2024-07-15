@@ -43,7 +43,7 @@ class BorrowView(APIView):
         book_id = request.data.get('book_id')
         print("book_idsss",book_id)
         server_ip = os.environ.get('SERVER_IP')
-
+        #sending a post
         response = requests.post('http://loansms:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id,})   
 
         if response.status_code == 200:
