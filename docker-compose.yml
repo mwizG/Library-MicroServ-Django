@@ -13,7 +13,8 @@ services:
     networks:
       - library-network
     environment:
-      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
+      - SERVER_IP=${SERVER_IP}
+      - API_GATEWAY_URL=http://${SERVER_IP}:8001/gateway/home/
 
   usersms:
     image: myapp-usersms  # Use the image name you tagged when building
@@ -23,27 +24,31 @@ services:
     networks:
       - library-network
     environment:
-      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
+      - SERVER_IP=${SERVER_IP}
+      - API_GATEWAY_URL=http://${SERVER_IP}:8001/gateway/home/
 
   bookms:
     image: myapp-bookms  # Use the image name you tagged when building
     container_name: library-microserv-django-bookms-1
     ports:
       - "8000:8000"
+
     networks:
       - library-network
     environment:
-      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
+      - SERVER_IP=${SERVER_IP}
+      - API_GATEWAY_URL=http://${SERVER_IP}:8001/gateway/home/
 
   loansms:
-    image: myapp-loansms  # Use the image name you tagged when building
+    image: myapp-loansms  # Use the image name you tagged when building   
     container_name: library-microserv-django-loansms-1
     ports:
       - "8003:8003"
     networks:
       - library-network
     environment:
-      - API_GATEWAY_URL=http://apigateway:8001/gateway/home/
+      - SERVER_IP=${SERVER_IP}
+      - API_GATEWAY_URL=http://${SERVER_IP}:8001/gateway/home/
 
 networks:
   library-network:
