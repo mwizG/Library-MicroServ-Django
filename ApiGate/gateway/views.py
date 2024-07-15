@@ -13,6 +13,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
+import os
 
 # URL of the Users Microservice
 USERS_MS_URL = 'http://usersms:8002/users/'
@@ -29,8 +30,9 @@ class HomeView(APIView):
         print('here boy:',user_info)
         if user_info:
            response = requests.get('http://bookms:8000/books/')
+           server_ip = os.environ.get('SERVER_IP')
            books = response.json()
-           return render(request, 'home.html', {'books': books,'user_info': user_info})     
+           return render(request, 'home.html', {'books': books,'user_info': user_info,'SERVER_IP': server_ip})     
         else:
              return JsonResponse({'error': 'No user info'}, status=402)
       
@@ -40,16 +42,17 @@ class BorrowView(APIView):
         print("user_idsss",user_id)
         book_id = request.data.get('book_id')
         print("book_idsss",book_id)
-        
+        server_ip = os.environ.get('SERVER_IP')
 
-        response = requests.post('http://loansms:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id})   
+        response = requests.post('http://loansms:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id,})   
 
         if response.status_code == 200:
             form_html = response.json().get('form')
             return render(request, 'borrow.html', {
                 'form': form_html,
                 'user_id': user_id,
-                'book_id': book_id
+                'book_id': book_id,
+                'SERVER_IP': server_ip,
             })
         
         else:

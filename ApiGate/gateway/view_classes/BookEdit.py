@@ -13,7 +13,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
-
+import os
 
 class BookEdit(APIView):
     def get(self,request,pk):
@@ -22,9 +22,10 @@ class BookEdit(APIView):
         book_details_url = 'http://bookms:8000/{}/edit/'.format(book_id)
         print('book_id:',book_id)
         if user_id:
+           server_ip = os.environ.get('SERVER_IP')
            response = requests.get(book_details_url)
            books = response.json().get('form')
-           return render(request, 'book_form.html', {'books': books,'book_id': book_id})     
+           return render(request, 'book_form.html', {'books': books,'book_id': book_id,'SERVER_IP': server_ip})     
         else:
              return JsonResponse({'error': 'No user info'}, status=402)
   

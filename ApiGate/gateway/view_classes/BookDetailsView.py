@@ -13,7 +13,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
-
+import os
 
 class BookDetailView(APIView):
     def post(self, request, pk):
@@ -32,7 +32,8 @@ class BookDetailView(APIView):
                 try:
                     books = response.json()
                     print("response: ", books)
-                    return render(request, 'book_details.html', {'books': books, 'user_info': {'id': user_info}})
+                    server_ip = os.environ.get('SERVER_IP')
+                    return render(request, 'book_details.html', {'books': books, 'user_info': {'id': user_info},'SERVER_IP': server_ip})
                 except ValueError:
                     return JsonResponse({'error': 'Invalid JSON response'}, status=500)
             else:
