@@ -72,7 +72,7 @@ class UserLogin(APIView):
                         print("requeSSST: ",request)
                         server_ip = os.environ.get('SERVER_IP')
                         print("server ip: ",server_ip)
-                        redirect_url = f'http://localhost:8001/gateway/home/'
+                        redirect_url = f'http://{server_ip}:8001/gateway/home/'
                         print('Redirect URL: ', redirect_url)
                         return redirect(redirect_url)
                     else:
