@@ -45,8 +45,8 @@ class MyBooksView(APIView):
         if user_id:
             try:
                 response = requests.post('http://loansms:8003/mybooks/', data={'user_id': user_id})
-                print(f"Response status code: {response.status_code}")
-                print(f"Response content: {response.content}")
+                print(f"Response status code:",response)
+               
                 
                 if response.status_code == 200:
                     try:
