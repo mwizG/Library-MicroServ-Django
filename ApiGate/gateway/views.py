@@ -44,6 +44,7 @@ class MyBooksView(APIView):
             try:
                 response = requests.get(f'http://loansms:8003/mybooks/{user_id}')
                 response.raise_for_status()  # Raises an HTTPError for bad responses
+                print('the response: ',response)
                 books = response.json()
                 print("the books: ", books)
                 server_ip = os.environ.get('SERVER_IP')

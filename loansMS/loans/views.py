@@ -63,13 +63,13 @@ class MyBooksView(APIView):
     permission_classes = []
     @csrf_exempt
     def get(self, request, user_id):
-        print('listing my books has started')
+        print('Listing my books has started')
         # Filter loans by user_id
         loans = Loan.objects.filter(user_id=user_id)
         # Serialize the loan data
         loan_serializer = LoanSerializer(loans, many=True)
         # Return the serialized data as a response
-        return Response(loan_serializer.data)
+        return Response(loan_serializer.data, status=status.HTTP_200_OK)
 
 
 class ReturnBookView(APIView):

@@ -41,13 +41,14 @@
     </div>
 
     <div>
-        <form id="add-book-form" method="GET" action="http://{{SERVER_IP}}:8001/gateway/addbook/">
+        <form method="GET" action="http://{{SERVER_IP}}:8001/gateway/new/">
             {% csrf_token %}
-            <button type="submit">Add Book</button>
+            {% if user_info %}
+                <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
+            {% endif %}
+            <button type="submit">ADD BOOK!!</button> 
         </form>
     </div>
-    
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var links = document.querySelectorAll('a.book-details-link');
             links.forEach(function(link) {
