@@ -31,7 +31,7 @@
     </ul>
     
     <div>
-        <form id="my-books-form" method="GET" action="http://{{SERVER_IP}}:8001/gateway/mybooks/{{ user_info.id }}/"> <!-- Assuming 'mybooks' endpoint with user_id -->
+        <form id="my-books-form" method="GET" action="http://{{SERVER_IP}}:8001/gateway/mybooks/{{ user_info.id }}">
             {% csrf_token %}
             {% if user_info %}
             <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
