@@ -1,150 +1,135 @@
-Library Microservice System
-Welcome to the Library Microservice System! I made this project learn the full software development lifecycle and applying DEVOPS concepts,using microservices architecture implemented in Python and Django, 
- and the use of Dockers (specifacally docker compose), deployed on AWS. The system includes user authentication, book management, loan management, and an API gateway. IT IS STILL A BETA AND A PROOF OF CONCEPTS THAT CAN BE USED TO BUILD UPON.
+## Library Microservice System
+## Overview
+The Library Management System is a microservices-based application designed to practice creating and deploying a scalable microservice architecture utilizing RESTful APIs. This project is built with Python and the Django framework, deployed on AWS EC2 servers, and incorporates Version Control( Git and Github) practices for smooth integration and deployment. Each microservice is containerized using Docker, enabling consistency across different environments. The system allows users to manage books, loans, and authentication within a library.
 
-Table of Contents
-Overview
-Microservices
-Technologies Used
-Installation
-Usage
-Endpoints
-Testing
-Contributing
-License
-Overview
-The Library Microservice System is a distributed system that separates the functionalities of user management, book management, and loan processing into distinct microservices. Each microservice has its own database and communicates with others through REST APIs. An API gateway serves as the entry point for all client requests, routing them to the appropriate microservice.
+## Microservices
 
-Microservices
-User Microservice
+### 1. **API Gateway**
+- **Port:** 8001
+- **Description:** Serves as the entry point to the system, routing requests to the appropriate microservices.
 
-Manages user registration, authentication, and profile management.
-Handles token generation for authenticated sessions.
-Books Microservice
+### 2. **Books Service**
+- **Port:** 8000
+- **Description:** Manages the books in the library, including creating, retrieving, updating, and deleting book records.
 
-Manages book catalog, including adding, updating, viewing, and deleting books.
-Provides endpoints for searching and retrieving book details.
-Loans Microservice
+### 3. **Loans Service**
+- **Port:** 8003
+- **Description:** Manages the borrowing and returning of books.
 
-Manages borrowing and returning of books.
-Tracks loan status and history.
-API Gateway
+### 4. **Users Service**
+- **Port:** 8002
+- **Description:** Handles user authentication and user management.
 
-Serves as the entry point for all client requests.
-Routes requests to the appropriate microservice based on the endpoint.
-Handles authentication and token validation.
-Technologies Used
-Python
-Django & Django REST Framework
+## Features
 
-JWT (JSON Web Tokens) for authentication
-Gunicorn as WSGI HTTP Server
-Installation
-Prerequisites
-Python 3.8+
-Clone the Repository
+- **CRUD Operations for Books:** Users can create, read, update, and delete book records.
+- **Loan Management:** Users can borrow and return books, with the system tracking loan dates and statuses.
+- **User Authentication:** Secure login and registration system for users.
+- **API Gateway:** Routes requests and handles communication between microservices.
 
-bash
-Copy code
-git clone https://github.com/your-username/library-microservice-system.git
-cd library-microservice-system
-Environment Setup
+## Technologies Used
+Backend Framework: Django
+Microservices Architecture: Separate services for books, loans, and user authentication
+API Gateway: Centralized gateway for routing requests to appropriate microservices
+Database: SQLite
+Containerization: Docker
+Web Server: HTTPD (Apache)
+Deployment: AWS EC2
+CI/CD: not yet done
+GIT and GITHUB: used for version control
+## Setup and Installation
 
-Create a .env file in the root directory and add the necessary environment variables:
-bash
-Copy code
-DEBUG=True
-SECRET_KEY=your_secret_key
-POSTGRES_USER=your_db_user
-POSTGRES_PASSWORD=your_db_password
-POSTGRES_DB=your_db_name
-Build and Run with Docker
+### Prerequisites
 
-bash
-Copy code
-docker-compose up --build
-Apply Migrations
+- Docker and Docker Compose installed on your system.
+- Python 3.x and pip.
 
-bash
-Copy code
-docker-compose exec usersms python manage.py migrate
-docker-compose exec booksmicroservice python manage.py migrate
-docker-compose exec loansmicroservice python manage.py migrate
-Usage
-Accessing the Services
-API Gateway: http://localhost:8000
-User Microservice: http://localhost:8001
-Books Microservice: http://localhost:8002
-Loans Microservice: http://localhost:8003
-Example Requests
-Register a new user:
+### Steps
 
-http
-Copy code
-POST /api/users/register/
-{
-  "username": "exampleuser",
-  "password": "password123",
-  "email": "user@example.com"
-}
-Login:
+1. **Clone the Repository:**
+    ```bash
+    git clone <repository-url>
+    cd library-management-system
+    ```
 
-http
-Copy code
-POST /api/users/login/
-{
-  "username": "exampleuser",
-  "password": "password123"
-}
-Add a new book:
+2. **Set Up Environment Variables:**
+   Create a `.env` file in the project root and add the following environment variables:
+    ```env
+    SERVER_IP=<your-server-ip>
+    ```
 
-http
-Copy code
-POST /api/books/
-{
-  "title": "Example Book",
-  "author": "John Doe",
-  "isbn": "1234567890123"
-}
-Borrow a book:
+3. **Build and Run Docker Containers:**
+    ```bash
+    docker-compose up --build
+    ```
 
-http
-Copy code
-POST /api/loans/borrow/
-{
-  "user_id": 1,
-  "book_id": 2,
-  "borrow_date": "2024-07-01",
-  "return_date": "2024-07-15"
-}
-Endpoints
-User Microservice
-POST /api/users/register/
-POST /api/users/login/
-GET /api/users/profile/
-Books Microservice
-GET /api/books/
-POST /api/books/
-GET /api/books/<id>/
-PUT /api/books/<id>/
-DELETE /api/books/<id>/
-Loans Microservice
-POST /api/loans/borrow/
-POST /api/loans/return/
-GET /api/loans/
-Testing
-Run tests for each microservice:
+4. **Apply Migrations:**
+    ```bash
+    docker-compose exec apigateway python manage.py migrate
+    docker-compose exec bookms python manage.py migrate
+    docker-compose exec loansms python manage.py migrate
+    docker-compose exec usersms python manage.py migrate
+    ```
 
-bash
-Copy code
-docker-compose exec usersms python manage.py test
-docker-compose exec booksmicroservice python manage.py test
-docker-compose exec loansmicroservice python manage.py test
-Contributing
-Contributions are welcome! Please follow these steps to contribute:
+5. **Create a Superuser (for admin access):**
+    ```bash
+    docker-compose exec usersms python manage.py createsuperuser
+    ```
 
-Fork the repository.
-Create a new branch (git checkout -b feature/your-feature-name).
-Commit your changes (git commit -am 'Add some feature').
-Push to the branch (git push origin feature/your-feature-name).
-Create a new Pull Request.
+## Usage
+
+### Access the API Gateway
+
+- **Home Page:**
+  ```http
+  http://<your-server-ip>:8001/gateway/home/
+  ```
+
+### API Endpoints
+
+- **Books Service:**
+  - Create a New Book: `POST /new/`
+  - Retrieve Book Details: `GET /books/<book_id>/`
+  - Update Book Details: `PUT /books/<book_id>/`
+  - Delete a Book: `DELETE /books/<book_id>/`
+
+- **Loans Service:**
+  - Borrow a Book: `POST /loans/borrow/`
+  - Return a Book: `POST /loans/return/`
+  - View Loan Status: `GET /loans/status/<loan_id>/`
+
+- **Users Service:**
+  - Register: `POST /users/register/`
+  - Login: `POST /users/login/`
+  - User Details: `GET /users/<user_id>/`
+
+## Customization
+
+### Styling
+
+- Custom CSS files (`mybooks.css` and `borrow.css`) are used to style HTML elements for different functionalities.
+
+### Date Fields
+
+- Forms are customized to include specific field types like date pickers for date fields.
+
+## Troubleshooting
+
+- **Session Issues:** Ensure that session management is correctly configured and that the `django_session` table is properly set up.
+- **Server IP Changes:** Use environment variables to manage dynamic IP addresses for your server.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new feature branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+This README provides a comprehensive overview of your Library Management System, including setup instructions, usage guidelines, and customization options. Adjust the content as needed based on your specific project details.
