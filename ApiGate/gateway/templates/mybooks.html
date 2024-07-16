@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/mybooks.css' %}">
 </head>
 <body>
-    <h1>Books Borrowed by User {{ user_id }}</h1>
+    <h1>Books you borrowed</h1>
     <ul>
         {% for book in books %}
-            <li>{{ book.title }} - {{ book.author }}</li>
+            <li>{{ book.book_title }} - {{ book.loan_date }} - {{ book.return_date }}</li>
         {% endfor %}
     </ul>
     <a href="http://{{ SERVER_IP }}:8001/gateway/home/">Go back to home</a>
