@@ -7,6 +7,6 @@ urlpatterns = [
     path('return/', ReturnBookView.as_view(),name='return'),
     path('create/', create_loan, name='create'),
     path('borrow/', borrow_book, name='borrow'),
-    path('mybooks/<int:user_id>/', MyBooksView.as_view(), name='mybooks'),
+    path('mybooks/<int:user_id>', MyBooksView.as_view(), name='mybooks'),
     
 ]
