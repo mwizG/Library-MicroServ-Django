@@ -28,7 +28,7 @@ class UserSignUp(APIView):
         if response.status_code == 200:
             #getting the docker compose exported server IP
             server_ip = os.environ.get('SERVER_IP')
-            redirect_url = f'http://{server_ip}:8001/gateway/home/'
+            redirect_url = f'http://{server_ip}:8001/gateway/login/'
             return redirect(redirect_url)
         else:
             return JsonResponse({'error': 'Failed to signup user'}, status=response.status_code)
