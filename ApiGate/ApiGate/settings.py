@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-_fp&@*z)*m43oh$+g+7h6^3f3n4p976tucd)5xav4sbc1-3q$&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -49,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 LOGGING = {
     'version': 1,
@@ -134,6 +134,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'gateway', 'static'),  # Update this line
@@ -145,7 +146,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+import os
 
+API_GATEWAY_URL = os.environ.get('API_GATEWAY_URL', 'http://localhost:8001/gateway/home/')
 
 
 LOGGING = {

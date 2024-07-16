@@ -1,3 +1,4 @@
+
 from functools import wraps
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect
@@ -12,7 +13,7 @@ import logging
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-
+import os
 # userlogin_gateway.py
 
 
@@ -49,7 +50,7 @@ class UserLogin(APIView):
         password = request.data.get('password')
 
         # Send login details to usersms API for authentication
-        auth_response = requests.post('http://127.0.0.1:8002/users/login/', data={'username': username, 'password': password})
+        auth_response = requests.post('http://usersms:8002/users/login/', data={'username': username, 'password': password})
 
         if auth_response.status_code == 200:
             auth_data = auth_response.json()
@@ -62,13 +63,18 @@ class UserLogin(APIView):
                 print('decoded token: ',decoded_token)
                 if decoded_token:
                     # Retrieve user info from Auth API using the user_id
-                    user_info_response = requests.get(f'http://127.0.0.1:8002/users/users/{user_id}')
+                    user_info_response = requests.get(f'http://usersms:8002/users/users/{user_id}')
                     if user_info_response.status_code == 200:
                         user_info = user_info_response.json()
-                        print('user data: ', user_info)
+                        print('user data HERE: ', user_info)
                         # Store user_info in session or use it as needed
                         request.session['user_info'] = user_info
-                        return redirect('http://127.0.0.1:8001/gateway/home/')
+                        print("requeSSST: ",request)
+                        server_ip = os.environ.get('SERVER_IP')
+                        print("server ip: ",server_ip)
+                        redirect_url = f'http://{server_ip}:8001/gateway/home/'
+                        print('Redirect URL: ', redirect_url)
+                        return redirect(redirect_url)
                     else:
                         return JsonResponse({'error': 'Failed to fetch user info'}, status=401)
                 else:

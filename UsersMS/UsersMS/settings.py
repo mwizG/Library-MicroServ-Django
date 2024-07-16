@@ -25,10 +25,10 @@ SECRET_KEY = 'django-insecure-ymx-o@&*37#(0xrfmc3@%bt#8e^7om@*wrvq4_&3##mv0)zd@5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# UsersMS settings
+API_GATEWAY_URL = "http://apigateway:8001/gateway/home/"
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [

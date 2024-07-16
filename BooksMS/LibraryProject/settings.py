@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-*$yhop-*qsxjzzkjp6a7)%@!wvr%+swv9mxf-p&x1@ty80+iy2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+from .secrets import get_server_ip
 
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -49,6 +50,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+import os
+
+API_GATEWAY_URL = os.environ.get('API_GATEWAY_URL', 'http://localhost:8001/gateway/home/')
+
 
 ROOT_URLCONF = 'LibraryProject.urls'
 

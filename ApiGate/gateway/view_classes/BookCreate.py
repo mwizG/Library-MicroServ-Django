@@ -14,11 +14,11 @@ from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 logger = logging.getLogger(__name__)
 
-
+import os
 
 class BookCreate(APIView):
     def get(self, request):
-        book_create_url = 'http://127.0.0.1:8000/new/'  # URL to fetch the book creation form
+        book_create_url = 'http://bookms:8000/new/'  # URL to fetch the book creation form
         user_id = request.GET.get('user_id')  # Retrieve the user_id from the GET parameters
 
         if not user_id:  # Check if user_id is not provided
@@ -31,7 +31,7 @@ class BookCreate(APIView):
         return render(request, 'book_form.html', {'form_html': form_html, 'user_id': user_id})  # Render the form HTML along with the user_id
 
     def post(self, request):
-        book_create_url = 'http://127.0.0.1:8000/new/'  # URL to post the book creation data
+        book_create_url = 'http://bookms:8000/new/'  # URL to post the book creation data
         user_id = request.POST.get('user_id')  # Retrieve the user_id from the POST data
         print('userssss:', user_id)  # Print the user_id for debugging purposes
 
@@ -43,7 +43,10 @@ class BookCreate(APIView):
         response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
 
         if response.status_code == 200:  # Check if the book was created successfully (HTTP 200)
-            return redirect('http://127.0.0.1:8001/gateway/home/')  # Redirect to the home page upon successful creation
+            #getting the docker compose exported server IP
+            server_ip = os.environ.get('SERVER_IP')
+            redirect_url = f'http://{server_ip}:8001/gateway/home/'
+            return redirect(redirect_url)  # Redirect to the home page upon successful creation
         else:  # Handle unexpected status codes
             return JsonResponse({'error': 'Unexpected status code', 'status_code': response.status_code}, status=500)  # Return error if the status code is not 200
     

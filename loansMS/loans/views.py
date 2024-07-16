@@ -7,19 +7,20 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 from . models import Loan
 from . forms import LoanForm
-
+from . serializers import LoanSerializer
 @csrf_exempt
 def borrow_book(request):
     if request.method == 'POST':
         print("borrow_book view called")
         user_id = request.POST.get('user_id')
         book_id = request.POST.get('book_id')
+        book_title = request.POST.get('book_title')  # Get book title from the request
+
+        print(f"Received POST request with user_id: {user_id}, book_id: {book_id}, book_title: {book_title}")
         
-        print(f"Received POST request with user_id: {user_id}, book_id: {book_id}")
-        
-        if not user_id or not book_id:
-            print("User ID or Book ID missing")
-            return JsonResponse({'error_message': 'User ID and Book ID are required.'}, status=400)
+        if not user_id or not book_id or not book_title:
+            print("User ID, Book ID, or Book Title missing")
+            return JsonResponse({'error_message': 'User ID, Book ID, and Book Title are required.'}, status=400)
         
         form = LoanForm()
         print("Displaying the form for return date")
@@ -28,18 +29,16 @@ def borrow_book(request):
     print("Request method is not POST")
     return JsonResponse({'error_message': 'Invalid request method.'}, status=400)
 
-    
-    
 @csrf_exempt
 def create_loan(request):
-    
     if request.method == 'POST':
         print('we are running create loan')
         user_id = request.POST.get('user_id')
         book_id = request.POST.get('book_id')
+        book_title = request.POST.get('book_title')  # Get book title from the request
         return_date = request.POST.get('return_date')
-        print("date:",return_date)
-        if not user_id or not book_id:
+        print("date:", return_date)
+        if not user_id or not book_id or not book_title:
             return JsonResponse({'error_message': 'Session expired. Please try borrowing the book again.'}, status=400)
 
         form = LoanForm(request.POST)
@@ -48,6 +47,7 @@ def create_loan(request):
                 new_loan = form.save(commit=False)
                 new_loan.user_id = user_id
                 new_loan.book_id = book_id
+                new_loan.book_title = book_title  # Set book title in the Loan instance
                 new_loan.return_date = return_date
                 new_loan.save()
 
@@ -59,10 +59,27 @@ def create_loan(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-
-def Mybooks(request):
-      return render(request,'mybooks')
-
+class MyBooksView(APIView):
+    permission_classes = []
+    @csrf_exempt
+    def post(self, request):
+        user_id = request.data.get('user_id')
+        print('Listing my books has started')
+        print('User ID:', user_id)
+        
+        if not user_id:
+            return Response({'error': 'User ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Filter loans by user_id
+        loans = Loan.objects.filter(user_id=user_id)
+        if loans.exists():
+            # Serialize the loan data
+            loan_serializer = LoanSerializer(loans, many=True)
+            # Return the serialized data as a response
+            return Response(loan_serializer.data, status=status.HTTP_200_OK)
+        else:
+            # Return a 404 response if no loans are found for the user_id
+            return Response({'error': 'No books found for this user'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ReturnBookView(APIView):

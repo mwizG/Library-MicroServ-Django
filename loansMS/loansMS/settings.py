@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-iq$2=bn3)5y%=52+cn@5z-ap2mp2c_nhq-77jd+x+5%kwhv=h3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -99,7 +99,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+import os
 
+API_GATEWAY_URL = os.environ.get('API_GATEWAY_URL', 'http://localhost:8001/gateway/home/')
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
