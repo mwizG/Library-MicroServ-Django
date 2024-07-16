@@ -62,7 +62,6 @@ def create_loan(request):
 class MyBooksView(APIView):
     permission_classes = []
     @csrf_exempt
-    
     def get(self, request, user_id):
         print('listing my books has started')
         # Filter loans by user_id
