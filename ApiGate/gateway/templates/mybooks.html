@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
     <title>My Books</title>
@@ -7,35 +6,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/mybooks.css' %}">
 </head>
 <body>
-    <h1>Books Borrowed by User {{ user_id }}</h1>
+    <h1>Books you borrowed</h1>
     <ul>
         {% for book in books %}
-        <div>
-            <li>
-                <a class="book-details-link" href="#" data-book-id="{{ book.book_id }}">{{ book.book_title }}</a>
-                <form id="book-details-form-{{ book.book_id }}" method="POST" action="http://{{ SERVER_IP }}:8001/gateway/details/{{ book.book_id }}" style="display: none;">
-                    {% csrf_token %}
-                    {% if user_info %}
-                    <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
-                    {% endif %}
-                </form>
-            </li>
-        </div>
+            <li>{{ book.book_title }} - {{ book.loan_date }} - {{ book.return_date }}</li>
         {% endfor %}
     </ul>
     <a href="http://{{ SERVER_IP }}:8001/gateway/home/">Go back to home</a>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var links = document.querySelectorAll('a.book-details-link');
-            links.forEach(function(link) {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    var bookId = event.target.getAttribute('data-book-id');
-                    document.getElementById('book-details-form-' + bookId).submit();
-                });
-            });
-        });
-    </script>
 </body>
 </html>

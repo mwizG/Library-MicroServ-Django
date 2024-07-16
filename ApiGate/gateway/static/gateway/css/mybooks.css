@@ -1,47 +1,61 @@
-/* mybooks.css */
-
-/* Styles for the header */
-h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
 }
 
-/* Styles for the list of books */
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Styling for the book list */
 ul {
     list-style-type: none;
     padding: 0;
 }
 
 li {
-    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles for book titles */
-a.book-details-link {
-    color: #007bff; /* Blue color for links */
+li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Styling for the back link */
+a {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
     text-decoration: none;
-    cursor: pointer;
+    color: #007BFF;
 }
 
-a.book-details-link:hover {
+a:hover {
     text-decoration: underline;
 }
 
-/* Form styles */
-#my-books-form {
-    margin-bottom: 20px;
-}
-
 /* Button styles */
-#my-books-form button {
-    background-color: #007bff;
-    color: #fff;
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
     border: none;
-    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
     cursor: pointer;
+    font-size: 16px;
 }
 
-#my-books-form button:hover {
+button:hover {
     background-color: #0056b3;
 }
