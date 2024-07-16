@@ -66,10 +66,14 @@ class MyBooksView(APIView):
         print('Listing my books has started')
         # Filter loans by user_id
         loans = Loan.objects.filter(user_id=user_id)
-        # Serialize the loan data
-        loan_serializer = LoanSerializer(loans, many=True)
-        # Return the serialized data as a response
-        return Response(loan_serializer.data, status=status.HTTP_200_OK)
+        if loans.exists():
+            # Serialize the loan data
+            loan_serializer = LoanSerializer(loans, many=True)
+            # Return the serialized data as a response
+            return Response(loan_serializer.data, status=status.HTTP_200_OK)
+        else:
+            # Return a 404 response if no loans are found for the user_id
+            return Response({'error': 'No books found for this user'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ReturnBookView(APIView):

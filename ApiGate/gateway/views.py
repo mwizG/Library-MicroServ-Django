@@ -40,15 +40,23 @@ class MyBooksView(APIView):
     def get(self, request, user_id):
         print('IM RUNNING my books')
         print('here boy:', user_id)
+        
         if user_id:
             try:
                 response = requests.get(f'http://loansms:8003/mybooks/{user_id}')
-                response.raise_for_status()  # Raises an HTTPError for bad responses
-                print('the response: ',response)
-                books = response.json()
-                print("the books: ", books)
-                server_ip = os.environ.get('SERVER_IP')
-                return render(request, 'mybooks.html', {'books': books, 'user_id': user_id, 'SERVER_IP': server_ip})
+                print(f"Response status code: {response.status_code}")
+                print(f"Response content: {response.content}")
+                
+                if response.status_code == 200:
+                    try:
+                        books = response.json()
+                        print("the books: ", books)
+                        server_ip = os.environ.get('SERVER_IP')
+                        return render(request, 'mybooks.html', {'books': books, 'user_id': user_id, 'SERVER_IP': server_ip})
+                    except ValueError:
+                        return JsonResponse({'error': 'Invalid JSON response'}, status=500)
+                else:
+                    return JsonResponse({'error': 'Failed to fetch books from the API'}, status=response.status_code)
             except requests.RequestException as e:
                 print(f'Error fetching books: {e}')
                 return JsonResponse({'error': 'Failed to fetch books from the API'}, status=500)
