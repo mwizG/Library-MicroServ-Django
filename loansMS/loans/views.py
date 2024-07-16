@@ -59,28 +59,25 @@ def create_loan(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-class MyBooksView(APIView):
-    permission_classes = []
-    @csrf_exempt
-    def post(self, request):
-        user_id = request.data.get('user_id')
-        print('Listing my books has started')
-        print('User ID:', user_id)
-        
-        if not user_id:
-            return Response({'error': 'User ID is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Filter loans by user_id
-        loans = Loan.objects.filter(user_id=user_id)
-        if loans.exists():
-            # Serialize the loan data
-            loan_serializer = LoanSerializer(loans, many=True)
-            # Return the serialized data as a response
-            return Response(loan_serializer.data, status=status.HTTP_200_OK)
-        else:
-            # Return a 404 response if no loans are found for the user_id
-            return Response({'error': 'No books found for this user'}, status=status.HTTP_404_NOT_FOUND)
-
+@csrf_exempt
+def my_books_view(request):
+    user_id = request.data.get('user_id')
+    print('Listing my books has started')
+    print('User ID:', user_id)
+    
+    if not user_id:
+        return JsonResponse({'error': 'User ID is required'}, status=400)
+    
+    # Filter loans by user_id
+    loans = Loan.objects.filter(user_id=user_id)
+    if loans.exists():
+        # Serialize the loan data
+        loan_serializer = LoanSerializer(loans, many=True)
+        # Return the serialized data as a JSON response
+        return JsonResponse(loan_serializer.data, status=200, safe=False)
+    else:
+        # Return a 404 response if no loans are found for the user_id
+        return JsonResponse({'error': 'No books found for this user'}, status=400)
 
 class ReturnBookView(APIView):
     @csrf_exempt

@@ -44,7 +44,7 @@ class MyBooksView(APIView):
         
         if user_id:
             try:
-                response = requests.post('http://loansms:8003/mybooks/', data={'user_id': user_id})
+                response = requests.post('http://loansms:8003/loans/mybookapi/', data={'user_id': user_id})
                 print(f"Response status code:",response)
                
                 
