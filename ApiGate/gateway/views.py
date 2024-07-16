@@ -37,8 +37,7 @@ class HomeView(APIView):
              return JsonResponse({'error': 'No user info'}, status=402)
 
 class MyBooksView(APIView):
-    def get(self, request):
-        user_id = request.GET.get('user_id')
+    def get(self, request, user_id):
         print('IM RUNNING my books')
         print('here boy:', user_id)
         if user_id:

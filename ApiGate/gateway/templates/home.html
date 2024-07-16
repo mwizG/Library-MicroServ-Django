@@ -39,6 +39,13 @@
             <button type="submit">My Books</button>
         </form>
     </div>
+
+    <div>
+        <form id="add-book-form" method="GET" action="http://{{SERVER_IP}}:8001/gateway/addbook/">
+            {% csrf_token %}
+            <button type="submit">Add Book</button>
+        </form>
+    </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -55,3 +62,4 @@
     
 </body>
 </html>
+
