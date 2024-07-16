@@ -1,6 +1,8 @@
-## Library Microservice System
+# Library Microservice System
+
 ## Overview
-The Library Management System is a microservices-based application designed to practice creating and deploying a scalable microservice architecture utilizing RESTful APIs. This project is built with Python and the Django framework, deployed on AWS EC2 servers, and incorporates Version Control( Git and Github) practices for smooth integration and deployment. Each microservice is containerized using Docker, enabling consistency across different environments. The system allows users to manage books, loans, and authentication within a library.
+
+The **Library Management System** is a microservices-based application designed to practice creating and deploying a scalable microservice architecture utilizing **RESTful APIs**. This project is built with **Python** and the **Django** framework, deployed on **AWS EC2** servers, and incorporates **Version Control (Git and GitHub)** practices for smooth integration and deployment. Each microservice is containerized using **Docker**, enabling consistency across different environments. The system allows users to manage books, loans, and authentication within a library.
 
 ## Microservices
 
@@ -28,15 +30,17 @@ The Library Management System is a microservices-based application designed to p
 - **API Gateway:** Routes requests and handles communication between microservices.
 
 ## Technologies Used
-Backend Framework: Django
-Microservices Architecture: Separate services for books, loans, and user authentication
-API Gateway: Centralized gateway for routing requests to appropriate microservices
-Database: SQLite
-Containerization: Docker
-Web Server: HTTPD (Apache)
-Deployment: AWS EC2
-CI/CD: not yet done
-GIT and GITHUB: used for version control
+
+- **Backend Framework:** Django
+- **Microservices Architecture:** Separate services for books, loans, and user authentication
+- **API Gateway:** Centralized gateway for routing requests to appropriate microservices
+- **Database:** SQLite
+- **Containerization:** Docker
+- **Web Server:** HTTPD (Apache)
+- **Deployment:** AWS EC2
+- **CI/CD:** Not yet implemented
+- **Version Control:** Git and GitHub
+
 ## Setup and Installation
 
 ### Prerequisites
@@ -83,25 +87,27 @@ GIT and GITHUB: used for version control
 - **Home Page:**
   ```http
   http://<your-server-ip>:8001/gateway/home/
-  ```
 
-### API Endpoints
+ ## API Endpoints
 
-- **Books Service:**
-  - Create a New Book: `POST /new/`
-  - Retrieve Book Details: `GET /books/<book_id>/`
-  - Update Book Details: `PUT /books/<book_id>/`
-  - Delete a Book: `DELETE /books/<book_id>/`
+### Books Service:
 
-- **Loans Service:**
-  - Borrow a Book: `POST /loans/borrow/`
-  - Return a Book: `POST /loans/return/`
-  - View Loan Status: `GET /loans/status/<loan_id>/`
+- **Create a New Book:** `POST /new/`
+- **Retrieve Book Details:** `GET /books/<book_id>/`
+- **Update Book Details:** `PUT /books/<book_id>/`
+- **Delete a Book:** `DELETE /books/<book_id>/`
 
-- **Users Service:**
-  - Register: `POST /users/register/`
-  - Login: `POST /users/login/`
-  - User Details: `GET /users/<user_id>/`
+### Loans Service:
+
+- **Borrow a Book:** `POST /loans/borrow/`
+- **Return a Book:** `POST /loans/return/`
+- **View Loan Status:** `GET /loans/status/<loan_id>/`
+
+### Users Service:
+
+- **Register:** `POST /users/register/`
+- **Login:** `POST /users/login/`
+- **User Details:** `GET /users/<user_id>/`
 
 ## Customization
 
