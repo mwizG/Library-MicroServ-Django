@@ -10,16 +10,29 @@
     <form method="POST">
         {% csrf_token %}
 
+        <!-- Displaying form fields -->
         {{ form_html|safe }}
-        {%if user_id%}
-        <input type="hidden" name="user_id" value="{{ user_id }}">
-        <button type="submit">Save</button>
         
-        {%endif%}
+        {% if user_id %}
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+        {% endif %}
+        
+        <button type="submit">Save</button>
     </form>
     <div class="cancel-link">
         <a href="http://{{SERVER_IP}}:8001/gateway/home/">Cancel</a>
     </div>
+
+    <script>
+        // Convert input with type="text" to type="date"
+        document.addEventListener('DOMContentLoaded', function() {
+            var dateInputs = document.querySelectorAll('input[type="text"]');
+            dateInputs.forEach(function(input) {
+                if (input.getAttribute('name').toLowerCase().includes('date')) {
+                    input.type = 'date';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
