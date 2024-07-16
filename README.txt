@@ -129,7 +129,3 @@ GIT and GITHUB: used for version control
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-This README provides a comprehensive overview of your Library Management System, including setup instructions, usage guidelines, and customization options. Adjust the content as needed based on your specific project details.
