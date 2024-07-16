@@ -1,4 +1,4 @@
-/* styles.css */
+/* mybooks.css */
 
 body {
     font-family: Arial, sans-serif;
@@ -9,7 +9,8 @@ body {
 
 h1 {
     color: #333;
-    text-align: center;
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 ul {
@@ -39,20 +40,18 @@ ul li form {
     margin-top: 10px;
 }
 
-div p {
-    text-align: center;
-    font-size: 18px;
-    color: #555;
-}
-
-div form {
+.button-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 20px;
 }
 
-div form button {
-    background-color: #28a745;
+.button-container form {
+    margin-right: 10px;
+}
+
+.my-books-button {
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -61,90 +60,26 @@ div form button {
     cursor: pointer;
 }
 
-div form button:hover {
-    background-color: #218838;
-}
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    font-size: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-.cancel-link {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.cancel-link a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-.cancel-link a:hover {
-    text-decoration: underline;
-}
-
-/* styles.css */
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 20px;
-}
-
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-form {
-    max-width: 400px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-form input[type="text"],
-form input[type="date"],
-form input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-form input[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-form input[type="submit"]:hover {
+.my-books-button:hover {
     background-color: #0056b3;
 }
 
-/* Optional: If you have labels, style them accordingly */
-form label {
-    font-weight: bold;
+.add-book-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Optional: Additional styling for error messages */
-.error-message {
-    color: #dc3545;
-    margin-top: 5px;
+.add-book-button:hover {
+    background-color: #0056b3;
+}
+
+div p {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
 }
