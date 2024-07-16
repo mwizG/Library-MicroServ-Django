@@ -41,7 +41,10 @@ class UserLogin(APIView):
         Render the login form.
         """
         form = AuthenticationForm()
-        return render(request, 'login.html', {'form': form})
+        server_ip = os.environ.get('SERVER_IP')
+        return render(request, 'login.html', {'form': form, 'SERVER_IP': server_ip})
+
+        
 
     @csrf_exempt
     def post(self, request):
