@@ -37,20 +37,21 @@ class HomeView(APIView):
              return JsonResponse({'error': 'No user info'}, status=402)
 
 class MyBooksView(APIView):
-    def get(self, request, user_id):
+    def post(self, request):
+        user_id = request.data.get('user_id')
         print('IM RUNNING my books')
-        print('here boy:', user_id)
+        print('User ID:', user_id)
         
         if user_id:
             try:
-                response = requests.get(f'http://loansms:8003/mybooks/{user_id}')
+                response = requests.post('http://loansms:8003/mybooks/', data={'user_id': user_id})
                 print(f"Response status code: {response.status_code}")
                 print(f"Response content: {response.content}")
                 
                 if response.status_code == 200:
                     try:
                         books = response.json()
-                        print("the books: ", books)
+                        print("The books: ", books)
                         server_ip = os.environ.get('SERVER_IP')
                         return render(request, 'mybooks.html', {'books': books, 'user_id': user_id, 'SERVER_IP': server_ip})
                     except ValueError:
@@ -62,6 +63,7 @@ class MyBooksView(APIView):
                 return JsonResponse({'error': 'Failed to fetch books from the API'}, status=500)
         else:
             return JsonResponse({'error': 'No user info'}, status=402)
+
         
 class BorrowAndDateSendView(APIView):
     def borrow_book(self, request):

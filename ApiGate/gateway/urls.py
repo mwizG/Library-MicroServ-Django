@@ -12,7 +12,7 @@ from .view_classes.BookEdit import BookEdit
 app_name ='gateway'
 urlpatterns = [
     
-    path('mybooks/<int:user_id>', MyBooksView.as_view(), name='mybooks'),
+    path('gateway/mybooks/', MyBooksView.as_view(), name='mybooks'),
     path('signup/', UserSignUp.as_view(), name='signup'),
     path('login/', UserLogin.as_view(), name='login'),
     path('borrow/', BorrowAndDateSendView.as_view(), name='borrow'),

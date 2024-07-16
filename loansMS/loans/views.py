@@ -62,8 +62,14 @@ def create_loan(request):
 class MyBooksView(APIView):
     permission_classes = []
     @csrf_exempt
-    def get(self, request, user_id):
+    def post(self, request):
+        user_id = request.data.get('user_id')
         print('Listing my books has started')
+        print('User ID:', user_id)
+        
+        if not user_id:
+            return Response({'error': 'User ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
         # Filter loans by user_id
         loans = Loan.objects.filter(user_id=user_id)
         if loans.exists():
