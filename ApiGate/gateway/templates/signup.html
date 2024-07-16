@@ -8,14 +8,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/signup.css' %}">
 </head>
 <body>
-    
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-    <div class="signup-link">
-        <a href="http://{{SERVER_IP}}:8001/gateway/home/">back</a>
+    <div class="signup-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="button-container">
+                <button type="submit">Sign Up</button>
+                <a href="http://{{SERVER_IP}}:8001/gateway/home/" class="back-button">Back</a>
+            </div>
+        </form>
     </div>
 </body>
 </html>
