@@ -12,6 +12,7 @@
         <p>Hi {{ user_info.username }}</p>
     </div>
     {% endif %}
+    
     <h1>Book List</h1>
     <ul>
         {% for book in books %}
@@ -30,14 +31,15 @@
     </ul>
     
     <div>
-        <form method="GET" action="http://{{SERVER_IP}}:8001/gateway/home/">
+        <form id="my-books-form" method="GET" action="http://{{SERVER_IP}}:8001/gateway/mybooks/{{ user_info.id }}/"> <!-- Assuming 'mybooks' endpoint with user_id -->
             {% csrf_token %}
             {% if user_info %}
-                <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
+            <input type="hidden" id="user_id" name="user_id" value="{{ user_info.id }}">
             {% endif %}
-            <button type="submit">ADD BOOK!!</button> 
+            <button type="submit">My Books</button>
         </form>
     </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var links = document.querySelectorAll('a.book-details-link');

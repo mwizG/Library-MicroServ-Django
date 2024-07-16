@@ -1,7 +1,7 @@
 # api_gateway/urls.py
 
 from django.urls import path
-from .views import BooksView,HomeView,BorrowAndDateSendView
+from .views import MyBooksView,HomeView,BorrowAndDateSendView
 from . view_classes.UserSignUp import UserSignUp
 from .view_classes.UserLogin import UserLogin
 from .view_classes.BookCreate import BookCreate
@@ -12,7 +12,7 @@ from .view_classes.BookEdit import BookEdit
 app_name ='gateway'
 urlpatterns = [
     
-    path('books/query/', BooksView.as_view(), name='books-query'),
+    path('mybooks/<int:user_id>/', MyBooksView.as_view(), name='mybooks'),
     path('signup/', UserSignUp.as_view(), name='signup'),
     path('login/', UserLogin.as_view(), name='login'),
     path('borrow/', BorrowAndDateSendView.as_view(), name='borrow'),

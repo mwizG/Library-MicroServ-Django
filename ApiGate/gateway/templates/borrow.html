@@ -14,14 +14,16 @@
         {{ form|safe }}
         <input type="hidden" name="user_id" value="{{ user_id }}">
         <input type="hidden" name="book_id" value="{{ book_id }}">
+        <input type="hidden" name="book_title" value="{{ book_title }}">
         <input type="submit" value="Submit">
     </form>
 
-    <div id="successMessage" class="popup">
-        Successfully borrowed the book! <br>
-        <button id="backButton" class="btn-back">Back to Home</button>
+    <div id="successMessage" class="popup" style="display:none;">
+        Successfully borrowed the book!
     </div>
-
+    <div class="cancel-link">
+        <a href="http://{{SERVER_IP}}:8001/gateway/home/">Cancel</a>
+    </div>
     <script>
         document.getElementById('borrowForm').addEventListener('submit', function(event) {
             event.preventDefault();  // Prevent the default form submission
@@ -40,23 +42,20 @@
                 },
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert('Error: ' + data.error);
-                } else {
+            .then(response => {
+                if (response.status === 201) {
                     // Show success message
                     document.getElementById('successMessage').style.display = 'block';
+                } else {
+                    return response.json().then(data => {
+                        if (data.error_message) {
+                            alert('Error: ' + data.error_message);
+                        }
+                    });
                 }
             })
             .catch(error => console.error('Error:', error));
         });
-
-        // Back button functionality
-        document.getElementById('backButton').addEventListener('click', function() {
-            window.location.href = 'http://' + serverIp + ':8001/gateway/home/';
-        });
     </script>
 </body>
 </html>
-

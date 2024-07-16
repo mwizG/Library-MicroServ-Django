@@ -1,7 +1,7 @@
 /* borrow.css */
 
 .popup {
-    display: none;
+    display: block;
     position: fixed;
     top: 50%;
     left: 50%;

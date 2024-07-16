@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Books</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/mybooks.css' %}">
+</head>
+<body>
+    <h1>Books Borrowed by User {{ user_id }}</h1>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} - {{ book.author }}</li>
+        {% endfor %}
+    </ul>
+    <a href="http://{{ SERVER_IP }}:8001/gateway/home/">Go back to home</a>
+</body>
+</html>

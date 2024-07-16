@@ -35,24 +35,34 @@ class HomeView(APIView):
            return render(request, 'home.html', {'books': books,'user_info': user_info,'SERVER_IP': server_ip})     
         else:
              return JsonResponse({'error': 'No user info'}, status=402)
-      
-class BorrowAndDateSendView(APIView):
-    def post(self, request):
-        if 'return_date' in request.data:
-            # This is the send date action
-            return self.send_date(request)
+
+class MyBooksView(APIView):
+    def get(self, request):
+        user_id = request.GET.get('user_id')
+        print('IM RUNNING my books')
+        print('here boy:', user_id)
+        if user_id:
+            try:
+                response = requests.get(f'http://loansms:8003/mybooks/{user_id}')
+                response.raise_for_status()  # Raises an HTTPError for bad responses
+                books = response.json()
+                server_ip = os.environ.get('SERVER_IP')
+                return render(request, 'mybooks.html', {'books': books, 'user_id': user_id, 'SERVER_IP': server_ip})
+            except requests.RequestException as e:
+                print(f'Error fetching books: {e}')
+                return JsonResponse({'error': 'Failed to fetch books from the API'}, status=500)
         else:
-            # This is the borrow book action
-            return self.borrow_book(request)
-    
+            return JsonResponse({'error': 'No user info'}, status=402)
+        
+class BorrowAndDateSendView(APIView):
     def borrow_book(self, request):
         user_id = request.data.get('user_id')
-        print("user_idsss", user_id)
         book_id = request.data.get('book_id')
-        print("book_idsss", book_id)
-        
-        response = requests.post('http://loansms:8003/loans/borrow/', data={'user_id': user_id, 'book_id': book_id})
-        print('we are back here to allow send render borrow.html')
+        book_title = request.data.get('book_title')  # Receive book title from request data
+
+        # Send borrow request to loans service
+        borrow_data = {'user_id': user_id, 'book_id': book_id, 'book_title': book_title}  # Include book_title in borrow data
+        response = requests.post('http://loansms:8003/loans/borrow/', data=borrow_data)
         
         if response.status_code == 200:
             server_ip = os.environ.get('SERVER_IP')
@@ -61,35 +71,37 @@ class BorrowAndDateSendView(APIView):
                 'form': form_html,
                 'user_id': user_id,
                 'book_id': book_id,
+                'book_title': book_title,
                 'SERVER_IP': server_ip,
             })
         else:
             return JsonResponse({'error': 'Failed to borrow the book.'}, status=response.status_code)
 
     def send_date(self, request):
-        return_date = request.POST.get('return_date')
-        user_id = request.POST.get('user_id')
-        book_id = request.POST.get('book_id')
+        return_date = request.data.get('return_date')
+        user_id = request.data.get('user_id')
+        book_id = request.data.get('book_id')
+        book_title = request.data.get('book_title')  # Receive book title from request data
         
-        server_ip = os.environ.get('SERVER_IP')
-        home = f'http://{server_ip}:8001/gateway/home/'
-
         if not return_date:
-            return JsonResponse({'error': 'Missing date'}, status=400)
+            return JsonResponse({'error': 'Missing date'}, status=status.HTTP_400_BAD_REQUEST)
         
-        response = requests.post('http://loansms:8003/loans/create/', data={'user_id': user_id, 'book_id': book_id, 'return_date': return_date})
+        # Send request to create loan with return date and book title
+        loan_data = {
+            'user_id': user_id,
+            'book_id': book_id,
+            'return_date': return_date,
+            'book_title': book_title  # Include book title in loan creation data
+        }
+        response = requests.post('http://loansms:8003/loans/create/', data=loan_data)
         
         if response.status_code == 201:
-            # Success message prompt
-            success_message = 'Book return date set successfully.'
-            # Redirect after delay (adjust as needed)
-            return render(request, 'success.html', {'success_message': success_message, 'redirect_url': home})
+            return JsonResponse({'message': 'Book return date set successfully.'}, status=status.HTTP_201_CREATED)
         else:
             return JsonResponse({'error': 'Failed to set return date.'}, status=response.status_code)
 
-class BooksView(APIView):
-    def dummy(self,requests):
-    
-       return render(requests,f"{BOOKS_MS_URL}")
-    
-    
+    def post(self, request):
+        if 'return_date' in request.data:
+            return self.send_date(request)
+        else:
+            return self.borrow_book(request)
