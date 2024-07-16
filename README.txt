@@ -1,5 +1,6 @@
 Library Microservice System
-Welcome to the Library Microservice System! This project is designed to manage a library system using microservices architecture implemented in Python and Django. The system includes user authentication, book management, loan management, and an API gateway.
+Welcome to the Library Microservice System! I made this project learn the full software development lifecycle and applying DEVOPS concepts,using microservices architecture implemented in Python and Django, 
+ and the use of Dockers (specifacally docker compose), deployed on AWS. The system includes user authentication, book management, loan management, and an API gateway. IT IS STILL A BETA AND A PROOF OF CONCEPTS THAT CAN BE USED TO BUILD UPON.
 
 Table of Contents
 Overview
