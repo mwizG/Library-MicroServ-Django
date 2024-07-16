@@ -4,6 +4,16 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     padding: 20px;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -11,19 +21,28 @@ h1 {
     text-align: center;
 }
 
-ul {
+.book-list {
     list-style-type: none;
     padding: 0;
 }
 
-li {
-    background-color: #fff;
+.book-item {
     border: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
 }
 
-a {
+.book-details {
+    margin-bottom: 10px;
+}
+
+.book-title {
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.back-link {
     display: block;
     text-align: center;
     margin-top: 20px;
@@ -31,6 +50,6 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+.back-link:hover {
     text-decoration: underline;
 }
