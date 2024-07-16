@@ -28,6 +28,7 @@ class BookCreate(APIView):
         response.raise_for_status()  # Raise an HTTPError if the request returned an unsuccessful status code
         
         form_html = response.json().get('form')  # Extract the form HTML from the JSON response
+        print('the form',form_html)
         return render(request, 'book_form.html', {'form_html': form_html, 'user_id': user_id})  # Render the form HTML along with the user_id
 
     def post(self, request):
