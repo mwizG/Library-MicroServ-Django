@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borrow Book</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'gateway/css/borrow.css' %}">
 </head>
 <body>
-    <h1>Add Return Date</h1>
+    <header>
+        <h1>Add Return Date</h1>
+    </header>
     
-    <form id="borrowForm">
-        {% csrf_token %}
-        {{ form|safe }}
-        <input type="hidden" name="user_id" value="{{ user_id }}">
-        <input type="hidden" name="book_id" value="{{ book_id }}">
-        <input type="hidden" name="book_title" value="{{ book_title }}">
-        <input type="submit" value="Submit">
-    </form>
+    <main>
+        <form id="borrowForm">
+            {% csrf_token %}
+            {{ form|safe }}
+            <input type="hidden" name="user_id" value="{{ user_id }}">
+            <input type="hidden" name="book_id" value="{{ book_id }}">
+            <input type="hidden" name="book_title" value="{{ book_title }}">
+            <button type="submit">Submit</button>
+        </form>
 
-    <div id="successMessage" class="popup" style="display:none;">
-        Successfully borrowed the book!
-    </div>
-    <div class="cancel-link">
-        <a href="http://{{SERVER_IP}}:8001/gateway/home/">back</a>
-    </div>
+        <div id="successMessage" class="popup" style="display:none;">
+            Successfully borrowed the book!
+            <button id="closePopup">Close</button>
+        </div>
+        
+        <div class="cancel-link">
+            <a href="http://{{SERVER_IP}}:8001/gateway/home/">Back</a>
+        </div>
+    </main>
+
     <script>
         document.getElementById('borrowForm').addEventListener('submit', function(event) {
             event.preventDefault();  // Prevent the default form submission
@@ -55,6 +63,11 @@
                 }
             })
             .catch(error => console.error('Error:', error));
+        });
+
+        // Close popup message
+        document.getElementById('closePopup').addEventListener('click', function() {
+            document.getElementById('successMessage').style.display = 'none';
         });
     </script>
 </body>
