@@ -123,6 +123,10 @@ The **Library Management System** is a microservices-based application designed 
 
 - **Session Issues:** Ensure that session management is correctly configured and that the `django_session` table is properly set up.
 - **Server IP Changes:** Use environment variables to manage dynamic IP addresses for your server.
+-runnning the docker env:
+-----fetches the public IP (required step to run)----------
+     export SERVER_IP=$(curl -s ifconfig.me)
+     docker-compose up
 
 ## Contributing
 
